@@ -1,4 +1,4 @@
-app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $state) {
+app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $state, Corpus) {
 
     $scope.showStatus = function () {
         var selected = $filter('filter')($scope.statuses, {value: $scope.user.status});
@@ -18,6 +18,9 @@ app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $sta
             "AMR_MISSING": false
         };
     };
+    Corpus.get({"id": $scope.corpusId}, function(corpus){
+        $scope.corpus = corpus;
+    });
 
     $scope.hideMessages();
 
@@ -30,7 +33,7 @@ app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $sta
                 $state.go("detailDocument", {"id": doc.id});
             })
         }
-    }
+    };
 
     $scope.saveAndCreateNew = function () {
         if (!$scope.doc.text) {

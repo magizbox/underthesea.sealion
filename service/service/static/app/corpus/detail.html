@@ -4,8 +4,7 @@
       <ol class="breadcrumb" style="float:left; font-size: 16px">
         <li><a href="#">Sea Lion</a></li>
         <li>
-          <a href="#" editable-text="corpus.title" onaftersave="update()">{{
-            corpus.title }}</a>
+          {{ corpus.title }}
         </li>
       </ol>
       <div class="pull-right">
@@ -18,8 +17,7 @@
 </div>
 <hr style="margin-top: 0px"/>
 <h4>
-  <a href="#" editable-text="corpus.description" e-style="width:600px"
-     onaftersave="update()"> {{ corpus.description }}</a>
+  Documents
   <div class="pull-right" style="font-size:14px;">
     Status:
     <a href="#" editable-select="params.status"
@@ -60,7 +58,7 @@
   <tbody>
   <tr ng-repeat="doc in documents"
       style="cursor:pointer">
-    <th ui-sref="detailDocument({id: doc.id})"><a >{{ doc.id }}</a></th>
+    <th ui-sref="detailDocument({id: doc.id})"><a>{{ doc.id }}</a></th>
     <td ui-sref="detailDocument({id: doc.id})">{{ doc.text | limitTo:120 }}</td>
     <td ui-sref="detailDocument({id: doc.id})">{{ doc.status }}</td>
     <td ui-sref="detailDocument({id: doc.id})">{{ doc.quality }}</td>

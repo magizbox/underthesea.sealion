@@ -4,7 +4,9 @@
       <ol class="breadcrumb" style="float:left; font-size: 16px">
         <li><a href="#">Sea Lion</a></li>
         <li>
-          <a ui-sref="detailCorpus({id: corpusId})">Corpus {{ corpusId }}</a>
+          <a ui-sref="detailCorpus({id: corpusId})">
+            {{ corpus.title }}
+          </a>
         </li>
         <li>
           New Document

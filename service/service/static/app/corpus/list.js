@@ -14,19 +14,18 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
     Corpus.query(query).then(function (data) {
         $scope.corpora = data;
     });
-
-    $scope.updateStatus = function (value) {
-        $scope.status = value;
-    };
-
-    $scope.updateQuality = function (value) {
-        $scope.quality = value;
-    };
-
     $scope.delete = function (corpusId) {
         Corpus.delete({id: corpusId}).$promise.then(function () {
             $state.reload();
         })
+    };
+    $scope.openEdit = function(corpus){
+        $scope.tmp = $.extend({}, corpus);
+    };
 
+    $scope.updateCorpus = function(){
+        Corpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function(){
+            window.location.reload();
+        });
     }
 });

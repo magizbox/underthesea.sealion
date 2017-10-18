@@ -1,44 +1,52 @@
-<table class="table table-bordered table-hover table-condensed">
-  <tr style="font-weight: bold">
-    <td style="width:80%">Category</td>
-    <td style="width:20%"></td>
-  </tr>
-  <tr ng-repeat="category in categories">
-    <td>
+<div class="row">
+  <div class="col-xs-12">
+    <div>
+      <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+          <td style="width:80%">Category</td>
+          <td style="width:20%"></td>
+        </tr>
+        <tr ng-repeat="category in categories">
+          <td>
                 <span editable-select="category.name"
                       e-name="aspect"
                       e-form="rowform"
                       e-ng-options="c.value as c.text for c in CATEGORIES">
                   {{ showCategory(category) }}
                 </span>
-    </td>
-    <td style="white-space: nowrap">
-      <!-- form -->
-      <form editable-form name="rowform"
-            ng-show="rowform.$visible"
-            class="form-buttons form-inline"
-            shown="inserted == category">
-        <button type="submit" ng-disabled="rowform.$waiting"
-                class="btn btn-sm btn-warning">
-          Update
-        </button>
-        <button type="button" ng-disabled="rowform.$waiting"
-                ng-click="rowform.$cancel()"
-                class="btn btn-sm btn-default">
-          Cancel
-        </button>
-      </form>
-      <div class="buttons" ng-show="!rowform.$visible">
-        <button type="button" class="btn btn-sm btn-primary btn-warning"
-                ng-click="rowform.$show()">Edit
-        </button>
-        <button type="button" class="btn btn-sm btn-danger"
-                ng-click="removeCategory($index)">Delete
-        </button>
-      </div>
-    </td>
-  </tr>
-</table>
+          </td>
+          <td style="white-space: nowrap">
+            <!-- form -->
+            <form editable-form name="rowform"
+                  ng-show="rowform.$visible"
+                  class="form-buttons form-inline"
+                  shown="inserted == category">
+              <button type="submit" ng-disabled="rowform.$waiting"
+                      class="btn btn-xs btn-warning">
+                Update
+              </button>
+              <button type="button" ng-disabled="rowform.$waiting"
+                      ng-click="rowform.$cancel()"
+                      class="btn btn-xs btn-default">
+                Cancel
+              </button>
+            </form>
+            <div class="buttons" ng-show="!rowform.$visible">
+              <button type="button" class="btn btn-xs btn-primary btn-warning"
+                      ng-click="rowform.$show()">Edit
+              </button>
+              <button type="button" class="btn btn-xs btn-danger"
+                      ng-click="removeCategory($index)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+</div>
 <button type="button" class="btn btn-default"
         ng-click="addCategory()">
   <span class="fa fa-plus"></span> New Category

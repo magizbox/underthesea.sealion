@@ -95,3 +95,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+/maintance/data/
+/service/db.sqlite3

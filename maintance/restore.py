@@ -2,31 +2,40 @@ import requests
 import json
 from os.path import join
 
-SERVER_API = "http://localhost:8000"
+SERVER_API = "http://localhost:8001"
 
 
-def create_document(document):
-    headers = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json'}
-    url = "{}/api/documents/".format(SERVER_API)
-    r = requests.post(url, data=json.dumps(document), headers=headers)
+def get_data():
+    content = open(join("data", "20171018.json"), "r").read()
+    data = json.loads(content)
+    restore_corpus(data)
 
 
-def create_corpus(corpus):
-    headers = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json'}
-    url = "{}/api/corpora/".format(SERVER_API)
-    r = requests.post(url, data=json.dumps(corpus), headers=headers)
-    corpus_id = r.json()["id"]
-    for document in item["documents"]:
-        document["corpus"] = corpus_id
-        create_document(document)
+def restore_document(data, map_corpus):
+    documents = data["documents"]
+    for document in documents:
+        print("Restore document", document["id"])
+        document["corpus"] = map_corpus[document["corpus"]]
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'}
+        url = "{}/api/documents/".format(SERVER_API)
+        r = requests.post(url, data=json.dumps(document), headers=headers)
+
+
+def restore_corpus(data):
+    corpora = data["corpora"]
+    map_corpus = {}
+    for corpus in corpora:
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'}
+        url = "{}/api/corpora/".format(SERVER_API)
+        r = requests.post(url, data=json.dumps(corpus), headers=headers)
+        corpus_id = r.json()["id"]
+        map_corpus[corpus["id"]] = corpus_id
+    restore_document(data, map_corpus)
 
 
 if __name__ == '__main__':
-    content = open(join("data", "20171017.json"), "r").read()
-    corpora = json.loads(content)
-    for item in corpora:
-        create_corpus(item)
+    get_data()

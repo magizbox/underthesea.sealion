@@ -2,6 +2,7 @@ import django_filters
 from django.shortcuts import render
 from rest_framework import viewsets
 
+from service.filters import ActFilterBackend
 from service.models import Document, Corpus
 from service.serializers import DocumentSerializer, CorpusSerializer
 
@@ -13,7 +14,7 @@ def homepage(request):
 class DocumentViewSet(viewsets.ModelViewSet):
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, ActFilterBackend)
     filter_fields = ('status', 'quality', 'corpus')
 
 

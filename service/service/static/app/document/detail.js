@@ -18,13 +18,13 @@ app.controller("DetailAMRCtrl", function ($scope, $stateParams, Corpus, Document
         {value: "INTERNET BANKING", text: 'INTERNET BANKING'},
         {value: "LOAN", text: 'LOAN'},
         {value: "MONEY TRANSFER", text: 'MONEY TRANSFER'},
-        {value: "OTHER", text: 'OTHER'},
         {value: "PAYMENT", text: 'PAYMENT'},
         {value: "PROMOTION", text: 'PROMOTION'},
         {value: "SAVING", text: 'SAVING'},
         {value: "SECURITY", text: 'SECURITY'},
         {value: "TRADEMARK", text: 'TRADEMARK'},
-        {value: "DISCOUNT", text: 'DISCOUNT'}
+        {value: "DISCOUNT", text: 'DISCOUNT'},
+        {value: "OTHER", text: 'OTHER'}
     ];
 
     $scope.showCategory = function (category) {

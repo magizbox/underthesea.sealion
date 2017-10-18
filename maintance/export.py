@@ -9,7 +9,7 @@ SERVICE_API = "http://localhost:8001"
 
 
 def export_documents():
-    url = "{}/api/documents/?status=ANNOTATED&quality=&corpus=1&limit=50".format(SERVICE_API)
+    url = "{}/api/documents/?status=ANNOTATED&act=true&quality=&corpus=1&limit=50".format(SERVICE_API)
     headers = {
         'Content-type': 'application/json',
         'Accept': 'application/json'}
@@ -27,4 +27,4 @@ def export_documents():
 
 data = export_documents()
 data = Text(json.dumps(data, ensure_ascii=False))
-write(join("data", "posts_export_20171018.json"), data)
+write(join("data", "posts_act_20171018.json"), data)

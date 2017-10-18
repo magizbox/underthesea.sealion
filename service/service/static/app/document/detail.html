@@ -51,15 +51,24 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <uib-tabset active="activeJustified" justified="true">
-      <uib-tab index="0" heading="Categories">
-        <div ng-include="'./static/app/document/edit.category.html'"></div>
-      </uib-tab>
-      <uib-tab index="1" heading="Dialog Acts">
-        <div ng-include src="'./static/app/document/edit.act.html'"></div>
-      </uib-tab>
-      <uib-tab index="2" heading="Aspect Sentiment Analysis">
-        <div ng-include src="'./static/app/document/edit.sentiment.html'"></div>
+    <uib-tabset active="activeJustified" justified="true" active="active">
+      <uib-tab index="0" heading="Classification">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="col-xs-3">
+              <div ng-include
+                   src="'./static/app/document/edit.act.html'"></div>
+            </div>
+            <div class="col-xs-4">
+              <div ng-include
+                   src="'./static/app/document/edit.category.html'"></div>
+            </div>
+            <div class="col-xs-5">
+              <div ng-include
+                   src="'./static/app/document/edit.sentiment.html'"></div>
+            </div>
+          </div>
+        </div>
       </uib-tab>
     </uib-tabset>
   </div>

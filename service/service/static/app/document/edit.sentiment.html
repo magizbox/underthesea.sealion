@@ -1,11 +1,13 @@
+<div class="row" style="margin-top: 10px">
+  <button type="button" class="btn btn-default"
+          ng-click="addSentiment()">
+    <span class="fa fa-plus"></span> New Sentiment
+  </button>
+</div>
+<div class="row" style="margin-top:10px; margin-right:1px">
 <table class="table table-bordered table-hover table-condensed">
-  <tr style="font-weight: bold; ">
-    <td style="width:40%">Aspect</td>
-    <td style="width:40%">Polarity</td>
-    <td style="width:20%"></td>
-  </tr>
   <tr ng-repeat="sentiment in sentiments">
-    <td>
+    <td style="width:40%">
                 <span editable-select="sentiment.aspect"
                       e-name="aspect"
                       e-form="rowform"
@@ -13,7 +15,7 @@
                   {{ showAspect(sentiment) }}
                 </span>
     </td>
-    <td>
+    <td style="width:40%">
       <!-- editable status (select-local) -->
       <span editable-select="sentiment.polarity"
             e-name="polarity"
@@ -29,27 +31,26 @@
             class="form-buttons form-inline"
             shown="inserted == sentiment">
         <button type="submit" ng-disabled="rowform.$waiting"
-                class="btn btn-xs btn-warning">
-          Update
+                class="btn btn-sm btn-primary">
+          <i class="fa fa-check" aria-hidden="true"></i>
         </button>
         <button type="button" ng-disabled="rowform.$waiting"
                 ng-click="rowform.$cancel()"
-                class="btn btn-xs btn-default">
-          Cancel
+                class="btn btn-sm btn-default">
+          <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </form>
       <div class="buttons" ng-show="!rowform.$visible">
-        <button type="button" class="btn btn-warning btn-xs"
-                ng-click="rowform.$show()">Edit
+        <button type="button" class="btn btn-warning btn-sm"
+                ng-click="rowform.$show()">
+          <i class="fa fa-edit" aria-hidden="true"></i>
         </button>
-        <button type="button" class="btn btn-danger btn-xs"
-                ng-click="removeSentiment($index)">Delete
+        <button type="button" class="btn btn-danger btn-sm"
+                ng-click="removeSentiment($index)">
+          <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </div>
     </td>
   </tr>
 </table>
-<button type="button" class="btn btn-default"
-        ng-click="addSentiment()">
-  <span class="fa fa-plus"></span> New Sentiment
-</button>
+</div>

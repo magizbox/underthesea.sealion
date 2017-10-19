@@ -1,11 +1,66 @@
 app.controller("DetailAMRCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window) {
-    $scope.getActiveTask = function () {
-        if ($window.localStorage.getItem("activeTask")) {
-            return $window.localStorage.getItem("activeTask");
-        } else {
-            var defaultActiveTask = "1";
-            $window.localStorage.setItem("activeTask", defaultActiveTask);
-            return defaultActiveTask;
+
+    $scope.id = $stateParams.id;
+
+    Document.get({id: $scope.id}, function (doc) {
+        $scope.doc = doc;
+        try {
+            $scope.sentiments = JSON.parse(doc.sentiment);
+        } catch (e) {
+            $scope.sentiments = [];
+        }
+        try {
+            $scope.categories = JSON.parse(doc.category);
+        } catch (e) {
+            $scope.categories = [];
+        }
+        try {
+            $scope.acts = JSON.parse(doc.act);
+        } catch (e) {
+            $scope.acts = [];
+        }
+        $scope.auto_acts = [{
+            "name": "INFORMATION"
+        }];
+        $scope.corpusId = doc.corpus;
+        Corpus.get({id: doc.corpus}, function (corpus) {
+            $scope.corpus = corpus;
+        })
+    });
+
+    $scope.score = function(y1, y2){
+        y1 = _.pluck(y1, "name");
+        y2 = _.pluck(y2, "name");
+        var n1 = y1.length;
+        var n2 = y2.length;
+        if(n1 == 0 && n2 == 0){
+            return 100;
+        }
+        if(n1 == 0 || n2 == 0){
+            return 0;
+        }
+        tp = _.intersection(y1, y2).length;
+        p = tp  / n1;
+        r = tp  / n2;
+        if(p + r == 0){
+            return 0;
+        }
+        f = 100 * (2 * p * r) / (p + r);
+        return Math.round(f);
+    };
+    $scope.checkAct = function(act){
+        var acts = _.pluck($scope.acts, "name");
+        return _.contains(acts, act.name);
+    };
+
+    $scope.setAct = function(act){
+        if(!$scope.checkAct(act)){
+            $scope.inserted = {
+                id: $scope.acts.length + 1,
+                name: act.name
+            };
+            $scope.acts.push($scope.inserted);
+            $scope.inserted = null;
         }
     };
 
@@ -138,31 +193,6 @@ app.controller("DetailAMRCtrl", function ($scope, $stateParams, Corpus, Document
 
     $scope.STATUSES = STATUSES;
     $scope.QUALITIES = QUALITIES;
-
-    $scope.id = $stateParams.id;
-    Document.get({id: $scope.id}, function (doc) {
-        $scope.doc = doc;
-        try {
-            $scope.sentiments = JSON.parse(doc.sentiment);
-        } catch (e) {
-            $scope.sentiments = [];
-        }
-        try {
-            $scope.categories = JSON.parse(doc.category);
-        } catch (e) {
-            $scope.categories = [];
-        }
-        try {
-            $scope.acts = JSON.parse(doc.act);
-        } catch (e) {
-            $scope.acts = [];
-        }
-
-        $scope.corpusId = doc.corpus;
-        Corpus.get({id: doc.corpus}, function (corpus) {
-            $scope.corpus = corpus;
-        })
-    });
 
     $scope.hideMessages = function () {
         $scope.MESSAGES = {

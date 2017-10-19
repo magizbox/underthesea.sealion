@@ -7,7 +7,6 @@
 <div class="row" style="margin-top:10px; margin-right:1px">
   <table class="table table-bordered table-hover table-condensed">
     <tr ng-repeat="act in acts">
-      {{ act }}
       <td style="width:80%">
                 <span editable-select="act.name"
                       e-name="aspect"
@@ -46,5 +45,25 @@
       </td>
     </tr>
   </table>
-
+  <ul class="list-group">
+    <li class="list-group-item disabled" style="cursor:default">
+      Suggestion
+      <div class="pull-right">
+        <small>score:{{score(acts, auto_acts)}}%</small>
+      </div>
+    </li>
+    <li class="list-group-item" ng-repeat="auto_act in auto_acts">
+      <b ng-show="checkAct(auto_act)"> {{ auto_act.name }}</b>
+      <span ng-hide="checkAct(auto_act)">{{ auto_act.name }}</span>
+      <div class="pull-right">
+        <button class="btn btn-xs"
+                ng-class="{
+                  'btn-default': !checkAct(auto_act),
+                  'btn-primary': checkAct(auto_act)
+                }">
+          <i class="fa fa-check" ng-click="setAct(auto_act)"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
 </div>

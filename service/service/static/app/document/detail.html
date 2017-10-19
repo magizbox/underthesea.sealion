@@ -20,8 +20,7 @@
         <button
             ng-class="{'btn btn-xs': true, 'btn-warning': doc.status == status.value}"
             ng-click="doc.status = status.value" ng-repeat="status in STATUSES">
-          {{
-          status.text }}
+          {{ status.text }}
         </button>
         <small>Quality:</small>
         <button

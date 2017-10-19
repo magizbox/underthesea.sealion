@@ -24,6 +24,7 @@ app.controller("DetailAMRCtrl", function ($scope, $stateParams, Corpus, Document
         {value: "SECURITY", text: 'SECURITY'},
         {value: "TRADEMARK", text: 'TRADEMARK'},
         {value: "DISCOUNT", text: 'DISCOUNT'},
+        {value: "CAREER", text: "CAREER"},
         {value: "OTHER", text: 'OTHER'}
     ];
 

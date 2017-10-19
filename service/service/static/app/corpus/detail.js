@@ -9,7 +9,10 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
         "corpus": 1,
         "status": null,
         "quality": null,
-        "search": null
+        "search": null,
+        "act": null,
+        "category": null,
+        "sentiment": null
     });
     $scope.statuses = STATUSES;
 
@@ -53,8 +56,31 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
         $state.go(".", $scope.params);
     };
 
-    $scope.filterChanged = function(){
+    $scope.filterChanged = function () {
         $state.go(".", $scope.params);
-    }
+    };
+    $scope.tasks = [
+        {
+            "name": "act",
+            "label": "DA"
+        },
+        {
+            "name": "category",
+            "label": "CA"
+        },
+        {
+            "name": "sentiment",
+            "label": "SA"
+        },
+    ];
+    console.log($scope.params);
+    $scope.toggle = function (task) {
+        var states = ["true", "false", null];
+        var i = states.indexOf($scope.params[task.name]);
+        var ni = (i + 1) % states.length;
+        var nextState = states[ni];
+        $scope.params[task.name] = nextState;
+        console.log(params);
+    };
 })
 ;

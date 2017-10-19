@@ -17,3 +17,44 @@
 .label-grey {
     background-color: #9c9c9c;
 }
+
+.btn-false {
+    background-color: #777;
+    color: white;
+    font-weight: 700;
+    border:none !important;
+    outline: none !important;
+}
+
+.btn-false:hover, .btn-false:focus {
+    color: white !important;
+    border:none !important;
+    outline: none !important;
+}
+
+.btn-true {
+    background-color: #5cc0de;
+    color: white;
+    font-weight: 700;
+    border:none !important;
+    outline: none !important;
+}
+
+.btn-true:hover, .btn-true:focus {
+    background-color: #31b0d5 !important;
+    color: white !important;
+    border:none !important;
+    outline: none !important;
+}
+
+.btn-null {
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    border-color: #ccc;
+    outline: none !important;
+}
+
+.btn-true:hover, .btn-true:focus {
+    outline: none !important;
+}

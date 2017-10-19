@@ -11,7 +11,13 @@ app.factory('Document', function ($resource) {
     });
     resource.query = function(){
         return resource._query.apply(null, arguments).$promise.then(function(data){
-            return Promise.resolve(data["results"]);
+            var documents = _.map(data["results"], function(document){
+                document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
+                document["hasAct"] = document["act"] != "[]" && document["act"] != "";
+                document["hasCategory"] = document["category"] != "[]" && document["category"] != "";
+                return document;
+            });
+            return Promise.resolve(documents);
         });
     };
     resource.pagination = function(){

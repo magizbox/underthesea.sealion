@@ -23,6 +23,17 @@
   <div class="pull-right" style="font-size:14px;">
     Text:
       <input type="text" class="form-control" style="width:200px; display: inline; height:28px" ng-model="params.search"/>
+    Tasks:
+    <button class="btn btn-xs" style="margin-right:1px"
+            ng-class="{
+              'btn-null': params[task.name] == null,
+              'btn-true': params[task.name] == 'true',
+              'btn-false': params[task.name] == 'false',
+            }"
+            ng-click="toggle(task)"
+            ng-repeat="task in tasks">
+      {{ task.label }}
+    </button>
     Status:
     <a href="#" editable-select="params.status"
        e-ng-options="s.value as s.text for s in statuses">
@@ -53,6 +64,7 @@
   <tr>
     <th>#</th>
     <th>Text</th>
+    <th style="width:115px;">Tasks</th>
     <th>Status</th>
     <th>Quality</th>
     <th></th>
@@ -62,7 +74,15 @@
   <tr ng-repeat="doc in documents"
       style="cursor:pointer">
     <th ui-sref="detailDocument({id: doc.id})"><a>{{ doc.id }}</a></th>
-    <td ui-sref="detailDocument({id: doc.id})">{{ doc.text | limitTo:120 }}</td>
+    <td ui-sref="detailDocument({id: doc.id})">
+      {{ doc.text | limitTo:110}}
+      <span ng-show="doc.text.length > 80">...</span>
+    </td>
+    <td>
+      <span ng-class="{'label':true,'label-info':doc.hasAct,'label-default':!doc.hasAct}">DA</span>
+      <span ng-class="{'label':true,'label-info':doc.hasCategory,'label-default':!doc.hasCategory}">CA</span>
+      <span ng-class="{'label':true,'label-info':doc.hasSentiment,'label-default':!doc.hasSentiment}">SA</span>
+    </td>
     <td ui-sref="detailDocument({id: doc.id})">{{ doc.status }}</td>
     <td ui-sref="detailDocument({id: doc.id})">{{ doc.quality }}</td>
     <td style="cursor:default; width:40px">

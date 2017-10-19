@@ -3,7 +3,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
 
-from service.filters import ActFilterBackend
+from service.filters import ActFilterBackend, CategoryFilterBackend, \
+    SentimentFilterBackend
 from service.models import Document, Corpus
 from service.serializers import DocumentSerializer, CorpusSerializer
 
@@ -15,7 +16,7 @@ def homepage(request):
 class DocumentViewSet(viewsets.ModelViewSet):
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, ActFilterBackend, SearchFilter,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, ActFilterBackend, CategoryFilterBackend, SentimentFilterBackend, SearchFilter,)
     filter_fields = ('status', 'quality', 'corpus')
     search_fields = ('text', )
 

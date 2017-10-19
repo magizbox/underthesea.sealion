@@ -8,7 +8,8 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
         "limit": 10,
         "corpus": 1,
         "status": null,
-        "quality": null
+        "quality": null,
+        "search": null
     });
     $scope.statuses = STATUSES;
 

@@ -19,8 +19,10 @@
 </div>
 <hr style="margin-top: 0px"/>
 <h4>
-  Documents
+  {{ totalItems }} documents
   <div class="pull-right" style="font-size:14px;">
+    Text:
+      <input type="text" class="form-control" style="width:200px; display: inline; height:28px" ng-model="params.search"/>
     Status:
     <a href="#" editable-select="params.status"
        e-ng-options="s.value as s.text for s in statuses">
@@ -30,7 +32,6 @@
         <a style="color:red; cursor:pointer"
            ng-click="params.status = null">[x]</a>
       </span>
-    &nbsp;
     Quality:
     <a href="#" editable-select="params.quality"
        e-ng-options="s.value as s.text for s in qualities">
@@ -47,7 +48,7 @@
     </button>
   </div>
 </h4>
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hover" ng-show="totalItems > 0">
   <thead>
   <tr>
     <th>#</th>
@@ -75,7 +76,7 @@
   </tr>
   </tbody>
 </table>
-<div class="col-xs-12 text-center">
+<div class="col-xs-12 text-center" ng-show="totalItems > 0">
   <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"
       ng-model="currentPage"
       ng-change="pageChanged()" boundary-link-numbers="true"

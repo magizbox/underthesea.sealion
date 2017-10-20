@@ -1,13 +1,20 @@
-<div class="row" style="margin-top: 10px">
-  <button type="button" class="btn btn-default"
-          ng-click="addCategory()">
-    <span class="fa fa-plus"></span> New Category
-  </button>
-</div>
-<div class="row" style="margin-top:10px; margin-right:1px">
-  <table class="table table-bordered table-hover table-condensed">
+<div class="row">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-info" style="cursor:default">
+      Categories
+      <div class="pull-right">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default btn-xs"
+                  ng-click="addCategory()">
+            <span class="fa fa-plus"></span> Add
+          </button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="padding: 0px;">
+      <table class="table table-bordered table-hover table-condensed" style="margin-bottom: 0px;">
     <tr ng-repeat="category in categories">
-      <td style="width:80%">
+      <td style="padding-left: 15px; padding-top: 10px">
                 <span editable-select="category.name"
                       e-name="aspect"
                       e-form="rowform"
@@ -15,7 +22,7 @@
                   {{ showCategory(category) }}
                 </span>
       </td>
-      <td style="white-space: nowrap">
+      <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
         <!-- form -->
         <form editable-form name="rowform"
               ng-show="rowform.$visible"
@@ -44,5 +51,6 @@
       </td>
     </tr>
   </table>
-
+    </li>
+  </ul>
 </div>

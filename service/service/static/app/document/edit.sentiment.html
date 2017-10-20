@@ -1,56 +1,65 @@
-<div class="row" style="margin-top: 10px">
-  <button type="button" class="btn btn-default"
-          ng-click="addSentiment()">
-    <span class="fa fa-plus"></span> New Sentiment
-  </button>
-</div>
-<div class="row" style="margin-top:10px; margin-right:1px">
-<table class="table table-bordered table-hover table-condensed">
-  <tr ng-repeat="sentiment in sentiments">
-    <td style="width:40%">
+<div class="row">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-info" style="cursor:default">
+      Sentiment
+      <div class="pull-right">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default btn-xs"
+                  ng-click="addSentiment()">
+            <span class="fa fa-plus"></span> Add
+          </button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="padding: 0px;">
+      <table class="table table-bordered table-hover table-condensed" style="margin-bottom: 0px; ">
+    <tr ng-repeat="sentiment in sentiments">
+      <td style="width:40%; padding-left: 15px; padding-top: 10px">
                 <span editable-select="sentiment.aspect"
                       e-name="aspect"
                       e-form="rowform"
                       e-ng-options="a.value as a.text for a in aspects">
                   {{ showAspect(sentiment) }}
                 </span>
-    </td>
-    <td style="width:40%">
-      <!-- editable status (select-local) -->
-      <span editable-select="sentiment.polarity"
-            e-name="polarity"
-            e-form="rowform"
-            e-ng-options="s.value as s.text for s in polarities">
+      </td>
+      <td style="padding-top: 10px">
+        <!-- editable status (select-local) -->
+        <span editable-select="sentiment.polarity"
+              e-name="polarity"
+              e-form="rowform"
+              e-ng-options="s.value as s.text for s in polarities">
                   {{ showPolarity(sentiment) }}
                 </span>
-    </td>
-    <td style="white-space: nowrap">
-      <!-- form -->
-      <form editable-form name="rowform"
-            ng-show="rowform.$visible"
-            class="form-buttons form-inline"
-            shown="inserted == sentiment">
-        <button type="submit" ng-disabled="rowform.$waiting"
-                class="btn btn-sm btn-primary">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </button>
-        <button type="button" ng-disabled="rowform.$waiting"
-                ng-click="rowform.$cancel()"
-                class="btn btn-sm btn-default">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      </form>
-      <div class="buttons" ng-show="!rowform.$visible">
-        <button type="button" class="btn btn-warning btn-sm"
-                ng-click="rowform.$show()">
-          <i class="fa fa-edit" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="btn btn-danger btn-sm"
-                ng-click="removeSentiment($index)">
-          <i class="fa fa-trash" aria-hidden="true"></i>
-        </button>
-      </div>
-    </td>
-  </tr>
-</table>
+      </td>
+      <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
+        <!-- form -->
+        <form editable-form name="rowform"
+              ng-show="rowform.$visible"
+              class="form-buttons form-inline"
+              shown="inserted == sentiment">
+          <button type="submit" ng-disabled="rowform.$waiting"
+                  class="btn btn-sm btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting"
+                  ng-click="rowform.$cancel()"
+                  class="btn btn-sm btn-default">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button type="button" class="btn btn-warning btn-sm"
+                  ng-click="rowform.$show()">
+            <i class="fa fa-edit" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm"
+                  ng-click="removeSentiment($index)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+    </li>
+  </ul>
 </div>

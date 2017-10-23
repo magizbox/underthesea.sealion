@@ -17,11 +17,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 
-from service.views import DocumentViewSet, homepage, CorpusViewSet
+from service.views import DocumentViewSet, homepage, CorpusViewSet, \
+    DialogueCorpusViewSet, DialogueViewSet, DialogueDocumentViewSet
 
 router = routers.DefaultRouter()
 router.register(r'documents', DocumentViewSet)
 router.register(r'corpora', CorpusViewSet)
+router.register(r'dialogue_corpora', DialogueCorpusViewSet)
+router.register(r'dialogue', DialogueViewSet)
+router.register(r'dialogue_document', DialogueDocumentViewSet)
 admin.autodiscover()
 
 urlpatterns = [

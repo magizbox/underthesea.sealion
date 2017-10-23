@@ -51,4 +51,4 @@ def get_data():
 documents = get_documents()
 corpora = get_corpora()
 data = get_data()
-write(join("data", "20171018.json"), data)
+write(join("data", "20171023.json"), data)

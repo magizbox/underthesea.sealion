@@ -3,10 +3,10 @@ import json
 from os.path import join
 
 SERVER_API = "http://localhost:8001"
-
+file = "20171023.json"
 
 def get_data():
-    content = open(join("data", "20171018.json"), "r").read()
+    content = open(join("data", file), "r").read()
     data = json.loads(content)
     restore_corpus(data)
 

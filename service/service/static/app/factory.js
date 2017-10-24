@@ -100,13 +100,24 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
     });
     resource.query = function () {
         return resource._query.apply(null, arguments).$promise.then(function (data) {
-            var dialogues = _.map(data["results"], function (document) {
-                document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
-                document["hasAct"] = document["act"] != "[]" && document["act"] != "";
-                document["hasCategory"] = document["category"] != "[]" && document["category"] != "";
-                return document;
-            });
-            return Promise.resolve(dialogues);
+            dialogues = data.results;
+            return new Promise(function (fulfill, reject) {
+                var p = _.map(dialogues, function (dialogue) {
+                    var docId = JSON.parse(dialogue.content)[0];
+                    return DialogueDocumentService.get({"id": docId}).$promise;
+                });
+                Promise.all(p).then(function (documents) {
+                    var output = _.zip(dialogues, documents);
+                    dialogues = _.map(output, function (item) {
+                        var dialogue = item[0];
+                        var comments = _.flatten(JSON.parse(dialogue.content)).length - 1;
+                        dialogue["text"] = item[1].text;
+                        dialogue["comments"] = comments;
+                        return dialogue;
+                    });
+                    fulfill(dialogues);
+                });
+            })
         });
     };
 
@@ -115,9 +126,9 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
             function merge(ids, data) {
                 var output = [];
                 for (var i = 0; i < ids.length; i++) {
-                    if(_.isArray(ids[i])){
+                    if (_.isArray(ids[i])) {
                         output.push(merge(ids[i], data))
-                    } else{
+                    } else {
                         output.push(data[ids[i]])
                     }
                 }

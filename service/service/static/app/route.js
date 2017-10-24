@@ -46,7 +46,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/dialogue_corpora/?status&quality',
             name: 'listDialogueCorpus',
             controller: 'ListDialogueCorpusCtrl',
-            templateUrl: "./static/app/dialogue/list.html"
+            templateUrl: "./static/app/dialogue/list_corpus.html"
         })
         .state({
             url: '/newDialogueCorpus',
@@ -55,16 +55,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./static/app/dialogue/new.html"
         })
         .state({
-            url: '/dialogue_corpora/:id?limit&offset&status&quality&search&act&category&sentiment',
+            url: '/dialogue_corpora/:id?status&quality',
             name: 'detailDialogueCorpus',
             controller: 'DetailDialogueCorpusCtrl',
-            templateUrl: "./static/app/dialogue/detail.html"
+            templateUrl: "./static/app/dialogue/detail_corpus.html"
         })
         .state({
             url: '/dialogues/:id',
             name: 'detailDialogue',
             controller: 'DetailDialogueCtrl',
-            templateUrl: "./static/app/dialogue/detail.html"
+            templateUrl: "./static/app/dialogue/detail_dialogue.html"
         })
     ;
 });

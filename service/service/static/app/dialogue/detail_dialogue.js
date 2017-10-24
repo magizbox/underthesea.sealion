@@ -3,6 +3,7 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
     Dialogue.get({id: $scope.id}, function (dialogue) {
         $scope.dialogue = dialogue;
+        $scope.corpus = dialogue.corpus;
         console.log(dialogue);
     });
 

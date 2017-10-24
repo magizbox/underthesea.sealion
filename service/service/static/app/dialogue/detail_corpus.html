@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3>
+      <ol class="breadcrumb" style="float:left; font-size: 16px">
+        <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
+        <li>{{ id }}</li>
+      </ol>
+      <div class="pull-right">
+        <a class="btn btn-sm btn-success" ui-sref="newCorpus">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          New Corpus
+        </a>
+      </div>
+    </h3>
+  </div>
+</div>
+<hr style="margin-top: 0px"/>
+<h3>Dialogues</h3>
+<table class="table table-condensed table-hover">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Content</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="dialogue in dialogues" style="cursor:pointer">
+    <th ui-sref="detailDialogue({id: dialogue.id})"><a ui-sref="detailDialogue({id: dialogue.id})">{{ dialogue.id }}</a></th>
+    <td ui-sref="detailDialogue({id: dialogue.id})">
+      {{ dialogue.text }}<br/>
+      <div class="pull-right">
+        <small>{{ dialogue.comments }} comments</small>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+

@@ -90,3 +90,10 @@
     </div>
   </div>
 </div>
+
+<div class="col-xs-12 text-center" ng-show="totalItems > 0">
+  <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"
+      ng-model="currentPage"
+      ng-change="pageChanged()" boundary-link-numbers="true"
+      max-size="5"></ul>
+</div>

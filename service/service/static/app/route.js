@@ -55,7 +55,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./static/app/dialogue/new.html"
         })
         .state({
-            url: '/dialogue_corpora/:id?status&quality',
+            url: '/dialogue_corpora/:id?limit&offset&status&quality&search&act&category&sentiment',
             name: 'detailDialogueCorpus',
             controller: 'DetailDialogueCorpusCtrl',
             templateUrl: "./static/app/dialogue/detail_corpus.html"

@@ -29,11 +29,18 @@
     <td ui-sref="detailDialogue({id: dialogue.id})">
       {{ dialogue.text }}<br/>
       <div class="pull-right">
-        <small>{{ dialogue.comments }} comments</small>
+        <small>{{ dialogue.comments }} posts</small>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
+
+<div class="col-xs-12 text-center" ng-show="totalItems > 0">
+  <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"
+      ng-model="currentPage"
+      ng-change="pageChanged()" boundary-link-numbers="true"
+      max-size="5"></ul>
+</div>
 
 

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3>
+      <ol class="breadcrumb" style="float:left; font-size: 16px">
+        <li><a href="#">Sea Lion</a></li>
+        <li>New Dialogue Corpus</li>
+      </ol>
+      <div class="pull-right">
+        <button type="button" class="btn btn-success btn-sm" ng-click="save()">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          Save
+        </button>
+      </div>
+      <!-- messages -->
+      <button ng-show="MESSAGES.TEXT_MISSING" type="button"
+              class="btn btn-danger btn-xs disabled">Title field is required!
+      </button>
+    </h3>
+  </div>
+</div>
+<hr style="margin-top: 0px"/>
+<div class="row">
+  <div class="col-xs-12">
+        <textarea id="text" class="form-control"
+                  rows="1" ng-model="corpus.title" placeholder="title">{{ corpus.title }}</textarea>
+    <br/>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+      <textarea id="amr" class="form-control"
+                rows="10" ng-model="corpus.description"
+                placeholder="description">{{ corpus.description }}</textarea>
+  </div>
+</div>

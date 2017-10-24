@@ -1,0 +1,73 @@
+<div class="row">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-info" style="cursor:default">
+      Dialogue Acts
+      <div class="pull-right">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default btn-xs"
+                  ng-click="addAct()">
+            <span class="fa fa-plus"></span> Add
+          </button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="padding: 0px;">
+      <table class="table table-bordered table-hover table-condensed" style="margin-bottom: 0px;">
+        <tr ng-repeat="act in ngModel">
+          <td style="padding-left: 15px; padding-top: 10px">
+                <span editable-select="act.name"
+                      e-name="aspect"
+                      e-form="rowform"
+                      e-ng-options="c.value as c.text for c in ACTS">
+                  {{ showAct(act) }}
+                </span>
+          </td>
+          <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
+            <!-- form -->
+            <form editable-form name="rowform"
+                  ng-show="rowform.$visible"
+                  class="form-buttons form-inline"
+                  shown="inserted == act">
+              <button type="submit" ng-disabled="rowform.$waiting"
+                      class="btn btn-sm btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
+              <button type="button" ng-disabled="rowform.$waiting"
+                      ng-click="rowform.$cancel()"
+                      class="btn btn-sm btn-default">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </form>
+            <div class="buttons" ng-show="!rowform.$visible">
+              <button type="button"
+                      class="btn btn-sm btn-primary btn-warning"
+                      ng-click="rowform.$show()">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-danger"
+                      ng-click="removeAct($index)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </li>
+    <li class="list-group-item disabled">
+      Suggestion
+    </li>
+    <li class="list-group-item" ng-repeat="act in suggestions">
+      <b ng-show="checkAct(act)"> {{ act.name }}</b>
+      <span ng-hide="checkAct(act)">{{ act.name }}</span>
+      <div class="pull-right">
+        <button class="btn btn-xs"
+                ng-class="{
+                  'btn-default': !checkAct(act),
+                  'btn-primary': checkAct(act)
+                }">
+          <i class="fa fa-check" ng-click="setAct(act)"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

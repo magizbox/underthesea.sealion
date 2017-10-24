@@ -34,11 +34,14 @@ class DocumentViewSet(viewsets.ModelViewSet):
 class DialogueCorpusViewSet(viewsets.ModelViewSet):
     queryset = DialogueCorpus.objects.all()
     serializer_class = DialogueCorpusSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
 
 class DialogueViewSet(viewsets.ModelViewSet):
     queryset = Dialogue.objects.all()
     serializer_class = DialogueSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ('corpus', )
 
 
 class DialogueDocumentViewSet(viewsets.ModelViewSet):

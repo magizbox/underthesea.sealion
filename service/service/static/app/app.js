@@ -1,4 +1,4 @@
-window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable','ui.bootstrap']);
+window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable', 'ui.bootstrap', 'nlp.elements']);
 
 app.directive('myEnter', function () {
     return function (scope, element, attrs) {
@@ -12,6 +12,8 @@ app.directive('myEnter', function () {
         });
     };
 });
+
+window.nlpElements = angular.module('nlp.elements', ['xeditable']);
 
 app.constant("SERVICE_URL", "http://localhost:8000/api/");
 
@@ -53,26 +55,26 @@ app.constant("QUALITIES", [
     }
 ]);
 
-app.directive( "mwConfirmClick", [
-  function( ) {
-    return {
-      priority: -1,
-      restrict: 'A',
-      scope: { confirmFunction: "&mwConfirmClick" },
-      link: function( scope, element, attrs ){
-        element.bind( 'click', function( e ){
-          // message defaults to "Are you sure?"
-          var message = attrs.mwConfirmClickMessage ? attrs.mwConfirmClickMessage : "Are you sure?";
-          // confirm() requires jQuery
-          if( confirm( message ) ) {
-            scope.confirmFunction();
-          }
-        });
-      }
+app.directive("mwConfirmClick", [
+    function () {
+        return {
+            priority: -1,
+            restrict: 'A',
+            scope: {confirmFunction: "&mwConfirmClick"},
+            link: function (scope, element, attrs) {
+                element.bind('click', function (e) {
+                    // message defaults to "Are you sure?"
+                    var message = attrs.mwConfirmClickMessage ? attrs.mwConfirmClickMessage : "Are you sure?";
+                    // confirm() requires jQuery
+                    if (confirm(message)) {
+                        scope.confirmFunction();
+                    }
+                });
+            }
+        }
     }
-  }
 ]);
 
-app.run(function(editableOptions) {
-  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+app.run(function (editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });

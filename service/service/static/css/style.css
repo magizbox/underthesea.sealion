@@ -22,13 +22,13 @@
     background-color: #777;
     color: white;
     font-weight: 700;
-    border:none !important;
+    border: none !important;
     outline: none !important;
 }
 
 .btn-false:hover, .btn-false:focus {
     color: white !important;
-    border:none !important;
+    border: none !important;
     outline: none !important;
 }
 
@@ -36,14 +36,14 @@
     background-color: #5cc0de;
     color: white;
     font-weight: 700;
-    border:none !important;
+    border: none !important;
     outline: none !important;
 }
 
 .btn-true:hover, .btn-true:focus {
     background-color: #31b0d5 !important;
     color: white !important;
-    border:none !important;
+    border: none !important;
     outline: none !important;
 }
 
@@ -57,4 +57,43 @@
 
 .btn-true:hover, .btn-true:focus {
     outline: none !important;
+}
+
+.media {
+    margin-top: 6px !important;
+    cursor: pointer !important;
+}
+
+.media-body p {
+    border: solid 1px rgb(224, 224, 224);
+    padding: 10px;
+    color: #444;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background: #fff;
+}
+
+.media-body p:hover {
+    background: #efefef;
+}
+
+.media-level-2 {
+    margin-left: 20px;
+
+}
+
+.media-level-3 {
+    margin-left: 40px;
+}
+
+.media-level-4 {
+    margin-left: 60px;
+}
+
+.media-level-5 {
+    margin-left: 80px;
+}
+
+.media-body .media-focus {
+    background: #efefef;
 }

@@ -2,7 +2,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state({
-            url: '/?status&quality',
+            url: '/',
+            name: 'main',
+            templateUrl: "./static/app/common/main.html"
+        })
+        .state({
+            url: '/corpora/?status&quality',
             name: 'listCorpus',
             controller: 'ListCorpusCtrl',
             templateUrl: "./static/app/corpus/list.html"
@@ -36,5 +41,30 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             name: 'detailDocument',
             controller: 'DetailAMRCtrl',
             templateUrl: "./static/app/document/detail.html"
-        });
+        })
+        .state({
+            url: '/dialogue_corpora/?status&quality',
+            name: 'listDialogueCorpus',
+            controller: 'ListDialogueCorpusCtrl',
+            templateUrl: "./static/app/dialogue/list.html"
+        })
+        .state({
+            url: '/newDialogueCorpus',
+            name: 'newDialogueCorpus',
+            controller: 'NewDialogueCorpusCtrl',
+            templateUrl: "./static/app/dialogue/new.html"
+        })
+        .state({
+            url: '/dialogue_corpora/:id?limit&offset&status&quality&search&act&category&sentiment',
+            name: 'detailDialogueCorpus',
+            controller: 'DetailDialogueCorpusCtrl',
+            templateUrl: "./static/app/dialogue/detail.html"
+        })
+        .state({
+            url: '/dialogues/:id',
+            name: 'detailDialogue',
+            controller: 'DetailDialogueCtrl',
+            templateUrl: "./static/app/dialogue/detail.html"
+        })
+    ;
 });

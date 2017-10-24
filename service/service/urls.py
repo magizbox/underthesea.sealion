@@ -24,8 +24,8 @@ router = routers.DefaultRouter()
 router.register(r'documents', DocumentViewSet)
 router.register(r'corpora', CorpusViewSet)
 router.register(r'dialogue_corpora', DialogueCorpusViewSet)
-router.register(r'dialogue', DialogueViewSet)
-router.register(r'dialogue_document', DialogueDocumentViewSet)
+router.register(r'dialogues', DialogueViewSet)
+router.register(r'dialogue_documents', DialogueDocumentViewSet)
 admin.autodiscover()
 
 urlpatterns = [

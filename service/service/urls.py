@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework import routers
+from rest_framework_bulk.routes import BulkRouter
 
 from service.views import DocumentViewSet, homepage, CorpusViewSet, \
     DialogueCorpusViewSet, DialogueViewSet, DialogueDocumentViewSet
 
-router = routers.DefaultRouter()
+router = BulkRouter()
 router.register(r'documents', DocumentViewSet)
 router.register(r'corpora', CorpusViewSet)
 router.register(r'dialogue_corpora', DialogueCorpusViewSet)
 router.register(r'dialogues', DialogueViewSet)
 router.register(r'dialogue_documents', DialogueDocumentViewSet)
+
 admin.autodiscover()
 
 urlpatterns = [

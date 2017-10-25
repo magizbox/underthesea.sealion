@@ -2,6 +2,8 @@ import django_filters
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
+from rest_framework_bulk import BulkModelViewSet, \
+    ListBulkCreateUpdateDestroyAPIView
 
 from service.filters import ActFilterBackend, CategoryFilterBackend, \
     SentimentFilterBackend
@@ -37,13 +39,15 @@ class DialogueCorpusViewSet(viewsets.ModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
 
-class DialogueViewSet(viewsets.ModelViewSet):
+class DialogueViewSet(BulkModelViewSet):
     queryset = Dialogue.objects.all()
     serializer_class = DialogueSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ('corpus', )
 
 
-class DialogueDocumentViewSet(viewsets.ModelViewSet):
+class DialogueDocumentViewSet(BulkModelViewSet):
     queryset = DialogueDocument.objects.all()
     serializer_class = DialogueDocumentSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ('dialogue', )

@@ -3,9 +3,10 @@ import json
 from os.path import join
 
 SERVER_API = "http://localhost:8001"
-file = "20171023.json"
+file = "20171025.json"
 
-def get_data():
+
+def restore():
     content = open(join("data", file), "r").read()
     data = json.loads(content)
     restore_corpus(data)
@@ -38,4 +39,4 @@ def restore_corpus(data):
 
 
 if __name__ == '__main__':
-    get_data()
+    restore()

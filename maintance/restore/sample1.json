@@ -1,0 +1,16 @@
+{
+  "corpora": [
+    {"id": 1, "title": "C1", "description": "C1"}
+  ],
+  "dialogues": [
+    {"id": 1, "corpus": 1, "content": "[1]"},
+    {"id": 2, "corpus": 1, "content": "[2, 3]"},
+    {"id": 3, "corpus": 1, "content": "[1, [2, 3], 4]"}
+  ],
+  "documents": [
+    {"id": 1, "text": "d1", "dialogue": 1},
+    {"id": 2, "text": "d2", "dialogue": 1},
+    {"id": 3, "text": "d3", "dialogue": 1},
+    {"id": 4, "text": "d4", "dialogue": 1}
+  ]
+}

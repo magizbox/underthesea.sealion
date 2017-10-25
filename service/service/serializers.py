@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_bulk import BulkListSerializer, BulkSerializerMixin
 
 from service.models import Document, Corpus, Dialogue, DialogueCorpus, \
     DialogueDocument
@@ -26,17 +27,19 @@ class DialogueCorpusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DialogueSerializer(serializers.ModelSerializer):
+class DialogueSerializer(serializers.ModelSerializer, BulkSerializerMixin):
     # documents = DocumentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Dialogue
         fields = '__all__'
+        list_serializer_class = BulkListSerializer
 
 
-class DialogueDocumentSerializer(serializers.ModelSerializer):
+class DialogueDocumentSerializer(serializers.ModelSerializer, BulkSerializerMixin):
     # documents = DocumentSerializer(many=True, read_only=True)
 
     class Meta:
         model = DialogueDocument
         fields = '__all__'
+        list_serializer_class = BulkListSerializer

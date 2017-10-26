@@ -1,6 +1,5 @@
 app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter) {
     $scope.id = $stateParams.id;
-
     var params = JSON.parse(JSON.stringify($stateParams));
     params["corpus"] = params["id"];
     $scope.params = Params(params, {
@@ -80,7 +79,6 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
         var ni = (i + 1) % states.length;
         var nextState = states[ni];
         $scope.params[task.name] = nextState;
-        console.log(params);
     };
-})
-;
+
+});

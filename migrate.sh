@@ -4,6 +4,5 @@ rm -rf ./service/service/migrations/
 cd service
 python manage.py makemigrations service
 python manage.py migrate
-cd ../maintance/
-python restore.py
+cd ../maintance/ && python restore.py
 cd ..

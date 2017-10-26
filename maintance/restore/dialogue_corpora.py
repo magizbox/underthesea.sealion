@@ -1,7 +1,5 @@
 import requests
 import json
-from os.path import join
-
 import time
 from underthesea.util.file_io import read
 
@@ -56,7 +54,7 @@ class Restore:
     def update_dialogues_content(self):
         for dialogue in self.dialogues:
             dialogue["content"] = self.update_content(dialogue["content"])
-            url = "{}/api/dialogues/{}/".format(service_api, dialogue["id"])
+            url = "{}/api/dialogues/{}/".format(self.service_api, dialogue["id"])
             r = requests.put(url, data  =json.dumps(dialogue), headers=headers)
 
     def restore_dialogues(self):
@@ -64,7 +62,7 @@ class Restore:
         for i, dialogue in enumerate(dialogues):
             dialogues[i]["corpus"] = self.corpus_ids[dialogue["corpus"]]
         print("Restore {} dialogues".format(len(dialogues)))
-        url = "{}/api/dialogues/".format(service_api)
+        url = "{}/api/dialogues/".format(self.service_api)
         r = requests.post(url, data=json.dumps(dialogues), headers=headers)
         new_dialogues = r.json()
         ids = [item["id"] for item in dialogues]
@@ -75,7 +73,7 @@ class Restore:
     def restore_corpora(self):
         corpora = self.data["corpora"]
         for corpus in corpora:
-            url = "{}/api/dialogue_corpora/".format(service_api)
+            url = "{}/api/dialogue_corpora/".format(self.service_api)
             r = requests.post(url, data=json.dumps(corpus), headers=headers)
             self.corpus_ids[corpus["id"]] = r.json()["id"]
 

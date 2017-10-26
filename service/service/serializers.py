@@ -36,8 +36,27 @@ class DialogueSerializer(serializers.ModelSerializer, BulkSerializerMixin):
         list_serializer_class = BulkListSerializer
 
 
-class DialogueDocumentSerializer(serializers.ModelSerializer, BulkSerializerMixin):
+class DialogueDocumentSerializer(serializers.ModelSerializer,
+                                 BulkSerializerMixin):
     # documents = DocumentSerializer(many=True, read_only=True)
+    is_valid_sentiment = serializers.SerializerMethodField(
+        'check_is_valid_sentiment')
+    is_valid_category = serializers.SerializerMethodField(
+        'check_is_valid_category')
+    is_valid_act = serializers.SerializerMethodField(
+        'check_is_valid_act')
+
+    def check_is_valid_sentiment(self, object):
+        output = object.sentiment != "" and object.sentiment != "[]"
+        return output
+
+    def check_is_valid_category(self, object):
+        output = object.category != "" and object.category != "[]"
+        return output
+
+    def check_is_valid_act(self, object):
+        output = object.act != "" and object.act != "[]"
+        return output
 
     class Meta:
         model = DialogueDocument

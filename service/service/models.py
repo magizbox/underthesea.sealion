@@ -36,6 +36,8 @@ class DialogueCorpus(models.Model):
 class Dialogue(models.Model):
     content = models.TextField()
     corpus = models.ForeignKey(DialogueCorpus, related_name="dialogues")
+    status = models.TextField(blank=True, default="NEW")
+    quality = models.TextField(blank=True, default="POOR")
 
 
 class DialogueDocument(models.Model):

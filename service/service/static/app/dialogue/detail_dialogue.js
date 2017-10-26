@@ -45,7 +45,14 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         $scope.select($scope.documents[0]);
     });
     $scope.update = function () {
-        return Corpus.update({id: $scope.id}, $scope.corpus);
+        var action = Dialogue.update({id: $scope.id}, $scope.dialogue);
+        action.$promise.then(function () {
+            $scope.MESSAGES.UPDATE_DIALOGUE_SUCCESS = true;
+            setTimeout(function () {
+                $scope.MESSAGES.UPDATE_DIALOGUE_SUCCESS = false;
+                $scope.$apply();
+            }, 200);
+        });
     };
 
     $scope.deleteDocument = function (id) {
@@ -124,21 +131,23 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         $scope.params[task.name] = nextState;
         console.log(params);
     };
-
-    $scope.isShow = function(document){
-        for(var i = 0; i < $scope.tasks.length; i++){
+    $scope.STATUSES = STATUSES;
+    $scope.QUALITIES = QUALITIES;
+    $scope.isShow = function (document) {
+        for (var i = 0; i < $scope.tasks.length; i++) {
             var task = $scope.tasks[i];
-            if($scope.params[task.name] == 'true'){
-                if(!document["is_valid_" + task.name]){
+            if ($scope.params[task.name] == 'true') {
+                if (!document["is_valid_" + task.name]) {
                     return false;
                 }
             }
-            if($scope.params[task.name] == 'false'){
-                if(document["is_valid_" + task.name]){
+            if ($scope.params[task.name] == 'false') {
+                if (document["is_valid_" + task.name]) {
                     return false;
                 }
             }
         }
         return true;
     }
+
 });

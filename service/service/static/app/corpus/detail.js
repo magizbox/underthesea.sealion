@@ -81,4 +81,6 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
         $scope.params[task.name] = nextState;
     };
 
+
+
 });

@@ -15,7 +15,39 @@
   </div>
 </div>
 <hr style="margin-top: 0px"/>
-<h3>Dialogues</h3>
+<h3>
+  {{ totalItems }} dialogues
+  <div class="pull-right">
+    <!-- Single button -->
+    <small>
+
+
+        Status:
+    <a href="#" editable-select="params.status"
+       e-ng-options="s.value as s.text for s in statuses">
+      {{ showStatus() }}
+    </a>
+    <span ng-show="params.status">
+        <a style="color:red; cursor:pointer"
+           ng-click="params.status = null">[x]</a>
+      </span>
+    Quality:
+    <a href="#" editable-select="params.quality"
+       e-ng-options="s.value as s.text for s in qualities">
+      {{ showQuality() }}
+    </a>
+    <span ng-show="params.quality">
+        <a style="color:red; cursor:pointer"
+           ng-click="params.quality = null">[x]</a>
+      </span>
+    &nbsp;
+    <button class="btn btn-xs btn-primary" ng-click="filterChanged()">
+      <i class="fa fa-filter" aria-hidden="true"></i>
+      Filter
+    </button>
+      </small>
+  </div>
+</h3>
 <table class="table table-condensed table-hover">
   <thead>
   <tr>
@@ -25,7 +57,8 @@
   </thead>
   <tbody>
   <tr ng-repeat="dialogue in dialogues" style="cursor:pointer">
-    <th ui-sref="detailDialogue({id: dialogue.id})"><a ui-sref="detailDialogue({id: dialogue.id})">{{ dialogue.id }}</a></th>
+    <th ui-sref="detailDialogue({id: dialogue.id})"><a
+        ui-sref="detailDialogue({id: dialogue.id})">{{ dialogue.id }}</a></th>
     <td ui-sref="detailDialogue({id: dialogue.id})">
       {{ dialogue.text }}<br/>
       <div class="pull-right">

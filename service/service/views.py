@@ -43,7 +43,7 @@ class DialogueViewSet(BulkModelViewSet):
     queryset = Dialogue.objects.all()
     serializer_class = DialogueSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ('corpus',)
+    filter_fields = ('corpus', 'status', 'quality')
 
 
 class DialogueDocumentViewSet(BulkModelViewSet):

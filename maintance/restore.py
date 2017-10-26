@@ -5,7 +5,7 @@ from restore.dialogue_corpora import Restore
 
 if __name__ == '__main__':
     # Restore dialogue corpora
-    data_file = join(dirname(__file__), "data", "dialogue_corpora_20171024.json")
+    data_file = join(dirname(__file__), "data", "dialogue_corpora_20171025.json")
     service_api = "http://localhost:8001"
     start = time.time()
     r = Restore(service_api, data_file)

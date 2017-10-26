@@ -12,10 +12,34 @@
               class="btn btn-danger btn-xs disabled">AMR Syntax Error
       </button>
       <button ng-show="MESSAGES.CREATE_SUCCESS" type="button"
-              class="btn btn-success btn-xs disabled">Document is
-        saved successfully.
+              class="btn btn-success btn-xs disabled">
+        Document is saved successfully.
+      </button>
+            <button ng-show="MESSAGES.UPDATE_DIALOGUE_SUCCESS" type="button"
+              class="btn btn-success btn-xs disabled">
+              Dialogue is updated successfully.
       </button>
       <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
+      <div class="pull-right">
+        <div class="pull-right">
+          <small>Status:</small>
+          <button
+              ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.status == status.value}"
+              ng-click="dialogue.status = status.value; update()"
+              ng-repeat="status in STATUSES">
+            {{ status.text }}
+          </button>
+          <small>Quality:</small>
+          <button
+              ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.quality == quality.value}"
+              ng-click="dialogue.quality = quality.value; update()"
+              ng-repeat="quality in QUALITIES">{{ quality.text}}
+          </button>
+          <!--<button type="button" class="btn btn-primary btn-success btn-xs"-->
+          <!--ng-click="save(true)">Save and Create New-->
+          <!--</button>-->
+        </div>
+      </div>
     </h3>
   </div>
 </div>
@@ -60,7 +84,8 @@
                 style="cursor:default">
               Post
               <div class="pull-right">
-                <button type="button" class="btn btn-success btn-xs" ng-click="save()">
+                <button type="button" class="btn btn-success btn-xs"
+                        ng-click="save()">
                   <i class="fa fa-floppy-o" aria-hidden="true"></i>
                   Save
                 </button>

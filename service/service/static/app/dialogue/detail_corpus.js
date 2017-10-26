@@ -1,6 +1,7 @@
 app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, DialogueCorpus, Dialogue, $state, STATUSES, QUALITIES, Params, $filter) {
     $scope.id = $stateParams.id;
-
+    $scope.STATUSES = STATUSES;
+    $scope.QUALITIES = QUALITIES;
     var params = JSON.parse(JSON.stringify($stateParams));
     params["corpus"] = params["id"];
     $scope.params = Params(params, {
@@ -14,8 +15,16 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
         "category": null,
         "sentiment": null
     });
+    $scope.status = $stateParams.status ? $stateParams.status : 'ALL';
+    $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
     $scope.statuses = STATUSES;
+    $scope.updateStatus = function (value) {
+        $scope.status = value;
+    };
 
+    $scope.updateQuality = function (value) {
+        $scope.quality = value;
+    };
     $scope.showStatus = function () {
         var selected = $filter('filter')($scope.statuses,
             {value: $scope.params.status});

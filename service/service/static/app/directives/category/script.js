@@ -9,20 +9,18 @@ window.nlpElements.directive('categories', function ($filter) {
             $scope.CATEGORIES = [
                 {value: "ACCOUNT", text: 'ACCOUNT'},
                 {value: "CARD", text: 'CARD'},
-                {value: "CREDIT", text: 'CREDIT'},
                 {value: "CUSTOMER SUPPORT", text: 'CUSTOMER SUPPORT'},
                 {value: "INTEREST RATE", text: 'INTEREST RATE'},
                 {value: "INTERNET BANKING", text: 'INTERNET BANKING'},
                 {value: "LOAN", text: 'LOAN'},
                 {value: "MONEY TRANSFER", text: 'MONEY TRANSFER'},
                 {value: "PAYMENT", text: 'PAYMENT'},
+                {value: "DISCOUNT", text: 'DISCOUNT'},
                 {value: "PROMOTION", text: 'PROMOTION'},
                 {value: "SAVING", text: 'SAVING'},
                 {value: "SECURITY", text: 'SECURITY'},
                 {value: "TRADEMARK", text: 'TRADEMARK'},
-                {value: "DISCOUNT", text: 'DISCOUNT'},
-                {value: "CAREER", text: "CAREER"},
-                {value: "OTHER", text: 'OTHER'}
+                {value: "OTHER", text: 'OTHER'},
             ];
 
             $scope.showCategory = function (category) {

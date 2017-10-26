@@ -9,18 +9,18 @@ window.nlpElements.directive('sentiments', function ($filter) {
             $scope.aspects = [
                 {value: "ACCOUNT", text: 'ACCOUNT'},
                 {value: "CARD", text: 'CARD'},
-                {value: "CREDIT", text: 'CREDIT'},
                 {value: "CUSTOMER SUPPORT", text: 'CUSTOMER SUPPORT'},
                 {value: "INTEREST RATE", text: 'INTEREST RATE'},
                 {value: "INTERNET BANKING", text: 'INTERNET BANKING'},
                 {value: "LOAN", text: 'LOAN'},
                 {value: "MONEY TRANSFER", text: 'MONEY TRANSFER'},
-                {value: "OTHER", text: 'OTHER'},
                 {value: "PAYMENT", text: 'PAYMENT'},
+                {value: "DISCOUNT", text: 'DISCOUNT'},
                 {value: "PROMOTION", text: 'PROMOTION'},
                 {value: "SAVING", text: 'SAVING'},
                 {value: "SECURITY", text: 'SECURITY'},
                 {value: "TRADEMARK", text: 'TRADEMARK'},
+                {value: "OTHER", text: 'OTHER'},
             ];
 
             $scope.showAspect = function (sentiment) {

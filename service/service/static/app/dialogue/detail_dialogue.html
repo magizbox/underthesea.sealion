@@ -38,12 +38,13 @@
       </div>
     </h4>
     <div style="height:600px; overflow-y: scroll; margin-right:4px">
-      <div class="media" ng-repeat="document in documents">
+      <div class="media"
+           ng-show="isShow(document)"
+           ng-repeat="document in documents">
         <div class="media-body">
           <p class="media-heading media-level-{{document.level}}"
              ng-click="select(document)"
-             ng-class="{'media-focus': document.id == doc.id}"
-             ng-show="isShow(document)">
+             ng-class="{'media-focus': document.id == doc.id}">
             {{ document.text }}
           </p>
         </div>

@@ -12,12 +12,14 @@ window.nlpElements.directive('acts', function ($filter) {
                 {value: "SELFDISCLOSURE", text: 'SELFDISCLOSURE'},
                 {value: "ORDER", text: 'ORDER'},
                 {value: "QUESTION", text: 'QUESTION'},
+                {value: "ANSWER", text: 'ANSWER'},
                 {value: "INVITATION", text: 'INVITATION'},
                 {value: "INFORMATION", text: 'INFORMATION'},
                 {value: "THANKS", text: 'THANKS'},
                 {value: "CURSE", text: 'CURSE'},
                 {value: "APOLOGY", text: 'APOLOGY'},
                 {value: "INTERJECTION", text: 'INTERJECTION'},
+                {value: "CONGRATULATION", text: 'CONGRATULATION'},
                 {value: "MISC", text: 'MISC'}
             ];
 

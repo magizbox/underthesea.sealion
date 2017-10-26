@@ -49,5 +49,5 @@ class DialogueViewSet(BulkModelViewSet):
 class DialogueDocumentViewSet(BulkModelViewSet):
     queryset = DialogueDocument.objects.all()
     serializer_class = DialogueDocumentSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, SentimentFilterBackend, )
     filter_fields = ('dialogue', )

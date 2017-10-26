@@ -27,6 +27,6 @@ class DialogueDocumentExport:
                 'Accept': 'application/json'}
             r = requests.get(url, headers=headers).json()
             items = items + r["results"]
-
+        print("Export {} items to {}".format(len(items), self.data_file))
         data = Text(json.dumps(items, ensure_ascii=False))
         write(self.data_file, data)

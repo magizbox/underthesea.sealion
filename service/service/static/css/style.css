@@ -74,7 +74,7 @@
 }
 
 .media-body p:hover {
-    background: #efefef;
+    background: #dff0d8;
 }
 
 .media-level-2 {
@@ -95,5 +95,12 @@
 }
 
 .media-body .media-focus {
-    background: #efefef;
+    color: #3c763d;
+    background-color: #dff0d8 !important;
+}
+
+.media-body .media-disabled {
+    background: #efefef !important;
+    color: #444 !important;
+    cursor: not-allowed;
 }

@@ -123,6 +123,16 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
             "label": "SA"
         },
     ];
+
+    $scope.toggleIgnore = function(){
+        if($scope.doc.ignore == ""){
+            $scope.doc.ignore = "true"
+        } else {
+            $scope.doc.ignore = ""
+        }
+        $scope.save();
+    };
+
     $scope.toggle = function (task) {
         var states = ["true", "false", null];
         var i = states.indexOf($scope.params[task.name]);

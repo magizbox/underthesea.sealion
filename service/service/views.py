@@ -53,4 +53,4 @@ class DialogueDocumentViewSet(BulkModelViewSet):
         django_filters.rest_framework.DjangoFilterBackend,
         ActFilterBackend,
         SentimentFilterBackend,)
-    filter_fields = ('dialogue',)
+    filter_fields = ('dialogue', 'ignore')

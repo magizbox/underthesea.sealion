@@ -50,4 +50,5 @@ class DialogueDocument(models.Model):
     meta = models.TextField(blank=True)
     status = models.TextField(blank=True)
     quality = models.TextField(blank=True)
+    ignore = models.TextField(blank=True)
     dialogue = models.ForeignKey(Dialogue, related_name="documents")

@@ -68,7 +68,10 @@
         <div class="media-body">
           <p class="media-heading media-level-{{document.level}}"
              ng-click="select(document)"
-             ng-class="{'media-focus': document.id == doc.id}">
+             ng-class="{
+              'media-focus': document.id == doc.id,
+              'media-disabled': document.ignore != ''
+              }">
             {{ document.text }}
           </p>
         </div>
@@ -80,18 +83,33 @@
       <div class="col-xs-12">
         <div class="row">
           <ul class="list-group">
-            <li class="list-group-item list-group-item-success"
+            <li class="list-group-item"
+                ng-class="{
+                  'list-group-item-success': doc.ignore == '',
+                  'disabled': doc.ignore != ''
+                }"
                 style="cursor:default">
               Post
               <div class="pull-right">
+                <button type="button" class="btn btn-danger btn-xs"
+                        ng-click="toggleIgnore()"
+                        ng-show="doc.ignore == ''">
+                  <i class="fa fa-ban" aria-hidden="true"></i>
+                  Ignore
+                </button>
                 <button type="button" class="btn btn-success btn-xs"
-                        ng-click="save()">
-                  <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                  Save
+                        ng-click="toggleIgnore()"
+                        ng-show="doc.ignore == 'true'">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  Active
+                  </span>
                 </button>
               </div>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item"
+                ng-class="{
+                  'disabled': doc.ignore != ''
+                }">
               Posted by <a href="{{meta.url}}" target="_blank">{{ meta.from_name
               }}</a>
             </li>
@@ -99,19 +117,22 @@
           </ul>
         </div>
       </div>
-      <div class="col-xs-12">
-        <acts ng-model="acts"
-              suggestions="auto_acts"
-              onaftersave="save()"></acts>
+      <div ng-show="doc.ignore == ''">
+        <div class="col-xs-12">
+          <acts ng-model="acts"
+                suggestions="auto_acts"
+                onaftersave="save()"></acts>
+        </div>
+        <div class="col-xs-12">
+          <categories ng-model="categories"
+                      onaftersave="save()"></categories>
+        </div>
+        <div class="col-xs-12">
+          <sentiments ng-model="sentiments"
+                      onaftersave="save()"></sentiments>
+        </div>
       </div>
-      <div class="col-xs-12">
-        <categories ng-model="categories"
-                    onaftersave="save()"></categories>
-      </div>
-      <div class="col-xs-12">
-        <sentiments ng-model="sentiments"
-                    onaftersave="save()"></sentiments>
-      </div>
+
     </div>
   </div>
 </div>

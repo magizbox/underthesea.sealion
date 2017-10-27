@@ -12,13 +12,15 @@
       </div>
     </li>
     <li class="list-group-item" style="padding: 0px;">
-      <table class="table table-bordered table-hover table-condensed" style="margin-bottom: 0px;">
+      <table class="table table-bordered table-hover table-condensed"
+             style="margin-bottom: 0px;">
         <tr ng-repeat="act in ngModel">
           <td style="padding-left: 15px; padding-top: 10px">
                 <span editable-select="act.name"
                       e-name="aspect"
                       e-form="rowform"
-                      e-ng-options="c.value as c.text for c in ACTS">
+                      e-ng-options="c.value as c.text for c in ACTS"
+                      onbeforesave="validate($data, act)">
                   {{ showAct(act) }}
                 </span>
           </td>
@@ -27,12 +29,15 @@
             <form editable-form name="rowform"
                   ng-show="rowform.$visible"
                   class="form-buttons form-inline"
-                  shown="inserted == act">
-              <button type="submit" ng-disabled="rowform.$waiting"
+                  shown="inserted == act"
+                  onaftersave="save()">
+              <button type="submit"
+                      ng-disabled="rowform.$waiting"
                       class="btn btn-sm btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
               </button>
-              <button type="button" ng-disabled="rowform.$waiting"
+              <button type="button"
+                      ng-disabled="rowform.$waiting"
                       ng-click="rowform.$cancel()"
                       class="btn btn-sm btn-default">
                 <i class="fa fa-times" aria-hidden="true"></i>
@@ -56,16 +61,16 @@
     <li class="list-group-item disabled">
       Suggestion
     </li>
-    <li class="list-group-item" ng-repeat="act in suggestions">
-      <b ng-show="checkAct(act)"> {{ act.name }}</b>
-      <span ng-hide="checkAct(act)">{{ act.name }}</span>
+    <li class="list-group-item" ng-repeat="item in suggestions">
+      <b ng-show="has(item)"> {{ item.name }}</b>
+      <span ng-hide="has(item)">{{ item.name }}</span>
       <div class="pull-right">
         <button class="btn btn-xs"
                 ng-class="{
-                  'btn-default': !checkAct(act),
-                  'btn-primary': checkAct(act)
+                  'btn-default': !has(item),
+                  'btn-primary': has(item)
                 }"
-                ng-click="setAct(act)">
+                ng-click="set(item)">
           <i class="fa fa-check"></i>
         </button>
       </div>

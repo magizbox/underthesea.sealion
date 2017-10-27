@@ -105,7 +105,7 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
             setTimeout(function () {
                 $scope.MESSAGES.CREATE_SUCCESS = false;
                 $scope.$apply();
-            }, 2000);
+            }, 800);
         });
     }
 
@@ -148,6 +148,5 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
             }
         }
         return true;
-    }
-
+    };
 });

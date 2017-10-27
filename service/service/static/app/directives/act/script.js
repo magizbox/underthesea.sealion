@@ -4,7 +4,8 @@ window.nlpElements.directive('acts', function ($filter) {
         restrict: 'AE',
         scope: {
             'ngModel': '=',
-            'suggestions': '='
+            'suggestions': '=',
+            'onaftersave': '&'
         },
         controller: function ($scope) {
             $scope.ACTS = [
@@ -27,9 +28,12 @@ window.nlpElements.directive('acts', function ($filter) {
                 var selected = [];
                 if (act.name) {
                     selected = $filter('filter')($scope.ACTS, {value: act.name});
-                    console.log(selected);
                 }
                 return selected.length ? selected[0].text : 'Not set';
+            };
+
+            $scope.save = function(){
+                $scope.onaftersave();
             };
 
             $scope.addAct = function () {
@@ -42,6 +46,7 @@ window.nlpElements.directive('acts', function ($filter) {
 
             $scope.removeAct = function (index) {
                 $scope.ngModel.splice(index, 1);
+                $scope.save();
             };
 
             $scope.score = function (y1, y2) {
@@ -64,19 +69,27 @@ window.nlpElements.directive('acts', function ($filter) {
                 f = 100 * (2 * p * r) / (p + r);
                 return Math.round(f);
             };
-            $scope.checkAct = function (act) {
+
+            $scope.validate = function(data){
+                var isValid = !_.chain(this.ngModel).pluck("name").initial().contains(data).value();
+                if(!isValid){
+                    return "It is not allowed duplicated value.";
+                }
+            };
+            $scope.has = function (act) {
                 var acts = _.pluck($scope.ngModel, "name");
                 return _.contains(acts, act.name);
             };
 
-            $scope.setAct = function (act) {
-                if (!$scope.checkAct(act)) {
+            $scope.set = function (item) {
+                if (!$scope.has(item)) {
                     $scope.inserted = {
                         id: $scope.ngModel.length + 1,
-                        name: act.name
+                        name: item.name
                     };
                     $scope.ngModel.push($scope.inserted);
                     $scope.inserted = null;
+                    $scope.save();
                 }
             };
         }

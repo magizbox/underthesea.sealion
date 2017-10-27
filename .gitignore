@@ -97,3 +97,4 @@ ENV/
 .ropeproject
 /maintance/data/
 /service/db.sqlite3
+/service/service/migrations/

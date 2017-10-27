@@ -18,7 +18,8 @@
                 <span editable-select="category.name"
                       e-name="aspect"
                       e-form="rowform"
-                      e-ng-options="c.value as c.text for c in CATEGORIES">
+                      e-ng-options="c.value as c.text for c in CATEGORIES"
+                      onbeforesave="validate($data)">
                   {{ showCategory(category) }}
                 </span>
           </td>
@@ -27,7 +28,8 @@
             <form editable-form name="rowform"
                   ng-show="rowform.$visible"
                   class="form-buttons form-inline"
-                  shown="inserted == category">
+                  shown="inserted == category"
+                  onaftersave="save()">
               <button type="submit" ng-disabled="rowform.$waiting"
                       class="btn btn-sm btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
@@ -44,7 +46,7 @@
                 <i class="fa fa-edit" aria-hidden="true"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger"
-                      ng-click="removeCategory($index)">
+                      ng-click="remove($index)">
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </div>

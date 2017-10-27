@@ -15,9 +15,9 @@
               class="btn btn-success btn-xs disabled">
         Document is saved successfully.
       </button>
-            <button ng-show="MESSAGES.UPDATE_DIALOGUE_SUCCESS" type="button"
+      <button ng-show="MESSAGES.UPDATE_DIALOGUE_SUCCESS" type="button"
               class="btn btn-success btn-xs disabled">
-              Dialogue is updated successfully.
+        Dialogue is updated successfully.
       </button>
       <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
       <div class="pull-right">
@@ -100,10 +100,13 @@
         </div>
       </div>
       <div class="col-xs-12">
-        <acts ng-model="acts" suggestions="auto_acts" onaftersave="save()"></acts>
+        <acts ng-model="acts"
+              suggestions="auto_acts"
+              onaftersave="save()"></acts>
       </div>
       <div class="col-xs-12">
-        <categories ng-model="categories"></categories>
+        <categories ng-model="categories"
+                    onaftersave="save()"></categories>
       </div>
       <div class="col-xs-12">
         <sentiments ng-model="sentiments"></sentiments>

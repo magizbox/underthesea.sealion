@@ -3,7 +3,8 @@ window.nlpElements.directive('categories', function ($filter) {
         templateUrl: './static/app/directives/category/dom.html',
         restrict: 'AE',
         scope: {
-            'ngModel': '='
+            'ngModel': '=',
+            "onaftersave": "&"
         },
         controller: function ($scope) {
             $scope.CATEGORIES = [
@@ -23,6 +24,18 @@ window.nlpElements.directive('categories', function ($filter) {
                 {value: "OTHER", text: 'OTHER'},
             ];
 
+
+            $scope.save = function(){
+                $scope.onaftersave();
+            };
+
+             $scope.validate = function(data){
+                var isValid = !_.chain(this.ngModel).pluck("name").initial().contains(data).value();
+                if(!isValid){
+                    return "It is not allowed duplicated value.";
+                }
+            };
+
             $scope.showCategory = function (category) {
                 var selected = [];
                 if (category.name) {
@@ -39,8 +52,9 @@ window.nlpElements.directive('categories', function ($filter) {
                 $scope.ngModel.push($scope.inserted);
             };
 
-            $scope.removeCategory = function (index) {
+            $scope.remove = function (index) {
                 $scope.ngModel.splice(index, 1);
+                $scope.save();
             };
         }
     }

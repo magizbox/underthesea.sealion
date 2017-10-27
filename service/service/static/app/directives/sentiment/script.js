@@ -3,7 +3,8 @@ window.nlpElements.directive('sentiments', function ($filter) {
         templateUrl: './static/app/directives/sentiment/dom.html',
         restrict: 'AE',
         scope: {
-            'ngModel': '='
+            'ngModel': '=',
+            "onaftersave": "&"
         },
         controller: function ($scope) {
             $scope.aspects = [
@@ -23,6 +24,27 @@ window.nlpElements.directive('sentiments', function ($filter) {
                 {value: "OTHER", text: 'OTHER'},
             ];
 
+            $scope.save = function () {
+                $scope.onaftersave();
+            };
+
+            $scope.validate = function (field, data) {
+                if (field == "aspect") {
+                    if (!data) {
+                        return "Blank is not valid value.";
+                    }
+                    var isValid = !_.chain(this.ngModel).pluck("aspect").initial().contains(data).value();
+                    if (!isValid) {
+                        return "It is not allowed duplicated value.";
+                    }
+                }
+
+                if (field == "polarity") {
+                    if (!data) {
+                        return "Blank is not valid value.";
+                    }
+                }
+            };
             $scope.showAspect = function (sentiment) {
                 var selected = [];
                 if (sentiment.aspect) {
@@ -54,8 +76,9 @@ window.nlpElements.directive('sentiments', function ($filter) {
                 $scope.ngModel.push($scope.inserted);
             };
 
-            $scope.delete = function(index){
+            $scope.delete = function (index) {
                 $scope.ngModel.splice(index, 1);
+                $scope.save();
             }
         }
     }

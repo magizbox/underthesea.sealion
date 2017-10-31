@@ -47,6 +47,7 @@ class DialogueDocument(models.Model):
     sentiment = models.TextField(blank=True)
     category = models.TextField(blank=True)
     act = models.TextField(blank=True)
+    auto_act = models.TextField(blank=True)
     meta = models.TextField(blank=True)
     status = models.TextField(blank=True)
     quality = models.TextField(blank=True)

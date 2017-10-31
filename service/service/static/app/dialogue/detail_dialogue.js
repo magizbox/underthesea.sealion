@@ -62,10 +62,6 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     };
 
     $scope.select = function (doc) {
-
-        $scope.auto_acts = [{
-            "name": "INFORMATION"
-        }];
         $scope.doc = doc;
         try {
             $scope.sentiments = JSON.parse(doc.sentiment);

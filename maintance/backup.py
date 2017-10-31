@@ -7,6 +7,6 @@ if __name__ == '__main__':
     # service_url = "http://localhost:8000"
     # backup_corpora(service_url, file)
 
-    file = join(dirname(__file__), "data", "dialogue_corpora_20171027.json")
+    file = join(dirname(__file__), "data", "dialogue_corpora_20171031.json")
     service_url = "http://localhost:8000"
     backup_dialogue_corpora(service_url, file)

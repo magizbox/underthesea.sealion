@@ -64,6 +64,7 @@ app.factory('DialogueDocument', function ($resource) {
         'filter': '@filter'
     }, {
         '_query': {method: 'GET'},
+        '_get': {method: 'GET'},
         'update': {method: 'PUT'}
     });
     resource.query = function () {
@@ -87,6 +88,14 @@ app.factory('DialogueDocument', function ($resource) {
             return Promise.resolve(output);
         });
     };
+    resource.get = function () {
+        // call the original get method via the _get alias, chaining $then to facilitate
+        // processing the data
+        return resource._get.apply(null, arguments).$promise.then(function (data) {
+            data["auto_act"] = JSON.parse(data["auto_act"]);
+            return Promise.resolve(data);
+        });
+    };
     return resource;
 });
 
@@ -104,7 +113,7 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
             return new Promise(function (fulfill, reject) {
                 var p = _.map(dialogues, function (dialogue) {
                     var docId = JSON.parse(dialogue.content)[0];
-                    return DialogueDocumentService.get({"id": docId}).$promise;
+                    return DialogueDocumentService.get({"id": docId});
                 });
                 Promise.all(p).then(function (documents) {
                     var output = _.zip(dialogues, documents);
@@ -139,7 +148,7 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
                 documentIds = JSON.parse(data["content"]);
                 ids = _.flatten(documentIds);
                 var r = _.map(ids, function (id) {
-                    return DialogueDocumentService.get({"id": id}).$promise;
+                    return DialogueDocumentService.get({"id": id});
                 });
                 Promise.all(r).then(function (data) {
                     data = data.reduce(function (map, obj) {

@@ -4,7 +4,7 @@ from backup.dialogue_corpora import get_documents
 from client.sealion import SeaLionClient
 from client.underthesea import UnderTheSeaClient
 
-sc = SeaLionClient("http://localhost:8001")
+sc = SeaLionClient("http://localhost:8000")
 dd = sc.dialog_document
 dialog_documents = dd.get_all()
 

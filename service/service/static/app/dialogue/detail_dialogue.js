@@ -81,7 +81,10 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         try {
             $scope.meta = JSON.parse(doc.meta);
         } catch (e) {
-
+        }
+        try {
+            $scope.auto_act = doc.auto_act;
+        } catch (e) {
         }
     };
 
@@ -95,6 +98,7 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         $scope.doc.sentiment = angular.toJson($scope.sentiments);
         $scope.doc.category = angular.toJson($scope.categories);
         $scope.doc.act = angular.toJson($scope.acts);
+        $scope.doc.auto_act = angular.toJson($scope.auto_act);
         var action = DialogueDocument.update({id: $scope.doc.id}, $scope.doc);
         action.$promise.then(function () {
             $scope.MESSAGES.CREATE_SUCCESS = true;

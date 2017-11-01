@@ -92,7 +92,11 @@ app.factory('DialogueDocument', function ($resource) {
         // call the original get method via the _get alias, chaining $then to facilitate
         // processing the data
         return resource._get.apply(null, arguments).$promise.then(function (data) {
-            data["auto_act"] = JSON.parse(data["auto_act"]);
+            try {
+                data["auto_act"] = JSON.parse(data["auto_act"]);
+            } catch(e){
+                data["auto_act"] = [];
+            }
             return Promise.resolve(data);
         });
     };

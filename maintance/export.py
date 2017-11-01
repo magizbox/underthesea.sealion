@@ -3,7 +3,9 @@ from os.path import join, dirname
 from export.dialogue_document import DialogueDocumentExport
 
 if __name__ == '__main__':
-    data_file = join(dirname(__file__), "data", "acts_20171031.json")
     service_api = "http://localhost:8000"
-    exporter = DialogueDocumentExport(service_api, data_file)
-    exporter.export()
+    data_folder = join(dirname(__file__), "data")
+    exporter = DialogueDocumentExport(service_api)
+    exporter.export({"act": "true"}, join(data_folder, "acts_20171101.json"))
+    exporter.export({"category": "true"},
+                    join(data_folder, "categories_20171101.json"))

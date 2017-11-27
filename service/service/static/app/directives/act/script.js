@@ -8,6 +8,7 @@ window.nlpElements.directive('acts', function ($filter) {
             'onaftersave': '&'
         },
         controller: function ($scope) {
+            console.log($scope.suggestions);
             $scope.ACTS = [
                 {value: "GREETING", text: 'GREETING'},
                 {value: "SELFDISCLOSURE", text: 'SELFDISCLOSURE'},

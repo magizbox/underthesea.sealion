@@ -94,6 +94,9 @@ app.factory('DialogueDocument', function ($resource) {
         return resource._get.apply(null, arguments).$promise.then(function (data) {
             try {
                 data["auto_act"] = JSON.parse(data["auto_act"]);
+                if(!Array.isArray(data["auto_act"])){
+                    data["auto_act"] = [];
+                }
             } catch(e){
                 data["auto_act"] = [];
             }

@@ -9,6 +9,7 @@ window.nlpElements.directive('categories', function ($filter) {
         controller: function ($scope) {
             $scope.CATEGORIES = [
                 {value: "ACCOUNT", text: 'ACCOUNT'},
+                {value: "CAREER", text: 'CAREER'},
                 {value: "CARD", text: 'CARD'},
                 {value: "CUSTOMER SUPPORT", text: 'CUSTOMER SUPPORT'},
                 {value: "INTEREST RATE", text: 'INTEREST RATE'},

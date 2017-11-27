@@ -82,14 +82,8 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
             $scope.meta = JSON.parse(doc.meta);
         } catch (e) {
         }
-        try {
-            $scope.auto_act = JSON.parse(doc.auto_act);
-            if(!Array.isArray($scope.auto_act)){
-                $scope.auto_act = [];
-            }
-        } catch (e) {
-            $scope.auto_act = [];
-        }
+        $scope.auto_act = doc.auto_act;
+
     };
 
     $scope.MESSAGES = {

@@ -1,48 +1,48 @@
 <div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-      </ol>
-      <div class="pull-right">
-        <a class="btn btn-sm btn-success" ui-sref="newCorpus">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          New Corpus
-        </a>
-      </div>
-    </h3>
-  </div>
+    <div class="col-xs-12">
+        <h3>
+            <ol class="breadcrumb" style="float:left; font-size: 16px">
+                <li><a href="#">Sea Lion</a></li>
+            </ol>
+            <div class="pull-right">
+                <a class="btn btn-sm btn-success" ui-sref="newCorpus">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    New Corpus
+                </a>
+            </div>
+        </h3>
+    </div>
 </div>
 <hr style="margin-top: 0px"/>
 <table class="table table-condensed table-hover">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="corpus in corpora" style="cursor:pointer">
-    <th><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.id }}</a></th>
-    <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</td>
-    <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>
-    <td style="cursor:default">
-      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"
-      ng-click="openEdit(corpus)">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        Edit
-      </button>
-      <button class="btn btn-danger btn-xs"
-              mw-confirm-click="delete(corpus.id)"
-              mw-confirm-click-message="Are you sure?">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-        Delete
-      </button>
-    </td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="corpus in corpora" style="cursor:pointer">
+        <th><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.id }}</a></th>
+        <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</td>
+        <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>
+        <td style="cursor:default">
+            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"
+                    ng-click="openEdit(corpus)">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                Edit
+            </button>
+            <button class="btn btn-danger btn-xs"
+                    mw-confirm-click="delete(corpus.id)"
+                    mw-confirm-click-message="Are you sure?">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                Delete
+            </button>
+        </td>
+    </tr>
+    </tbody>
 
 
 </table>
@@ -51,33 +51,48 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Edit Corpus</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" id="title" placeholder="" ng-model="tmp.title">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" id="description" placeholder="" ng-model="tmp.description">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-success" ng-click="updateCorpus()">Save changes</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Corpus</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="" ng-model="tmp.title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="description" placeholder=""
+                               ng-model="tmp.description">
+                    </div>
+                    <div class="form-group">
+                        <label>Tasks</label>
+                        <div class="row no-margin wrap-tasks">
+                            <div class="col-sm-6" ng-repeat="task in listTask">
+                                <div class="checkbox checkbox-primary">
+                                    <input id="{{task.name}}" type="checkbox" ng-model="selectedTask[task.value]" >
+                                    <label for="{{task.name}}">
+                                        {{task.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-success" ng-click="updateCorpus()">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 

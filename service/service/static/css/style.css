@@ -104,3 +104,12 @@
     color: #444 !important;
     cursor: not-allowed;
 }
+
+.no-margin{
+    margin: 0px !important;
+}
+
+.wrap-tasks{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

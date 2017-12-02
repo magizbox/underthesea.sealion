@@ -26,8 +26,8 @@
     </thead>
     <tbody>
     <tr ng-repeat="corpus in corpora" style="cursor:pointer">
-        <th><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.id }}</a></th>
-        <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</td>
+        <th>{{ corpus.id }}</th>
+        <td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</a></td>
         <td>
             <button class="btn btn-xs btn-true" style="margin-right: 2px;" ng-repeat="task in corpus.tasks">
                 {{task}}

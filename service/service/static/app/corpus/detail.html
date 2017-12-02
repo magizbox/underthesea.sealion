@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="init()">
   <div class="col-xs-12">
     <h3>
       <ol class="breadcrumb" style="float:left; font-size: 16px">
@@ -26,13 +26,13 @@
     Tasks:
     <button class="btn btn-xs" style="margin-right:1px"
             ng-class="{
-              'btn-null': params[task.name] == null,
-              'btn-true': params[task.name] == 'true',
-              'btn-false': params[task.name] == 'false',
+              'btn-null': params[task] == null,
+              'btn-true': params[task] == 'true',
+              'btn-false': params[task] == 'false',
             }"
             ng-click="toggle(task)"
-            ng-repeat="task in tasks">
-      {{ task.label }}
+            ng-repeat="task in corpus.tasks">
+      {{ task }}
     </button>
     Status:
     <a href="#" editable-select="params.status"
@@ -42,7 +42,7 @@
     <span ng-show="params.status">
         <a style="color:red; cursor:pointer"
            ng-click="params.status = null">[x]</a>
-      </span>
+    </span>
     Quality:
     <a href="#" editable-select="params.quality"
        e-ng-options="s.value as s.text for s in qualities">
@@ -51,7 +51,7 @@
     <span ng-show="params.quality">
         <a style="color:red; cursor:pointer"
            ng-click="params.quality = null">[x]</a>
-      </span>
+    </span>
     &nbsp;
     <button class="btn btn-xs btn-primary" ng-click="filterChanged()">
       <i class="fa fa-filter" aria-hidden="true"></i>
@@ -64,7 +64,7 @@
   <tr>
     <th>#</th>
     <th>Text</th>
-    <th style="width:115px;">Tasks</th>
+    <th style="min-width:115px;">Tasks</th>
     <th>Status</th>
     <th>Quality</th>
     <th></th>

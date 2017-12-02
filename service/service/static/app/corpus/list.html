@@ -19,6 +19,7 @@
     <tr>
         <th>#</th>
         <th>Title</th>
+        <th>Tasks</th>
         <th>Description</th>
         <th></th>
     </tr>
@@ -27,6 +28,11 @@
     <tr ng-repeat="corpus in corpora" style="cursor:pointer">
         <th><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.id }}</a></th>
         <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</td>
+        <td>
+            <button class="btn btn-xs btn-true" style="margin-right: 2px;" ng-repeat="task in corpus.tasks">
+                {{task}}
+            </button>
+        </td>
         <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>
         <td style="cursor:default">
             <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"
@@ -75,7 +81,7 @@
                         <div class="row no-margin wrap-tasks">
                             <div class="col-sm-6" ng-repeat="task in listTask">
                                 <div class="checkbox checkbox-primary">
-                                    <input id="{{task.name}}" type="checkbox" ng-model="selectedTask[task.value]" >
+                                    <input id="{{task.name}}" type="checkbox" ng-model="selectedTask[task.value]">
                                     <label for="{{task.name}}">
                                         {{task.name}}
                                     </label>

@@ -45,6 +45,9 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
   }
   $scope.getListCorpus = function () {
     Corpus.query(query).then(function (data) {
+      _.each(data, function (item) {
+        item.tasks = item.tasks.split(",");
+      });
       $scope.corpora = data;
     });
   };
@@ -56,8 +59,12 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
       $state.reload();
     })
   };
+
   $scope.openEdit = function (corpus) {
     $scope.tmp = $.extend({}, corpus);
+    _.each($scope.tmp.tasks, function (item) {
+      $scope.selectedTask[item] = true;
+    });
   };
 
   $scope.updateCorpus = function () {
@@ -68,6 +75,7 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
       .allKeys().value();
     $scope.tmp["tasks"] = list.toString();
     Corpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function () {
+      $("#myModal").modal('hide');
       $scope.getListCorpus();
     });
   };

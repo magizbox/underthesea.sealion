@@ -7,7 +7,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./static/app/common/main.html"
         })
         .state({
-            url: '/corpora/?status&quality',
+            url: '/corpora?status&quality',
             name: 'listCorpus',
             controller: 'ListCorpusCtrl',
             templateUrl: "./static/app/corpus/list.html"

@@ -105,11 +105,21 @@
     cursor: not-allowed;
 }
 
-.no-margin{
+.no-margin {
     margin: 0px !important;
 }
 
-.wrap-tasks{
+.wrap-tasks {
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+#content .table-corpora {
+    margin-top: 15px;
+}
+
+.table-corpora .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

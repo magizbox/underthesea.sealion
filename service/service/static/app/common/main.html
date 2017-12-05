@@ -1,26 +1,34 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-      </ol>
-      <!--<div class="pull-right">-->
-      <!--<a class="btn btn-sm btn-success" ui-sref="newCorpus">-->
-      <!--<i class="fa fa-plus" aria-hidden="true"></i>-->
-      <!--New Corpus-->
-      <!--</a>-->
-      <!--</div>-->
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+    </header>
+    <section>
+        <section class="hbox stretch"> <!-- .aside -->
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
 
-<div class="jumbotron">
-  <h3>Natural Language Processing Resources</h3>
-  <p class="lead">A subproject of <a href="http://magizbox.com/underthesea">underthesea</a>
-  </p>
-  <p>
-    <a class="btn btn-lg btn-success" ui-sref="listCorpus" role="button">Corpora</a>
-    <a class="btn btn-lg btn-success" ui-sref="listDialogueCorpus" role="button">Dialogue Corpora</a>
-  </p>
-</div>
+                            </section>
+
+                        </section>
+                    </section>
+                    <aside class="aside-md bg-light dk" id="sidebar">
+                        <section ng-include="'./static/app/common/aside-right.html'" class="vbox animated fadeInRight"></section>
+                    </aside>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>

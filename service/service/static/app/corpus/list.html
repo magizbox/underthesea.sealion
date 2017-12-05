@@ -1,113 +1,204 @@
-<div class="row">
-    <div class="col-xs-12">
-        <h3>
-            <ol class="breadcrumb" style="float:left; font-size: 16px">
-                <li><a href="#">Sea Lion</a></li>
-            </ol>
-            <div class="pull-right">
-                <a class="btn btn-sm btn-success" ui-sref="newCorpus">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    New Corpus
-                </a>
-            </div>
-        </h3>
-    </div>
-</div>
-<hr style="margin-top: 0px"/>
-<table class="table table-condensed table-hover">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Tasks</th>
-        <th>Description</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="corpus in corpora" style="cursor:pointer">
-        <th>{{ corpus.id }}</th>
-        <td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</a></td>
-        <td>
-            <button class="btn btn-xs btn-true" style="margin-right: 2px;" ng-repeat="task in corpus.tasks">
-                {{task}}
-            </button>
-        </td>
-        <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>
-        <td style="cursor:default">
-            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"
-                    ng-click="openEdit(corpus)">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                Edit
-            </button>
-            <button class="btn btn-danger btn-xs"
-                    mw-confirm-click="delete(corpus.id)"
-                    mw-confirm-click-message="Are you sure?">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                Delete
-            </button>
-        </td>
-    </tr>
-    </tbody>
-
-
-</table>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Edit Corpus</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" class="form-control" id="title" placeholder="" ng-model="tmp.title">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" class="form-control" id="description" placeholder=""
-                               ng-model="tmp.description">
-                    </div>
-                    <div class="form-group">
-                        <label>Tasks</label>
-                        <div class="row no-margin wrap-tasks">
-                            <div class="col-sm-6">
-                                <div class="checkbox checkbox-primary"  ng-repeat="task1 in listTask" ng-if="$index < 4">
-                                    <input id="{{task1.value}}" type="checkbox" ng-model="selectedTask[task1.value]">
-                                    <label for="{{task1.value}}">
-                                        {{task1.name}}
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="checkbox checkbox-primary"  ng-repeat="task2 in listTask" ng-if="$index >= 4">
-                                    <input id="{{task2.value}}" type="checkbox" ng-model="selectedTask[task2.value]">
-                                    <label for="{{task2.value}}">
-                                        {{task2.name}}
-                                    </label>
-                                </div>
-                            </div>
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+    </header>
+    <section>
+        <section class="hbox stretch"> <!-- .aside -->
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
                         </div>
-                    </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder">
+                                <section class="panel panel-default table-corpora">
+                                    <div class="panel-heading">
+                                        <header style="font-size: 18px;"> Corpora List</header>
+                                        <div class="input-group" style="width: 300px;">
+                                            <input type="text" class="input-sm form-control"
+                                                   placeholder="Search">
+                                            <span class="input-group-btn">
+                                                    <a class="btn btn-sm btn-success" ui-sref="newCorpus">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </a>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped b-t b-light">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Title</th>
+                                                    <th>Tasks</th>
+                                                    <th>Description</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="corpus in corpora track by $index">
+                                                    <td>{{ corpus.id }}</td>
+                                                    <td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title
+                                                        }}</a></td>
+                                                    <td>
+                                                        <button class="btn btn-xs btn-true" style="margin-right: 2px;"
+                                                                ng-repeat="task in corpus.tasks">
+                                                            {{task}}
+                                                        </button>
+                                                    </td>
+                                                    <td>{{ corpus.description }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">
+                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                            Edit
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-success" ng-click="updateCorpus()">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+                                    <footer class="panel-footer">
+                                        <div class="row text-right">
+                                            <ul uib-pagination boundary-links="true" total-items="10" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="10" style="margin: 0px 10px !important;"></ul>
+                                        </div>
+                                    </footer>
+                                </section>
+                            </section>
+
+                        </section>
+                    </section>
+
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+<!--<div class="row">-->
+<!--<div class="col-xs-12">-->
+<!--<h3>-->
+<!--<ol class="breadcrumb" style="float:left; font-size: 16px">-->
+<!--<li><a href="#">Sea Lion</a></li>-->
+<!--</ol>-->
+<!--<div class="pull-right">-->
+<!--<a class="btn btn-sm btn-success" ui-sref="newCorpus">-->
+<!--<i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--New Corpus-->
+<!--</a>-->
+<!--</div>-->
+<!--</h3>-->
+<!--</div>-->
+<!--</div>-->
+<!--<hr style="margin-top: 0px"/>-->
+<!--<table class="table table-condensed table-hover">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>#</th>-->
+<!--<th>Title</th>-->
+<!--<th>Tasks</th>-->
+<!--<th>Description</th>-->
+<!--<th></th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="corpus in corpora" style="cursor:pointer">-->
+<!--<th>{{ corpus.id }}</th>-->
+<!--<td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</a></td>-->
+<!--<td>-->
+<!--<button class="btn btn-xs btn-true" style="margin-right: 2px;" ng-repeat="task in corpus.tasks">-->
+<!--{{task}}-->
+<!--</button>-->
+<!--</td>-->
+<!--<td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>-->
+<!--<td style="cursor:default">-->
+<!--<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"-->
+<!--ng-click="openEdit(corpus)">-->
+<!--<i class="fa fa-pencil" aria-hidden="true"></i>-->
+<!--Edit-->
+<!--</button>-->
+<!--<button class="btn btn-danger btn-xs"-->
+<!--mw-confirm-click="delete(corpus.id)"-->
+<!--mw-confirm-click-message="Are you sure?">-->
+<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--Delete-->
+<!--</button>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+
+
+<!--</table>-->
+
+
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog"-->
+<!--aria-labelledby="myModalLabel">-->
+<!--<div class="modal-dialog" role="document">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal"-->
+<!--aria-label="Close"><span aria-hidden="true">&times;</span>-->
+<!--</button>-->
+<!--<h4 class="modal-title" id="myModalLabel">Edit Corpus</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<form>-->
+<!--<div class="form-group">-->
+<!--<label>Title</label>-->
+<!--<input type="text" class="form-control" id="title" placeholder="" ng-model="tmp.title">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label>Description</label>-->
+<!--<input type="text" class="form-control" id="description" placeholder=""-->
+<!--ng-model="tmp.description">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label>Tasks</label>-->
+<!--<div class="row no-margin wrap-tasks">-->
+<!--<div class="col-sm-6">-->
+<!--<div class="checkbox checkbox-primary"  ng-repeat="task1 in listTask" ng-if="$index < 4">-->
+<!--<input id="{{task1.value}}" type="checkbox" ng-model="selectedTask[task1.value]">-->
+<!--<label for="{{task1.value}}">-->
+<!--{{task1.name}}-->
+<!--</label>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="col-sm-6">-->
+<!--<div class="checkbox checkbox-primary"  ng-repeat="task2 in listTask" ng-if="$index >= 4">-->
+<!--<input id="{{task2.value}}" type="checkbox" ng-model="selectedTask[task2.value]">-->
+<!--<label for="{{task2.value}}">-->
+<!--{{task2.name}}-->
+<!--</label>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</form>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
+<!--Close-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-success" ng-click="updateCorpus()">Save changes</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 

@@ -25,15 +25,16 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
       name: 'Dialog Acts',
       value: 'DA'
     },
+
     {
       name: 'Category',
       value: 'CA'
     },
+
     {
       name: 'Sentiment',
       value: 'SA'
     }
-
   ];
   var query = {};
   $scope.selectedTask = {};
@@ -46,7 +47,16 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
   $scope.getListCorpus = function () {
     Corpus.query(query).then(function (data) {
       _.each(data, function (item) {
-        item.tasks = item.tasks.split(",");
+        item.tasks = _.chain(item.tasks.split(","))
+          .map(function (task) {
+            return _.indexOf(_.pluck($scope.listTask, 'value'), task);
+          })
+          .sortBy()
+          .map(function (index) {
+            return $scope.listTask[index].value;
+          })
+          .value();
+
       });
       $scope.corpora = data;
     });
@@ -68,12 +78,20 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
   };
 
   $scope.updateCorpus = function () {
-    var list = _.chain($scope.selectedTask)
+    var listSelectedTask = _.chain($scope.selectedTask)
       .pick(function (value, key, object) {
         return value == true;
       })
-      .allKeys().value();
-    $scope.tmp["tasks"] = list.toString();
+      .allKeys()
+      .map(function (task) {
+        return _.indexOf(_.pluck($scope.listTask, 'value'), task);
+      })
+      .sortBy()
+      .map(function (index) {
+        return $scope.listTask[index].value;
+      }).value();
+
+    $scope.tmp["tasks"] = listSelectedTask.toString();
     Corpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function () {
       $("#myModal").modal('hide');
       $scope.getListCorpus();

@@ -79,11 +79,20 @@
                     <div class="form-group">
                         <label>Tasks</label>
                         <div class="row no-margin wrap-tasks">
-                            <div class="col-sm-6" ng-repeat="task in listTask">
-                                <div class="checkbox checkbox-primary">
-                                    <input id="{{task.name}}" type="checkbox" ng-model="selectedTask[task.value]">
-                                    <label for="{{task.name}}">
-                                        {{task.name}}
+                            <div class="col-sm-6">
+                                <div class="checkbox checkbox-primary"  ng-repeat="task1 in listTask" ng-if="$index < 4">
+                                    <input id="{{task1.value}}" type="checkbox" ng-model="selectedTask[task1.value]">
+                                    <label for="{{task1.value}}">
+                                        {{task1.name}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="checkbox checkbox-primary"  ng-repeat="task2 in listTask" ng-if="$index >= 4">
+                                    <input id="{{task2.value}}" type="checkbox" ng-model="selectedTask[task2.value]">
+                                    <label for="{{task2.value}}">
+                                        {{task2.name}}
                                     </label>
                                 </div>
                             </div>

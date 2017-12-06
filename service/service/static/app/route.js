@@ -48,6 +48,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/document/syntax/syntax.html"
     })
     .state({
+      url: '/documents/:id/syntax',
+      name: 'detailDocument.syntax.ws',
+      controller: 'SyntaxController',
+      templateUrl: "./static/app/document/syntax/syntax.html"
+    })
+    .state({
       url: '/documents/:id/classification',
       name: 'detailDocument.classification',
       controller: 'ClassificationController',

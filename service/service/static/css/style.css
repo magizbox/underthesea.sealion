@@ -142,12 +142,23 @@
 #sidebar .list-group {
     border: 1px solid #bce8f1
 }
-.vbox.detail-document section{
+
+.vbox.detail-document section {
     min-height: 100vh;
 }
 
-header .breadcrumb{
+header .breadcrumb {
     border: none !important;
     margin-bottom: 0px;
-    padding-top: 20px;
+
+}
+
+.header-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 13px;
+}
+.header-tool .wrap-status{
+    margin-right: 20px;
 }

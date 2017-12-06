@@ -124,10 +124,21 @@
     justify-content: space-between;
 }
 
-.panel-tool{
+.panel-tool {
     display: flex;
     align-items: center;
 }
-.panel-tool h4{
+
+.panel-tool h4 {
     margin-right: 10px;
+}
+
+#sidebar {
+    padding: 20px 5px;
+    border-left: 1px solid #eaeef1;
+    background-color: #f2f4f8;
+}
+
+#sidebar .list-group {
+    border: 1px solid #bce8f1
 }

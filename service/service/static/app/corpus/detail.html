@@ -103,10 +103,15 @@
                                                         <tbody>
                                                         <tr ng-repeat="doc in documents track by $index"
                                                             style="cursor:pointer">
-                                                            <th><a>{{ (params.page - 1) * params.limit + $index + 1}}</a></th>
-                                                            <td ui-sref="detailDocument({id: doc.id})">
-                                                                {{ doc.text | limitTo:110}}
-                                                                <span ng-show="doc.text.length > 80">...</span>
+                                                            <th>
+                                                                <a>{{ (params.page - 1) * params.limit + $index + 1}}</a>
+                                                            </th>
+                                                            <td>
+                                                                <a ui-sref="detailDocument({id: doc.id})"
+                                                                   style="text-decoration: underline;">
+                                                                    {{ doc.text | limitTo:110}}
+                                                                    <span ng-show="doc.text.length > 80">...</span>
+                                                                </a>
                                                             </td>
                                                             <td>
                                                                 <span ng-class="{'label':true,'label-info':doc.hasAct,'label-default':!doc.hasAct}">DA</span>
@@ -139,7 +144,8 @@
                                                     <ul uib-pagination boundary-links="true" total-items="totalItems"
                                                         ng-model="params.page" class="pagination-sm"
                                                         previous-text="&lsaquo;" next-text="&rsaquo;"
-                                                        first-text="&laquo;" last-text="&raquo;" items-per-page="params.limit" ng-change="getListDocument()"
+                                                        first-text="&laquo;" last-text="&raquo;"
+                                                        items-per-page="params.limit" ng-change="getListDocument()"
                                                         style="margin: 0px 10px !important;"></ul>
                                                 </div>
                                             </footer>

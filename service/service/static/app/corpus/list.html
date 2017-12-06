@@ -46,7 +46,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-repeat="corpus in corpora.results track by $index">
-                                                    <td>{{ corpus.id }}</td>
+                                                    <td>{{ (query.page - 1) * query.limit + $index + 1}}</td>
                                                     <td><a ui-sref="detailCorpus({id: corpus.id})" style="text-decoration: underline;">{{ corpus.title
                                                         }}</a></td>
                                                     <td>

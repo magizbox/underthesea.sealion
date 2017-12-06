@@ -24,7 +24,7 @@
                                         <header style="font-size: 18px;"> Corpora List</header>
                                         <div class="input-group" style="width: 300px;">
                                             <input type="text" class="input-sm form-control"
-                                                   placeholder="Search">
+                                                   placeholder="Search" ng-model="query.search" ng-enter="getListCorpus()">
                                             <span class="input-group-btn">
                                                     <button class="btn btn-sm btn-success" ng-click="openNewCorpusModal()">
                                                         <i class="fa fa-plus" aria-hidden="true"></i>
@@ -45,9 +45,9 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr ng-repeat="corpus in corpora track by $index">
+                                                <tr ng-repeat="corpus in corpora.results track by $index">
                                                     <td>{{ corpus.id }}</td>
-                                                    <td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title
+                                                    <td><a ui-sref="detailCorpus({id: corpus.id})" style="text-decoration: underline;">{{ corpus.title
                                                         }}</a></td>
                                                     <td>
                                                         <button class="btn btn-xs btn-true" style="margin-right: 2px;"
@@ -71,11 +71,9 @@
                                             </table>
                                         </div>
                                     </div>
-
-
                                     <footer class="panel-footer">
                                         <div class="row text-right">
-                                            <!--<ul uib-pagination boundary-links="true" total-items="10" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="10" style="margin: 0px 10px !important;"></ul>-->
+                                            <ul uib-pagination boundary-links="true" total-items="corpora.count" ng-model="query.page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="query.limit" ng-change="getListCorpus()" style="margin: 0px 10px !important;"></ul>
                                         </div>
                                     </footer>
                                 </section>

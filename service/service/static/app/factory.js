@@ -40,9 +40,10 @@ app.factory('Corpus', function ($resource) {
     });
     resource.query = function () {
         return resource._query.apply(null, arguments).$promise.then(function (data) {
-            return Promise.resolve(data["results"]);
+            return Promise.resolve(data);
         });
     };
+
     return resource;
 });
 

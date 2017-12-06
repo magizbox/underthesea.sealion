@@ -20,7 +20,8 @@ def homepage(request):
 class CorpusViewSet(viewsets.ModelViewSet):
     queryset = Corpus.objects.all()
     serializer_class = CorpusSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,SearchFilter,)
+    search_fields = ('title',)
 
 
 class DocumentViewSet(viewsets.ModelViewSet):

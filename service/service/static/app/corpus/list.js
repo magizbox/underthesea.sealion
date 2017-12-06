@@ -36,16 +36,21 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
       value: 'SA'
     }
   ];
-  var query = {};
+  $scope.query = {
+    limit: 10,
+    offset: 0,
+    page: 1
+  };
   if ($scope.status != "ALL") {
-    query["status"] = $scope.status;
+    $scope.query["status"] = $scope.status;
   }
   if ($scope.quality != "ALL") {
-    query["quality"] = $scope.quality;
+    $scope.query["quality"] = $scope.quality;
   }
   $scope.getListCorpus = function () {
-    Corpus.query(query).then(function (data) {
-      _.each(data, function (item) {
+    $scope.query.offset = ($scope.query.page - 1) * $scope.query.limit;
+    Corpus.query($scope.query).then(function (data) {
+      _.each(data.results, function (item) {
         if (item.tasks && item.tasks.length > 0) {
           item.tasks = _.chain(item.tasks.split(","))
             .map(function (task) {
@@ -105,7 +110,6 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
   };
 
   $scope.openEditCorpusModal = function (corpus) {
-    console.log(corpus);
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: './static/app/corpus/edit.html',

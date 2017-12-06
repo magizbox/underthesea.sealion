@@ -142,3 +142,6 @@
 #sidebar .list-group {
     border: 1px solid #bce8f1
 }
+.vbox.detail-document section{
+    min-height: 100vh;
+}

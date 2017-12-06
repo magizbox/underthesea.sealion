@@ -107,7 +107,7 @@
                                                                 <a>{{ (params.page - 1) * params.limit + $index + 1}}</a>
                                                             </th>
                                                             <td>
-                                                                <a ui-sref="detailDocument({id: doc.id})"
+                                                                <a ui-sref="detailDocument.syntax({id: doc.id})"
                                                                    style="text-decoration: underline;">
                                                                     {{ doc.text | limitTo:110}}
                                                                     <span ng-show="doc.text.length > 80">...</span>

@@ -1,4 +1,4 @@
-app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter) {
+app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter, $uibModal) {
   $scope.init = function () {
     $scope.id = $stateParams.id;
     var params = JSON.parse(JSON.stringify($stateParams));
@@ -7,6 +7,7 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
       "offset": 0,
       "limit": 10,
       "corpus": 1,
+      "page": 1,
       "status": null,
       "quality": null,
       "search": null,
@@ -44,6 +45,7 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
   };
 
   $scope.getListDocument = function () {
+    $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
     Document.query($scope.params).then(function (documents) {
       $scope.documents = documents;
     });
@@ -51,6 +53,21 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
       $scope.totalItems = result["totalItems"];
       $scope.itemsPerPage = result["itemsPerPage"];
       $scope.currentPage = result["currentPage"];
+    });
+  };
+
+  $scope.openNewModal = function () {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: './static/app/document/new.html',
+      size: 'md',
+      controller: 'NewDocumentCtrl'
+    });
+
+    modalInstance.result.then(function (data) {
+      $scope.getListDocument();
+    }, function (err) {
+      // $log.info('modal-component dismissed at: ' + new Date());
     });
   };
 
@@ -65,10 +82,6 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
     })
   };
 
-  $scope.pageChanged = function () {
-    $scope.params["offset"] = $scope.params["limit"] * ($scope.currentPage - 1);
-    $state.go(".", $scope.params);
-  };
 
   $scope.filterChanged = function () {
     $state.go(".", $scope.params);

@@ -19,7 +19,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./static/app/corpus/new.html"
         })
         .state({
-            url: '/corpora/:id?limit&offset&status&quality&search&act&category&sentiment',
+            url: '/corpora/:id?status&quality&search&act&category&sentiment',
             name: 'detailCorpus',
             controller: 'DetailCorpusCtrl',
             templateUrl: "./static/app/corpus/detail.html"

@@ -1,5 +1,5 @@
 app.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/corpora');
     $stateProvider
         .state({
             url: '/',
@@ -65,6 +65,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             name: 'detailDialogue',
             controller: 'DetailDialogueCtrl',
             templateUrl: "./static/app/dialogue/detail_dialogue.html"
-        })
-    ;
+        });
+
 });

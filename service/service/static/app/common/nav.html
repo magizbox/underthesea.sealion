@@ -1,7 +1,7 @@
 <nav class="nav-primary hidden-xs" ng-controller="NavController">
     <ul class="nav bg clearfix">
         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted"> Main Navigation</li>
-        <li ng-repeat="item in listItemMenu">
+        <li ng-repeat="item in listItemMenu" ng-class="{'active': item.uisref == currState}">
             <a ui-sref="{{item.uisref}}">
                 <i class="{{item.icon}}"></i>
                 <span class="font-bold">{{item.name}}</span>

@@ -1,36 +1,31 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-        <li>New Corpus</li>
-      </ol>
-      <div class="pull-right">
-        <button type="button" class="btn btn-success btn-sm" ng-click="save()">
-          <i class="fa fa-floppy-o" aria-hidden="true"></i>
-          Save
-        </button>
-      </div>
-      <!-- messages -->
-      <button ng-show="MESSAGES.TEXT_MISSING" type="button"
-              class="btn btn-danger btn-xs disabled">Title field is required!
-      </button>
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
-<div class="row">
-  <div class="col-xs-12">
-        <textarea id="text" class="form-control"
-                  rows="1" ng-model="corpus.title" placeholder="title">{{ corpus.title }}</textarea>
-    <br/>
-  </div>
-</div>
+<form ng-submit="save()">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">New Corpus</h3>
+    </div>
 
-<div class="row">
-  <div class="col-xs-12">
-      <textarea id="amr" class="form-control"
-                rows="10" ng-model="corpus.description"
-                placeholder="description">{{ corpus.description }}</textarea>
-  </div>
-</div>
+    <div class="modal-body" id="modal-body">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" data-type="url" class="form-control parsley-validated"
+                   ng-class="{'parsley-error': checkNull == false && corpus.title.length <= 0}"
+                   ng-model="corpus.title">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control parsley-validated" rows="6" data-minwords="6"
+                      ng-class="{'parsley-error': checkNull == false && corpus.description.length <= 0}"
+                      ng-model="corpus.description"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success btn-sm">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Save
+        </button>
+        <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel</button>
+    </div>
+</form>
+
+

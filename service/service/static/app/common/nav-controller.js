@@ -3,6 +3,8 @@
  */
 app.controller("NavController", function ($scope, $state) {
 
+  console.log($state);
+  $scope.currState = $state.$current.name;
   $scope.listItemMenu = [
     {
       name: 'Corpora',
@@ -14,5 +16,7 @@ app.controller("NavController", function ($scope, $state) {
       uisref: 'listDialogueCorpus',
       icon: 'icon-list icon text-info-dker'
     }
-  ]
+  ];
+
+
 });

@@ -7,12 +7,18 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
   $scope.currState = $state.$current.name;
 
   var parent = $state.$current.parent.name;
-  if (parent == "detailDocument") {
+  if (parent == "detailDocument" || parent == "detailDocument.syntax") {
     $scope.listItemMenu = [
       {
-        name: 'Syntax',
-        value: 'detailDocument.syntax',
-        uisref: 'detailDocument.syntax({id: ' + $stateParams.id + '})',
+        name: 'WS',
+        value: 'detailDocument.syntax.ws',
+        uisref: 'detailDocument.syntax.ws({id: ' + $stateParams.id + '})',
+        icon: 'icon-disc icon text-success'
+      },
+      {
+        name: 'PO',
+        value: 'detailDocument.syntax.po',
+        uisref: 'detailDocument.syntax.po({id: ' + $stateParams.id + '})',
         icon: 'icon-disc icon text-success'
       },
       {

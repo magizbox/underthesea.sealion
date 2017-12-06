@@ -44,12 +44,24 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state({
       url: '/documents/:id/syntax',
       name: 'detailDocument.syntax',
+      // controller: 'SyntaxController',
+      templateUrl: "./static/app/document/syntax/syntax.html"
+    })
+    .state({
+      url: '/ws',
+      name: 'detailDocument.syntax.ws',
+      controller: 'WordSentController',
+      templateUrl: "./static/app/document/syntax/syntax.html"
+    })
+    .state({
+      url: '/po',
+      name: 'detailDocument.syntax.po',
       controller: 'SyntaxController',
       templateUrl: "./static/app/document/syntax/syntax.html"
     })
     .state({
-      url: '/documents/:id/syntax',
-      name: 'detailDocument.syntax.ws',
+      url: '/ch',
+      name: 'detailDocument.syntax.ch',
       controller: 'SyntaxController',
       templateUrl: "./static/app/document/syntax/syntax.html"
     })

@@ -1,6 +1,14 @@
 <section class="vbox detail-document">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
+        <ul class="breadcrumb">
+            <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
+            <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> List
+                Corpus</a>
+            </li>
+            <li><a ui-sref="detailCorpus({id:corpus.id })">{{ corpus.title }}</a></li>
+            <li class="active">{{ doc.id }}</li>
+        </ul>
     </header>
     <section>
         <section class="hbox stretch"> <!-- .aside -->

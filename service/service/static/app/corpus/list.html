@@ -1,6 +1,11 @@
 <section class="vbox">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
+        <ul class="breadcrumb">
+            <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
+            <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> List Corpus</a>
+            </li>
+        </ul>
     </header>
     <section>
         <section class="hbox stretch"> <!-- .aside -->
@@ -21,7 +26,7 @@
                             <section class="scrollable padder">
                                 <section class="panel panel-default table-corpora">
                                     <div class="panel-heading">
-                                        <header style="font-size: 18px;"> Corpora List</header>
+                                        <header style="font-size: 18px;">List Corpus</header>
                                         <div class="input-group" style="width: 300px;">
                                             <input type="text" class="input-sm form-control"
                                                    placeholder="Search" ng-model="query.search" ng-enter="getListCorpus()">

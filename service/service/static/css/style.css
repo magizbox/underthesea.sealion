@@ -145,3 +145,9 @@
 .vbox.detail-document section{
     min-height: 100vh;
 }
+
+header .breadcrumb{
+    border: none !important;
+    margin-bottom: 0px;
+    padding-top: 20px;
+}

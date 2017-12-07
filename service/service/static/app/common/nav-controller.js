@@ -3,7 +3,6 @@
  */
 app.controller("NavController", function ($scope, $state, $stateParams) {
 
-  console.log($state);
   $scope.currState = $state.$current.name;
 
   var parent = $state.$current.parent.name;
@@ -22,7 +21,19 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
         icon: 'icon-disc icon text-success'
       },
       {
-        name: 'Text Classification',
+        name: 'CH',
+        value: 'detailDocument.syntax.ch',
+        uisref: 'detailDocument.syntax.ch({id: ' + $stateParams.id + '})',
+        icon: 'icon-disc icon text-success'
+      },
+      {
+        name: 'NER',
+        value: 'detailDocument.syntax.ner',
+        uisref: 'detailDocument.syntax.ner({id: ' + $stateParams.id + '})',
+        icon: 'icon-disc icon text-success'
+      },
+      {
+        name: 'TC',
         value: 'detailDocument.classification',
         uisref: 'detailDocument.classification({id: ' + $stateParams.id + '})',
         icon: 'icon-list icon text-info-dker'

@@ -51,19 +51,25 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       url: '/ws',
       name: 'detailDocument.syntax.ws',
       controller: 'WordSentController',
-      templateUrl: "./static/app/document/syntax/syntax.html"
+      templateUrl: "./static/app/document/syntax/word-sent.html"
     })
     .state({
       url: '/po',
       name: 'detailDocument.syntax.po',
-      controller: 'SyntaxController',
-      templateUrl: "./static/app/document/syntax/syntax.html"
+      controller: 'PosTagController',
+      templateUrl: "./static/app/document/syntax/pos-tag.html"
     })
     .state({
       url: '/ch',
       name: 'detailDocument.syntax.ch',
-      controller: 'SyntaxController',
-      templateUrl: "./static/app/document/syntax/syntax.html"
+      controller: 'ChunkingController',
+      templateUrl: "./static/app/document/syntax/chunking.html"
+    })
+    .state({
+      url: '/ner',
+      name: 'detailDocument.syntax.ner',
+      controller: 'NerController',
+      templateUrl: "./static/app/document/syntax/ner.html"
     })
     .state({
       url: '/documents/:id/classification',

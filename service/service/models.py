@@ -21,6 +21,9 @@ class Document(models.Model):
     status = models.TextField(blank=True)
     quality = models.TextField(blank=True)
     corpus = models.ForeignKey(Corpus, related_name="documents")
+    word_sent = models.TextField(blank=True)
+    pos_tag = models.TextField(blank=True)
+    chunking = models.TextField(blank=True)
 
     class Meta:
         ordering = ('created',)

@@ -1,7 +1,7 @@
 <section class="vbox" ng-init="init()">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
-        <ul class="breadcrumb">
+        <ul class="breadcrumb margin-breadcrumb">
             <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
             <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> List Corpus</a>
             </li>
@@ -106,7 +106,7 @@
                                                                     1}}</a>
                                                             </th>
                                                             <td>
-                                                                <a ui-sref="detailDocument.syntax({id: doc.id})"
+                                                                <a ui-sref="detailDocument.syntax.ws({id: doc.id})"
                                                                    style="text-decoration: underline;">
                                                                     {{ doc.text | limitTo:110}}
                                                                     <span ng-show="doc.text.length > 80">...</span>

@@ -24,6 +24,7 @@ class Document(models.Model):
     word_sent = models.TextField(blank=True)
     pos_tag = models.TextField(blank=True)
     chunking = models.TextField(blank=True)
+    ner = models.TextField(blank=True)
 
     class Meta:
         ordering = ('created',)

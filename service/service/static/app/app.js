@@ -1,4 +1,4 @@
-window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable', 'ui.bootstrap', 'nlp.elements']);
+window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable', 'ui.bootstrap', 'nlp.elements', 'ui-notification']);
 
 app.directive('myEnter', function () {
     return function (scope, element, attrs) {

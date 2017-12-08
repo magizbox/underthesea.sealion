@@ -25,9 +25,10 @@ app.factory('Document', function ($resource) {
     },
 
     serialize: function (document) {
-      this.formatDataType(document, "word_sent");
-      this.formatDataType(document, "pos_tag");
-      this.formatDataType(document, "chunking");
+      DocumentSerializer.formatDataType(document, "word_sent");
+      DocumentSerializer.formatDataType(document, "pos_tag");
+      DocumentSerializer.formatDataType(document, "chunking");
+      DocumentSerializer.formatDataType(document, "ner");
       document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
       document["hasAct"] = document["act"] != "[]" && document["act"] != "";
       document["hasCategory"] = document["category"] != "[]" && document["category"] != "";
@@ -35,7 +36,7 @@ app.factory('Document', function ($resource) {
     },
 
     deserialize: function(object){
-      _.each(["word_sent", "pos_tag", "chunking"], function(field){
+      _.each(["word_sent", "pos_tag", "chunking", "ner"], function(field){
         if(_.isArray(object[field])){
           object[field] = JSON.stringify(object[field]);
         }

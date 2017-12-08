@@ -3,18 +3,19 @@
  */
 app.controller("WordSentController", function ($scope, $state, $stateParams, Document) {
 
-  $scope.updateDocument = function () {
+  $scope.updateDocument = function (listAnnotation) {
+    $scope.document.word_sent = JSON.stringify(listAnnotation);
     Document.update({id: $scope.document.id}, $scope.document);
   };
 
   $scope.getInfoDocument = function () {
     Document.query({id: $stateParams.id}).then(function (doc) {
-      $scope.document = doc;
+      $scope.document = angular.copy(doc);
       $scope.wordSent = {
         "config": WordSentBratConfig,
         "doc": {
-          "text": doc.text,
-          "entities": doc.word_sent
+          "text": $scope.document.text,
+          "entities": $scope.document.word_sent
         }
       };
     });

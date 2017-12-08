@@ -2,18 +2,19 @@
  * Created by crawler on 07/12/2017.
  */
 app.controller("NerController", function ($scope, $state, $stateParams, Document) {
-  $scope.updateDocument = function () {
+  $scope.updateDocument = function (listAnnotation) {
+    $scope.document.ner = JSON.stringify(listAnnotation);
     Document.update({id: $scope.document.id}, $scope.document);
   };
 
   $scope.getInfoDocument = function () {
     Document.query({id: $stateParams.id}).then(function (doc) {
-      $scope.document = doc;
+      $scope.document = angular.copy(doc);
       $scope.ner = {
         "config": NERTagBratConfig,
         "doc": {
-          "text": doc.text,
-          "entities": doc.ner
+          "text": $scope.document.text,
+          "entities": $scope.document.ner
         }
       };
     });

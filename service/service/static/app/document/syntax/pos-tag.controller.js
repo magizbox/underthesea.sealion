@@ -3,18 +3,19 @@
  */
 app.controller("PosTagController", function ($scope, $state, $stateParams, Document) {
 
-  $scope.updateDocument = function () {
+  $scope.updateDocument = function (listAnnotation) {
+    $scope.document.pos_tag = JSON.stringify(listAnnotation);
     Document.update({id: $scope.document.id}, $scope.document);
   };
 
   $scope.getInfoDocument = function () {
     Document.query({id: $stateParams.id}).then(function (doc) {
-      $scope.document = doc;
+      $scope.document = angular.copy(doc);
       $scope.pos_tag = {
         "config": POSTagBratConfig,
         "doc": {
-          "text": doc.text,
-          "entities": doc.pos_tag
+          "text": $scope.document.text,
+          "entities": $scope.document.pos_tag
         }
       };
     });

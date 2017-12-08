@@ -66,7 +66,7 @@ function textAnnotation() {
               return item[0] != annotation[0];
             });
           }
-          $scope.afterSave({newAnnotation: annotation});
+          $scope.afterSave({listAnnotation: $scope.doc.entities});
         }, function () {
           $scope.openModal["update"] = false;
         });
@@ -93,26 +93,8 @@ function textAnnotation() {
         });
 
         modalInstance.result.then(function (data) {
-          var listEntities;
-          var newIdEntities;
-          if($scope.doc.entities.length > 0){
-            listEntities = $scope.doc.entities;
-             newIdEntities =  _.chain(listEntities)
-              .map(function (item) {
-                return Number(item[0].substring(1, item[0].length));
-              })
-              .max(function (number) {
-                return number;
-              })
-              .value();
-          }
+          var newIdEntities = moment().unix();
 
-          if(newIdEntities){
-            newIdEntities = newIdEntities + 1;
-          }
-          else{
-            newIdEntities = 1;
-          }
           if (data.entity && data.entity.type) {
             var entity = data.entity.type;
             var newAnnotation = [];
@@ -121,7 +103,7 @@ function textAnnotation() {
             newAnnotation.push([[data.startIndex, data.endIndex]]);
 
             $scope.doc.entities.push(newAnnotation);
-            $scope.afterSave({newAnnotation: newAnnotation});
+            $scope.afterSave({listAnnotation: $scope.doc.entities});
           }
           $scope.openModal["new"] = false;
 

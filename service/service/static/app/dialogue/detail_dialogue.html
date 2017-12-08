@@ -55,84 +55,89 @@
                   'btn-null': params[task.name] == null,
                   'btn-true': params[task.name] == 'true',
                   'btn-false': params[task.name] == 'false',}"
-                ng-click="toggle(task)"
-                ng-repeat="task in tasks">
-          {{ task.label }}
-        </button>
-      </div>
-    </h4>
-    <div style="height:600px; overflow-y: scroll; margin-right:4px">
-      <div class="media"
-           ng-show="isShow(document)"
-           ng-repeat="document in documents">
-        <div class="media-body">
-          <p class="media-heading media-level-{{document.level}}"
-             ng-click="select(document)"
-             ng-class="{
+                                            ng-click="toggle(task)"
+                                            ng-repeat="task in tasks">
+                                        {{ task.label }}
+                                    </button>
+                                </div>
+                            </h4>
+                            <div style="height:600px; overflow-y: scroll; margin-right:4px">
+                                <div class="media"
+                                     ng-show="isShow(document)"
+                                     ng-repeat="document in documents">
+                                    <div class="media-body">
+                                        <p class="media-heading media-level-{{document.level}}"
+                                           ng-click="select(document)"
+                                           ng-class="{
               'media-focus': document.id == doc.id,
               'media-disabled': document.ignore != ''
               }">
-            {{ document.text }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-4">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="row">
-          <ul class="list-group">
-            <li class="list-group-item"
-                ng-class="{
+                                            {{ document.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <ul class="list-group">
+                                            <li class="list-group-item"
+                                                ng-class="{
                   'list-group-item-success': doc.ignore == '',
                   'disabled': doc.ignore != ''
                 }"
-                style="cursor:default">
-              Post
-              <div class="pull-right">
-                <button type="button" class="btn btn-danger btn-xs"
-                        ng-click="toggleIgnore()"
-                        ng-show="doc.ignore == ''">
-                  <i class="fa fa-ban" aria-hidden="true"></i>
-                  Ignore
-                </button>
-                <button type="button" class="btn btn-success btn-xs"
-                        ng-click="toggleIgnore()"
-                        ng-show="doc.ignore == 'true'">
-                  <i class="fa fa-check-circle" aria-hidden="true"></i>
-                  Active
-                  </span>
-                </button>
-              </div>
-            </li>
-            <li class="list-group-item"
-                ng-class="{
+                                                style="cursor:default">
+                                                Post
+                                                <div class="pull-right">
+                                                    <button type="button" class="btn btn-danger btn-xs"
+                                                            ng-click="toggleIgnore()"
+                                                            ng-show="doc.ignore == ''">
+                                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                                        Ignore
+                                                    </button>
+                                                    <button type="button" class="btn btn-success btn-xs"
+                                                            ng-click="toggleIgnore()"
+                                                            ng-show="doc.ignore == 'true'">
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        Active
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item"
+                                                ng-class="{
                   'disabled': doc.ignore != ''
                 }">
-              Posted by <a href="{{meta.url}}" target="_blank">{{ meta.from_name
-              }}</a>
-            </li>
-            <!-- ngRepeat: act in suggestions -->
-          </ul>
-        </div>
-      </div>
-      <div ng-show="doc.ignore == ''">
-        <div class="col-xs-12">
-          <acts ng-model="acts"
-                suggestions="auto_act"
-                onaftersave="save()"></acts>
-        </div>
-        <div class="col-xs-12">
-          <categories ng-model="categories"
-                      onaftersave="save()"></categories>
-        </div>
-        <div class="col-xs-12">
-          <sentiments ng-model="sentiments"
-                      onaftersave="save()"></sentiments>
-        </div>
-      </div>
+                                                Posted by <a href="{{meta.url}}" target="_blank">{{ meta.from_name
+                                                }}</a>
+                                            </li>
+                                            <!-- ngRepeat: act in suggestions -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div ng-show="doc.ignore == ''">
+                                    <div class="col-xs-12">
+                                        <acts ng-model="acts"
+                                              suggestions="auto_act"
+                                              onaftersave="save()"></acts>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <categories ng-model="categories"
+                                                    onaftersave="save()"></categories>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <sentiments ng-model="sentiments"
+                                                    onaftersave="save()"></sentiments>
+                                    </div>
+                                </div>
 
-    </div>
-  </div>
-</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </aside>
+    </section>
+</section>

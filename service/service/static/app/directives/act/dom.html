@@ -14,7 +14,7 @@
     <li class="list-group-item" style="padding: 0px;">
       <table class="table table-bordered table-hover table-condensed"
              style="margin-bottom: 0px;">
-        <tr ng-repeat="act in ngModel">
+        <tr ng-repeat="act in ngModel track by $index">
           <td style="padding-left: 15px; padding-top: 10px">
                 <span editable-select="act.name"
                       e-name="aspect"

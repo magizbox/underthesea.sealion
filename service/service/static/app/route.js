@@ -39,7 +39,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state({
       name: 'detailDocument',
       templateUrl: "./static/app/document/detail-document.html",
-      controller: 'DetailAMRCtrl'
+      controller: 'DetailDocumentCtrl'
     })
     .state({
       url: '/documents/:id/syntax',

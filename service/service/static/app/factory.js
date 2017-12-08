@@ -11,7 +11,6 @@ app.factory('Document', function ($resource) {
   });
 
   DocumentSerializer = {
-
     formatDataType: function (document, column_name) {
       try {
         if (document[column_name]) {
@@ -22,21 +21,27 @@ app.factory('Document', function ($resource) {
       } catch (e) {
         document[column_name] = [];
       }
+      return document;
     },
 
-    serialize: function (document) {
-      DocumentSerializer.formatDataType(document, "word_sent");
-      DocumentSerializer.formatDataType(document, "pos_tag");
-      DocumentSerializer.formatDataType(document, "chunking");
-      DocumentSerializer.formatDataType(document, "ner");
+    deserialize: function (document) {
+      _.each(["word_sent", "pos_tag", "chunking", "ner"], function(field){
+        document = DocumentSerializer.formatDataType(document, field);
+      });
+      try {
+        document["act"] = JSON.parse(document["act"]);
+      } catch(e){
+        document["act"] = [];
+      }
+
       document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
       document["hasAct"] = document["act"] != "[]" && document["act"] != "";
       document["hasCategory"] = document["category"] != "[]" && document["category"] != "";
       return document;
     },
 
-    deserialize: function(object){
-      _.each(["word_sent", "pos_tag", "chunking", "ner"], function(field){
+    serialize: function(object){
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "act"], function(field){
         if(_.isArray(object[field])){
           object[field] = JSON.stringify(object[field]);
         }
@@ -49,17 +54,17 @@ app.factory('Document', function ($resource) {
     return resource._query.apply(null, arguments).$promise.then(function (data) {
 
       if (data["results"]) {
-        var documents = _.map(data["results"], DocumentSerializer.serialize);
+        var documents = _.map(data["results"], DocumentSerializer.deserialize);
         return Promise.resolve(documents);
       } else {
-        var document = DocumentSerializer.serialize(data);
+        var document = DocumentSerializer.deserialize(data);
         return Promise.resolve(document);
       }
     });
   };
 
   resource.update = function (callback) {
-    arguments[1] = DocumentSerializer.deserialize(arguments[1]);
+    arguments[1] = DocumentSerializer.serialize(arguments[1]);
     return resource._update.apply(null, arguments).$promise.then(callback);
   };
 

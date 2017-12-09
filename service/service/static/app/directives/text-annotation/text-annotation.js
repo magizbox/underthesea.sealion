@@ -12,7 +12,7 @@ function textAnnotation() {
       editable: '@',
       multilabel: '@',
       confirm: '@',
-      afterSave: '&'
+      onAfterSave: '&'
     },
     controller: function ($scope, $element, $uibModal) {
       $scope.openModal = {};
@@ -66,7 +66,7 @@ function textAnnotation() {
               return item[0] != annotation[0];
             });
           }
-          $scope.afterSave({listAnnotation: $scope.doc.entities});
+          $scope.onAfterSave({listAnnotation: $scope.doc.entities});
         }, function () {
           $scope.openModal["update"] = false;
         });
@@ -103,7 +103,7 @@ function textAnnotation() {
             newAnnotation.push([[data.startIndex, data.endIndex]]);
 
             $scope.doc.entities.push(newAnnotation);
-            $scope.afterSave({listAnnotation: $scope.doc.entities});
+            $scope.onAfterSave({listAnnotation: $scope.doc.entities});
           }
           $scope.openModal["new"] = false;
 

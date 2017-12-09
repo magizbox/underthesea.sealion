@@ -25,14 +25,9 @@ app.factory('Document', function ($resource) {
     },
 
     deserialize: function (document) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner"], function(field){
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "act"], function(field){
         document = DocumentSerializer.formatDataType(document, field);
       });
-      try {
-        document["act"] = JSON.parse(document["act"]);
-      } catch(e){
-        document["act"] = [];
-      }
 
       document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
       document["hasAct"] = document["act"] != "[]" && document["act"] != "";

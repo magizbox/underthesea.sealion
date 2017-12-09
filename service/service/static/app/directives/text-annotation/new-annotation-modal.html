@@ -19,9 +19,9 @@
             </div>
             <div class="content-text">
                 <div class="row">
-                    <div class="col-sm-3" ng-repeat="entity in listAnnotation">
+                    <div class="col-sm-3" ng-repeat="entity in listAnnotation track by $index">
                         <div class="radio radio-primary">
-                            <input type="radio" id="{{ entity.type }}" name="radio-entity" ng-click="selectEntity(entity)" ng-checked="checkExistEntity(entity)">
+                            <input type="radio" id="{{ entity.type }}" name="radio-entity" ng-click="selectEntity(entity)" ng-checked="checkExistEntity(entity)" >
                             <label for="{{ entity.type }}" ng-style="{'border-color': entity.border, 'background-color': entity.bgColor}" class="label-annotation">
                                 {{ entity.type }}
                             </label>

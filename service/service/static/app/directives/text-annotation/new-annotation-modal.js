@@ -2,9 +2,7 @@
  * Created by crawler on 23/11/2017.
  */
 'use strict';
-app.controller('NewAnnotationModalCtrl', function ($scope, $uibModalInstance, data, hotkeys) {
-
-
+app.controller('NewAnnotationModalCtrl', function ($scope, $uibModalInstance, data) {
   if (data) {
     $scope.selected = {};
     if (data.textSelected) {
@@ -40,8 +38,8 @@ app.controller('NewAnnotationModalCtrl', function ($scope, $uibModalInstance, da
       item["border"] = borderColor;
       return item;
     });
-
-    // var listKey = _.pluck(data.config.entity_types, "type");
+    //
+    // var listKey = _.pluck($scope.listAnnotation, "type");
     // var arr = _.map(listKey, function (item) {
     //   var string = "";
     //   for (var i = 0; i < item.length; i++) {
@@ -55,24 +53,19 @@ app.controller('NewAnnotationModalCtrl', function ($scope, $uibModalInstance, da
     //   }
     //
     //   return string;
-    //
-    //
     // });
     // console.log(arr);
-    // hotkeys.bindTo($scope).add({
-    //   combo: 'enter',
-    //   description: 'This one goes to 11',
-    //   callback: function () {
-    //     $scope.ok();
-    //   }
-    // });
-    //
-    // hotkeys.bindTo($scope).add({
-    //   combo: 'ctrl+c',
-    //   description: 'This one goes to 11',
-    //   callback: function () {
-    //     $scope.ok();
-    //   }
+    // _.each(arr, function (item, index) {
+    //   return hotkeys.bindTo($scope).add({
+    //     combo: item,
+    //     description: 'This one goes to 11',
+    //     callback: function () {
+    //       // $scope.ok();
+    //       console.log(item);
+    //       console.log($scope.listAnnotation[index]);
+    //       $("#"+item.type).prop('checked', true);
+    //     }
+    //   });
     // });
   }
 
@@ -84,9 +77,10 @@ app.controller('NewAnnotationModalCtrl', function ($scope, $uibModalInstance, da
     $scope.entitySelected = item;
   };
 
-
   $scope.ok = function () {
-    console.log("ok");
+    if (!$scope.entitySelected) {
+      $scope.entitySelected = $scope.listAnnotation[0];
+    }
     $uibModalInstance.close({
       entity: $scope.entitySelected,
       startIndex: data.startIndex,

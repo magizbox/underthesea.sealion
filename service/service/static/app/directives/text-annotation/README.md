@@ -43,7 +43,7 @@ Chú ý: Thuộc tính component bắt buộc phải có trong thẻ script
      Cần đặt giá trị cho `editable` là _true_ thì tham số `multilabel` mới có thể nhận sự kiện. <br/>
      _false_: không cho mở modal thêm mới
 * `confirm` (mặc định: true) - hiển thị alert xác nhận thao tác
-* `after-save` () - function được gọi sau khi thay đổi annotation, tham số truyền vào `newAnnotation` sẽ mang giá trị là annotation mới được gán. <br/>
+* `on-after-save` () - function được gọi sau khi thay đổi annotation, tham số truyền vào `newAnnotation` sẽ mang giá trị là annotation mới được gán. <br/>
 
 _Chú ý: nếu hàm trong `after-save` là update annotation của text thì không cần dùng đến tham số `newAnnotation` vì entity của document tự binding hai chiều, tự động cập nhật sau khi chọn annotation mới._
 
@@ -51,6 +51,6 @@ _Chú ý: nếu hàm trong `after-save` là update annotation của text thì kh
 ## Hướng dẫn sử dụng
 
 * Mở modal cập nhật hoặc xóa nhãn bằng cách click vào tên nhãn bên trên token.
-* Mở modal thêm mới nhãn bằng cách click đúp hoặc bôi đen một đoạn trong text.     
+* Mở modal thêm mới nhãn bằng cách click đúp hoặc bôi đen một đoạn trong text, nhãn mặc định khi thêm mới là nhãn đầu tiên trong list nhãn.     
     
      

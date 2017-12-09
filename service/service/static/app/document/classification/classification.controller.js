@@ -4,24 +4,15 @@
 app.controller("ClassificationController", function ($scope, $state, $stateParams, Document) {
 
   $scope.updateDocument = function (listAnnotation) {
-    Document.update({id: $scope.document.id}, $scope.document, function (data) {
-      data.act = $.parseJSON(data.act);
-      console.log(data);
-    });
+    Document.update({id: $scope.document.id}, angular.copy($scope.document));
   };
 
   $scope.getInfoDocument = function () {
     Document.query({id: $stateParams.id}).then(function (doc) {
       $scope.document = angular.copy(doc);
-      $scope.chunking = {
-        "config": ChunkingBratConfig,
-        "doc": {
-          "text": $scope.document.text,
-          "entities": $scope.document.chunking
-        }
-      };
     });
   };
 
   $scope.getInfoDocument();
 });
+

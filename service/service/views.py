@@ -38,6 +38,7 @@ class DialogueCorpusViewSet(viewsets.ModelViewSet):
     queryset = DialogueCorpus.objects.all()
     serializer_class = DialogueCorpusSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    search_fields = ('title',)
 
 
 class DialogueViewSet(BulkModelViewSet):

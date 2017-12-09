@@ -28,19 +28,30 @@ app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATU
       size: 'md',
       controller: function ($scope, $uibModalInstance, Corpus) {
         $scope.corpus = {
-          title: '',
-          description: ''
+          "title": "",
+          "description": ""
         };
+
+        $scope.hideMessages = function () {
+          $scope.MESSAGES = {
+            "TITLE_MISSING": false,
+            "DESCRIPTION_MISSING": false
+          };
+        };
+
+        $scope.hideMessages();
+
         $scope.save = function () {
-          $scope.checkNull = _.every([$scope.corpus.title, $scope.corpus.description], function (item) {
-            return item.length > 0;
-          });
-          if ($scope.checkNull) {
-            Corpus.save($scope.corpus).$promise.then(function (corpus) {
-              $uibModalInstance.close();
-            });
+          if (!$scope.corpus.title) {
+            $scope.MESSAGES.TEXT_MISSING = true;
+            return
           }
-        };
+
+          $scope.hideMessages();
+          DialogueCorpus.save($scope.corpus).$promise.then(function (corpus) {
+            $uibModalInstance.close();
+          })
+        }
 
         $scope.cancel = function () {
           $uibModalInstance.dismiss('cancel');

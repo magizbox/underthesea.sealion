@@ -56,12 +56,14 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr ng-repeat="corpus in corpora track by $index" style="cursor:pointer">
+                                                        <tr ng-repeat="corpus in corpora track by $index"
+                                                            style="cursor:pointer">
                                                             <th><a ui-sref="detailDialogueCorpus({id: corpus.id})">{{
                                                                 corpus.id }}</a>
                                                             </th>
-                                                            <td ui-sref="detailDialogueCorpus({id: corpus.id})">{{
-                                                                corpus.title }}
+                                                            <td>
+                                                                <a ui-sref="detailDialogueCorpus({id: corpus.id})" style="text-decoration: underline;">{{
+                                                                corpus.title }}</a>
                                                             </td>
                                                             <td ui-sref="detailDialogueCorpus({id: corpus.id})">{{
                                                                 corpus.description

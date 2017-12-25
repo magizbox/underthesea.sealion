@@ -5,42 +5,47 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
 
   $scope.currState = $state.$current.name;
 
-  var parent = $state.$current.parent.name;
-  if (parent == "detailDocument" || parent == "detailDocument.syntax") {
-    $scope.listItemMenu = [
-      {
-        name: 'WS',
-        value: 'detailDocument.syntax.ws',
-        uisref: 'detailDocument.syntax.ws({id: ' + $stateParams.id + '})',
-        icon: 'icon-disc icon text-success'
-      },
-      {
-        name: 'PO',
-        value: 'detailDocument.syntax.po',
-        uisref: 'detailDocument.syntax.po({id: ' + $stateParams.id + '})',
-        icon: 'icon-disc icon text-success'
-      },
-      {
-        name: 'CH',
-        value: 'detailDocument.syntax.ch',
-        uisref: 'detailDocument.syntax.ch({id: ' + $stateParams.id + '})',
-        icon: 'icon-disc icon text-success'
-      },
-      {
-        name: 'NER',
-        value: 'detailDocument.syntax.ner',
-        uisref: 'detailDocument.syntax.ner({id: ' + $stateParams.id + '})',
-        icon: 'icon-disc icon text-success'
-      },
-      {
-        name: 'TC',
-        value: 'detailDocument.classification',
-        uisref: 'detailDocument.classification({id: ' + $stateParams.id + '})',
-        icon: 'icon-list icon text-info-dker'
-      }
-    ];
+  $scope.parent = $state.$current.parent.name;
+  var listItem = [
+    {
+      name: 'WS',
+      value: 'ws',
+      icon: 'icon-disc icon text-success'
+    },
+    {
+      name: 'PO',
+      value: 'po',
+      icon: 'icon-disc icon text-success'
+    },
+    {
+      name: 'CH',
+      value: 'ch',
+      icon: 'icon-disc icon text-success'
+    },
+    {
+      name: 'NER',
+      value: 'ner',
+      icon: 'icon-disc icon text-success'
+    },
+    {
+      name: 'TC',
+      value: 'classification',
+      icon: 'icon-list icon text-info-dker'
+    }
+  ];
+  if ($scope.parent == "detailDocument") {
+    $scope.listItemMenu = _.map(listItem, function (item) {
+      item["uisref"] = $scope.parent + "." + item.value + "({id: " + $stateParams.id + "})";
+      return item;
+    });
   }
-  else {
+  else if ($scope.parent == "detailTagDialogueCorpus") {
+    $scope.listItemMenu = _.map(listItem, function (item) {
+      item["uisref"] = $scope.parent + "." + item.value + "({dialogueId: " + $stateParams.dialogueId + "})";
+      return item;
+    });
+  } else {
+
     $scope.listItemMenu = [
       {
         name: 'Corpora',
@@ -55,13 +60,14 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
         icon: 'icon-list icon text-info-dker'
       }
     ];
-  };
+  }
+  ;
+
+  console.log($state);
 
   $scope.activeMenu = function (item) {
-    $scope.currState = item.value;
+    $scope.currState = $scope.parent + "." + item.value;
   };
-
-
 
 
 });

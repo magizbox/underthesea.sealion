@@ -1,10 +1,15 @@
 /**
  * Created by crawler on 07/12/2017.
  */
-app.controller("NerController", function ($scope, $state, $stateParams, Document) {
-  $scope.updateDocument = function (listAnnotation) {
+app.controller("NerController", function ($scope, $state, $stateParams, Document,DialogueDocument) {
+  $scope.update = function (listAnnotation) {
     $scope.document.ner = JSON.stringify(listAnnotation);
-    Document.update({id: $scope.document.id}, $scope.document);
+    if ($stateParams.id) {
+      Document.update({id: $scope.document.id}, $scope.document);
+    }
+    else if ($stateParams.dialogueId) {
+      DialogueDocument.update({id: $scope.document.id}, $scope.document);
+    }
   };
 
   $scope.getInfoDocument = function () {
@@ -20,5 +25,23 @@ app.controller("NerController", function ($scope, $state, $stateParams, Document
     });
   };
 
-  $scope.getInfoDocument();
+  $scope.getInfoDialogueCorpus = function () {
+    DialogueDocument.get({id: $stateParams.dialogueId}).then(function (dialogue) {
+      $scope.document = angular.copy(dialogue);
+      $scope.ner = {
+        "config": NERTagBratConfig,
+        "doc": {
+          "text": $scope.document.text,
+          "entities": $scope.document.ner
+        }
+      };
+    });
+  };
+
+  if($stateParams.id){
+     $scope.getInfoDocument();
+  }
+  else if($stateParams.dialogueId){
+    $scope.getInfoDialogueCorpus();
+  }
 });

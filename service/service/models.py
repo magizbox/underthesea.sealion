@@ -59,3 +59,7 @@ class DialogueDocument(models.Model):
     quality = models.TextField(blank=True)
     ignore = models.TextField(blank=True)
     dialogue = models.ForeignKey(Dialogue, related_name="documents")
+    word_sent = models.TextField(blank=True)
+    pos_tag = models.TextField(blank=True)
+    chunking = models.TextField(blank=True)
+    ner = models.TextField(blank=True)

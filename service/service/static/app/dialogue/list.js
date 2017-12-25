@@ -20,7 +20,8 @@ app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATU
     DialogueCorpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function () {
       window.location.reload();
     });
-  }
+  };
+
   $scope.openNewDialogueCorpusModal = function () {
     var modalInstance = $uibModal.open({
       animation: true,
@@ -32,31 +33,54 @@ app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATU
           "description": ""
         };
 
-        $scope.hideMessages = function () {
-          $scope.MESSAGES = {
-            "TITLE_MISSING": false,
-            "DESCRIPTION_MISSING": false
-          };
-        };
-
-        $scope.hideMessages();
-
         $scope.save = function () {
-          if (!$scope.corpus.title) {
-            $scope.MESSAGES.TEXT_MISSING = true;
-            return
-          }
-
-          $scope.hideMessages();
           DialogueCorpus.save($scope.corpus).$promise.then(function (corpus) {
             $uibModalInstance.close();
-          })
-        }
+          });
+        };
 
         $scope.cancel = function () {
           $uibModalInstance.dismiss('cancel');
         };
       }
+    });
+
+    modalInstance.result.then(function () {
+      $scope.getListDialogueCorpus();
+    }, function (err) {
+      // $log.info('modal-component dismissed at: ' + new Date());
+    });
+  }
+
+  $scope.openEditDialogueCorpusModal = function (dialogue) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: './static/app/dialogue/edit.html',
+      size: 'md',
+      resolve: {
+        data: function () {
+          return dialogue;
+        }
+      },
+      controller: function ($scope, $uibModalInstance, data) {
+
+        $scope.tmp = angular.copy(data);
+        $scope.save = function () {
+          DialogueCorpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function () {
+            $uibModalInstance.close();
+          });
+        };
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+      }
+    });
+
+    modalInstance.result.then(function () {
+      $scope.getListDialogueCorpus();
+    }, function (err) {
+      // $log.info('modal-component dismissed at: ' + new Date());
     });
   };
 

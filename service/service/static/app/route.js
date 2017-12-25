@@ -37,43 +37,74 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/document/new.html"
     })
     .state({
+      url: '/documents/:id/syntax',
       name: 'detailDocument',
       templateUrl: "./static/app/document/detail-document.html",
       controller: 'DetailDocumentCtrl'
     })
     .state({
-      url: '/documents/:id/syntax',
-      name: 'detailDocument.syntax',
-      // controller: 'SyntaxController',
-      templateUrl: "./static/app/document/syntax/syntax.html"
-    })
-    .state({
       url: '/ws',
-      name: 'detailDocument.syntax.ws',
+      name: 'detailDocument.ws',
       controller: 'WordSentController',
       templateUrl: "./static/app/document/syntax/word-sent.html"
     })
     .state({
       url: '/po',
-      name: 'detailDocument.syntax.po',
+      name: 'detailDocument.po',
       controller: 'PosTagController',
       templateUrl: "./static/app/document/syntax/pos-tag.html"
     })
     .state({
       url: '/ch',
-      name: 'detailDocument.syntax.ch',
+      name: 'detailDocument.ch',
       controller: 'ChunkingController',
       templateUrl: "./static/app/document/syntax/chunking.html"
     })
     .state({
       url: '/ner',
-      name: 'detailDocument.syntax.ner',
+      name: 'detailDocument.ner',
       controller: 'NerController',
       templateUrl: "./static/app/document/syntax/ner.html"
     })
     .state({
       url: '/documents/:id/classification',
       name: 'detailDocument.classification',
+      controller: 'ClassificationController',
+      templateUrl: "./static/app/document/classification/classification.html"
+    })
+    .state({
+      url: '/dialogue-corpus/:dialogueId',
+      name: 'detailTagDialogueCorpus',
+      templateUrl: "./static/app/document/detail-document.html",
+      controller: 'DetailDocumentCtrl'
+    })
+    .state({
+      url: '/syntax/ws',
+      name: 'detailTagDialogueCorpus.ws',
+      controller: 'WordSentController',
+      templateUrl: "./static/app/document/syntax/word-sent.html"
+    })
+    .state({
+      url: '/syntax/po',
+      name: 'detailTagDialogueCorpus.po',
+      controller: 'PosTagController',
+      templateUrl: "./static/app/document/syntax/pos-tag.html"
+    })
+    .state({
+      url: '/syntax/ch',
+      name: 'detailTagDialogueCorpus.ch',
+      controller: 'ChunkingController',
+      templateUrl: "./static/app/document/syntax/chunking.html"
+    })
+    .state({
+      url: '/syntax/ner',
+      name: 'detailTagDialogueCorpus.ner',
+      controller: 'NerController',
+      templateUrl: "./static/app/document/syntax/ner.html"
+    })
+    .state({
+      url: '/classification',
+      name: 'detailTagDialogueCorpus.classification',
       controller: 'ClassificationController',
       templateUrl: "./static/app/document/classification/classification.html"
     })

@@ -1,33 +1,34 @@
 app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification) {
-
   $scope.id = $stateParams.id;
+  if ($scope.id) {
+    Document.query({id: $scope.id}, {}).then(function (doc) {
+      $scope.doc = doc;
 
-  Document.query({id: $scope.id}, {}).then(function (doc) {
-    $scope.doc = doc;
+      try {
+        $scope.sentiments = JSON.parse(doc.sentiment);
+      } catch (e) {
+        $scope.sentiments = [];
+      }
+      try {
+        $scope.categories = JSON.parse(doc.category);
+      } catch (e) {
+        $scope.categories = [];
+      }
+      try {
+        $scope.acts = JSON.parse(doc.act);
+      } catch (e) {
+        $scope.acts = [];
+      }
+      $scope.auto_acts = [{
+        "name": "INFORMATION"
+      }];
+      $scope.corpusId = doc.corpus;
+      Corpus.get({id: doc.corpus}, function (corpus) {
+        $scope.corpus = corpus;
+      })
+    });
+  }
 
-    try {
-      $scope.sentiments = JSON.parse(doc.sentiment);
-    } catch (e) {
-      $scope.sentiments = [];
-    }
-    try {
-      $scope.categories = JSON.parse(doc.category);
-    } catch (e) {
-      $scope.categories = [];
-    }
-    try {
-      $scope.acts = JSON.parse(doc.act);
-    } catch (e) {
-      $scope.acts = [];
-    }
-    $scope.auto_acts = [{
-      "name": "INFORMATION"
-    }];
-    $scope.corpusId = doc.corpus;
-    Corpus.get({id: doc.corpus}, function (corpus) {
-      $scope.corpus = corpus;
-    })
-  });
 
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
@@ -50,7 +51,7 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
           });
         }, function (err) {
           Notification.error({
-            message: 'ABC',
+            message: 'AMR Syntax Error',
             delay: 1000,
             positionX: 'right',
             positionY: 'bottom'

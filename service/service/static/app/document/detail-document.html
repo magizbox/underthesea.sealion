@@ -39,7 +39,38 @@
                     </section>
                 </section>
             </aside>
-            <ui-view></ui-view>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3>
+                                            <!-- messages -->
+                                            <!--<button ng-show="MESSAGES.SYNTAX_ERROR" type="button"-->
+                                            <!--class="btn btn-danger btn-xs disabled">AMR Syntax Error-->
+                                            <!--</button>-->
+                                            <!--<button ng-show="MESSAGES.CREATE_SUCCESS" type="button"-->
+                                            <!--class="btn btn-success btn-xs disabled">Document is-->
+                                            <!--saved successfully.-->
+                                            <!--</button>-->
+                                            <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
+                                        </h3>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ui-view></ui-view>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
 
         </section>
     </section>

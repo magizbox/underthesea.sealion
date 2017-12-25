@@ -1,143 +1,167 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a ui-sref="detailDialogueCorpus({id: corpus})">Dialogue Corpus {{
-          corpus }}</a>
-        </li>
-        <li class="active">{{ id }}</li>
-      </ol>
-      <!-- messages -->
-      <button ng-show="MESSAGES.SYNTAX_ERROR" type="button"
-              class="btn btn-danger btn-xs disabled">AMR Syntax Error
-      </button>
-      <button ng-show="MESSAGES.CREATE_SUCCESS" type="button"
-              class="btn btn-success btn-xs disabled">
-        Document is saved successfully.
-      </button>
-      <button ng-show="MESSAGES.UPDATE_DIALOGUE_SUCCESS" type="button"
-              class="btn btn-success btn-xs disabled">
-        Dialogue is updated successfully.
-      </button>
-      <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
-      <div class="pull-right">
-        <div class="pull-right">
-          <small>Status:</small>
-          <button
-              ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.status == status.value}"
-              ng-click="dialogue.status = status.value; update()"
-              ng-repeat="status in STATUSES">
-            {{ status.text }}
-          </button>
-          <small>Quality:</small>
-          <button
-              ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.quality == quality.value}"
-              ng-click="dialogue.quality = quality.value; update()"
-              ng-repeat="quality in QUALITIES">{{ quality.text}}
-          </button>
-          <!--<button type="button" class="btn btn-primary btn-success btn-xs"-->
-          <!--ng-click="save(true)">Save and Create New-->
-          <!--</button>-->
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+        <div class="header-tool">
+            <ul class="breadcrumb">
+                <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="detailDialogueCorpus({id: corpus})">Dialogue Corpus {{
+                    corpus }}</a>
+                </li>
+                <li class="active">{{ id }}</li>
+            </ul>
+            <div class="wrap-status">
+                <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
+                <small>Status:</small>
+                <button
+                        ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.status == status.value}"
+                        ng-click="dialogue.status = status.value; update()"
+                        ng-repeat="status in STATUSES">
+                    {{ status.text }}
+                </button>
+                <small style="margin-left: 10px;">Quality:</small>
+                <button
+                        ng-class="{'btn btn-xs': true, 'btn-warning': dialogue.quality == quality.value}"
+                        ng-click="dialogue.quality = quality.value; update()"
+                        ng-repeat="quality in QUALITIES">{{ quality.text}}
+                </button>
+            </div>
         </div>
-      </div>
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
-<div class="row">
-  <div class="col-xs-8">
-    <h4 ng-show="documents.length">
-      {{ documents.length }} posts
-      <div class="pull-right">
-        <small> Tasks:</small>
-        <button class="btn btn-xs ng-binding ng-scope btn-null"
-                style="margin-right:1px" ng-class="{
-                  'btn-null': params[task.name] == null,
-                  'btn-true': params[task.name] == 'true',
-                  'btn-false': params[task.name] == 'false',}"
-                                            ng-click="toggle(task)"
-                                            ng-repeat="task in tasks">
-                                        {{ task.label }}
-                                    </button>
-                                </div>
-                            </h4>
-                            <div style="height:600px; overflow-y: scroll; margin-right:4px">
-                                <div class="media"
-                                     ng-show="isShow(document)"
-                                     ng-repeat="document in documents">
-                                    <div class="media-body">
-                                        <p class="media-heading media-level-{{document.level}}"
-                                           ng-click="select(document)"
-                                           ng-class="{
-              'media-focus': document.id == doc.id,
-              'media-disabled': document.ignore != ''
-              }">
-                                            {{ document.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
                         </div>
-                        <div class="col-xs-4">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <ul class="list-group">
-                                            <li class="list-group-item"
-                                                ng-class="{
-                  'list-group-item-success': doc.ignore == '',
-                  'disabled': doc.ignore != ''
-                }"
-                                                style="cursor:default">
-                                                Post
-                                                <div class="pull-right">
-                                                    <button type="button" class="btn btn-danger btn-xs"
-                                                            ng-click="toggleIgnore()"
-                                                            ng-show="doc.ignore == ''">
-                                                        <i class="fa fa-ban" aria-hidden="true"></i>
-                                                        Ignore
-                                                    </button>
-                                                    <button type="button" class="btn btn-success btn-xs"
-                                                            ng-click="toggleIgnore()"
-                                                            ng-show="doc.ignore == 'true'">
-                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                                        Active
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item"
-                                                ng-class="{
-                  'disabled': doc.ignore != ''
-                }">
-                                                Posted by <a href="{{meta.url}}" target="_blank">{{ meta.from_name
-                                                }}</a>
-                                            </li>
-                                            <!-- ngRepeat: act in suggestions -->
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div ng-show="doc.ignore == ''">
-                                    <div class="col-xs-12">
-                                        <acts ng-model="acts"
-                                              suggestions="auto_act"
-                                              onaftersave="save()"></acts>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <categories ng-model="categories"
-                                                    onaftersave="save()"></categories>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <sentiments ng-model="sentiments"
-                                                    onaftersave="save()"></sentiments>
-                                    </div>
+                    </section>
+                </section>
+            </aside>
+
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <div class="row" style="padding: 0px 30px;">
+                                <div class="col-sm-12">
+                                    <h4 ng-show="documents.length">
+                                        {{ documents.length }} posts
+                                        <div class="pull-right">
+                                            <small> Tasks:</small>
+                                            <button class="btn btn-xs ng-binding ng-scope btn-null"
+                                                    style="margin-right:1px" ng-class="{
+            'btn-null': params[task.name] == null,
+            'btn-true': params[task.name] == 'true',
+            'btn-false': params[task.name] == 'false',}"
+                                                    ng-click="toggle(task)"
+                                                    ng-repeat="task in tasks">
+                                                {{ task.label }}
+                                            </button>
+                                        </div>
+                                    </h4>
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target" style="top: 45px;">
+
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <!--<hr/>-->
+                                        <div class="media"
+                                             ng-show="isShow(document)"
+                                             ng-repeat="document in documents">
+                                            <div class="media-body">
+                                                <p class="media-heading media-level-{{document.level}}"
+                                                   ng-click="select(document)"
+                                                   ng-class="{
+            'media-focus': document.id == doc.id,
+            'media-disabled': document.ignore != ''
+            }">
+                                                    {{ document.text }}
+
+                                                    <a ui-sref="detailTagDialogueCorpus.ws({dialogueId: document.id})" class="btn btn-rounded btn-xs btn-info pull-right" style="margin-top: 5px; padding: 0px 5px;"><i class=" icon-tag"></i> Tags</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                    <aside class="aside-md" id="sidebar">
+                        <section class="vbox animated fadeInRight">
+                            <section class="w-f-md scrollable">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="row no-margin">
+                                            <ul class="list-group">
+                                                <li class="list-group-item"
+                                                    ng-class="{
+            'list-group-item-success': doc.ignore == '',
+            'disabled': doc.ignore != ''
+            }"
+                                                    style="cursor:default">
+                                                    Post
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn btn-danger btn-xs"
+                                                                ng-click="toggleIgnore()"
+                                                                ng-show="doc.ignore == ''">
+                                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                                            Ignore
+                                                        </button>
+                                                        <button type="button" class="btn btn-success btn-xs"
+                                                                ng-click="toggleIgnore()"
+                                                                ng-show="doc.ignore == 'true'">
+                                                            <i class="fa fa-check-circle"
+                                                               aria-hidden="true"></i>
+                                                            Active
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item"
+                                                    ng-class="{
+            'disabled': doc.ignore != ''
+            }">
+                                                    Posted by <a href="{{meta.url}}" target="_blank">{{
+                                                    meta.from_name
+                                                    }}</a>
+                                                </li>
+                                                <!-- ngRepeat: act in suggestions -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div ng-show="doc.ignore == ''">
+                                        <div class="col-xs-12">
+                                            <acts ng-model="acts"
+                                                  suggestions="auto_act"
+                                                  onaftersave="save()"></acts>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <categories ng-model="categories"
+                                                        onaftersave="save()"></categories>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <sentiments ng-model="sentiments"
+                                                        onaftersave="save()"></sentiments>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
                 </section>
             </section>
-        </aside>
+
+        </section>
     </section>
+
 </section>
+
+
+

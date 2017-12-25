@@ -78,20 +78,20 @@
 }
 
 .media-level-2 {
-    margin-left: 20px;
+    margin-left: 20px !important;
 
 }
 
 .media-level-3 {
-    margin-left: 40px;
+    margin-left: 40px !important;
 }
 
 .media-level-4 {
-    margin-left: 60px;
+    margin-left: 60px !important;
 }
 
 .media-level-5 {
-    margin-left: 80px;
+    margin-left: 80px !important;
 }
 
 .media-body .media-focus {
@@ -139,9 +139,6 @@
     background-color: #f2f4f8;
 }
 
-#sidebar .list-group {
-    border: 1px solid #bce8f1
-}
 
 .vbox.detail-document section {
     min-height: 100vh;
@@ -165,4 +162,14 @@ header .breadcrumb {
 
 .margin-breadcrumb {
     margin-top: 12px;
+}
+
+.action-page-dialogue{
+    display: flex;
+    align-items: center;
+}
+.action-page-dialogue h3{
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    margin-right: 10px !important;
 }

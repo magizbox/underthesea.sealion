@@ -1,5 +1,7 @@
 window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable', 'ui.bootstrap', 'nlp.elements', 'ui-notification', 'cfp.hotkeys']);
-
+app.config(function ($resourceProvider) {
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+});
 app.directive('myEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
@@ -78,3 +80,4 @@ app.directive("mwConfirmClick", [
 app.run(function (editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
+

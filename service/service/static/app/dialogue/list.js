@@ -1,7 +1,55 @@
 app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATUSES, QUALITIES, $stateParams, $state, $uibModal) {
   $scope.query = {};
+
+  $scope.listTask = [
+    {
+      name: 'Word Segmentation',
+      value: 'WS'
+    },
+    {
+      name: 'POS Tagging',
+      value: 'PO'
+    },
+    {
+      name: 'Chunking',
+      value: 'CH'
+    },
+    {
+      name: 'Named Entity Recognition',
+      value: 'NE'
+    },
+    {
+      name: 'Dialog Acts',
+      value: 'DA'
+    },
+
+    {
+      name: 'Category',
+      value: 'CA'
+    },
+
+    {
+      name: 'Sentiment',
+      value: 'SA'
+    }
+  ];
+
   $scope.getListDialogueCorpus = function () {
     DialogueCorpus.query($scope.query).then(function (data) {
+      _.each(data, function (item) {
+        if (item.tasks && item.tasks.length > 0) {
+          item.tasks = _.chain(item.tasks.split(","))
+            .map(function (task) {
+              return _.indexOf(_.pluck($scope.listTask, 'value'), task);
+            })
+            .sortBy()
+            .map(function (index) {
+              return $scope.listTask[index].value;
+            })
+            .value();
+        }
+
+      });
       $scope.corpora = data;
     });
   };
@@ -59,13 +107,37 @@ app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATU
       size: 'md',
       resolve: {
         data: function () {
-          return dialogue;
+          return {
+            dialogueInfo: dialogue,
+            listTask: $scope.listTask
+          };
         }
       },
       controller: function ($scope, $uibModalInstance, data) {
+        $scope.selectedTask = {};
+        $scope.tmp = angular.copy(data.dialogueInfo);
 
-        $scope.tmp = angular.copy(data);
+        $scope.listTaskModal = data.listTask;
+        if ($scope.tmp.tasks && $scope.tmp.tasks.length > 0) {
+          _.each($scope.tmp.tasks, function (item) {
+            $scope.selectedTask[item] = true;
+          });
+        }
         $scope.save = function () {
+
+          var listSelectedTask = _.chain($scope.selectedTask)
+            .pick(function (value, key, object) {
+              return value == true;
+            })
+            .allKeys()
+            .map(function (task) {
+              return _.indexOf(_.pluck($scope.listTaskModal, 'value'), task);
+            })
+            .sortBy()
+            .map(function (index) {
+              return $scope.listTaskModal[index].value;
+            }).value();
+          $scope.tmp.tasks = listSelectedTask.toString();
           DialogueCorpus.update({"id": $scope.tmp.id}, $scope.tmp).$promise.then(function () {
             $uibModalInstance.close();
           });

@@ -132,7 +132,6 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
         }
         $scope.listTaskModal = data.listTask;
         $scope.updateCorpus = function () {
-          console.log($scope.tmp);
           $scope.checkEdit = _.every([$scope.tmp.title, $scope.tmp.description], function (item) {
             return item.length > 0;
           });

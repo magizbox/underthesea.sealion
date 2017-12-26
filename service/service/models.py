@@ -33,6 +33,7 @@ class Document(models.Model):
 class DialogueCorpus(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True)
+    tasks = models.TextField(blank=True)
 
     def __str__(self):
         return "{} - {}".format(str(self.id), self.title)

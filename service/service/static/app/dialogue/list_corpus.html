@@ -3,7 +3,7 @@
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
             <ul class="breadcrumb">
-                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus"><i class="fa fa-list-ul"></i> Dialogue Corpora</a>
                 </li>
             </ul>
@@ -52,6 +52,7 @@
                                                             <th>#</th>
                                                             <th>Title</th>
                                                             <th>Description</th>
+                                                            <th>Task</th>
                                                             <th></th>
                                                         </tr>
                                                         </thead>
@@ -62,12 +63,20 @@
                                                                 corpus.id }}</a>
                                                             </th>
                                                             <td>
-                                                                <a ui-sref="detailDialogueCorpus({id: corpus.id})" style="text-decoration: underline;">{{
-                                                                corpus.title }}</a>
+                                                                <a ui-sref="detailDialogueCorpus({id: corpus.id})"
+                                                                   style="text-decoration: underline;">{{
+                                                                    corpus.title }}</a>
                                                             </td>
                                                             <td ui-sref="detailDialogueCorpus({id: corpus.id})">{{
                                                                 corpus.description
                                                                 }}
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-xs btn-true"
+                                                                        style="margin-right: 2px;"
+                                                                        ng-repeat="task in corpus.tasks">
+                                                                    {{task}}
+                                                                </button>
                                                             </td>
                                                             <td style="cursor:default">
                                                                 <button type="button" class="btn btn-warning btn-xs"
@@ -82,6 +91,7 @@
                                                                     Delete
                                                                 </button>
                                                             </td>
+
                                                         </tr>
                                                         </tbody>
 

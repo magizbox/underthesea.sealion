@@ -2,26 +2,38 @@
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
-            <ul class="breadcrumb">
-                <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
+            <!--breadcrumb for corpus document-->
+            <ul class="breadcrumb" ng-if="id">
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> List
                     Corpus</a>
                 </li>
                 <li><a ui-sref="detailCorpus({id:corpus.id })">{{ corpus.title }}</a></li>
                 <li class="active">{{ doc.id }}</li>
             </ul>
+            <!--breadcrumb for dialogue document-->
+            <ul class="breadcrumb" ng-if="dialogueId">
+                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="listDialogueCorpus"><i class="fa fa-list-ul"></i> Dialogue
+                    Corpora</a>
+                </li>
+                <li><a>{{ dialogue.id }}</a></li>
+                <li><a ui-sref="detailDialogue({id:dialogue.id })">documents</a>
+                </li>
+                <li class="active">{{ documentId }}</li>
+            </ul>
             <div class="wrap-status">
                 <small>Status:</small>
                 <button
-                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.status == status.value}"
-                        ng-click="doc.status = status.value; save()"
+                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.status == status.value || dialogue.status == status.value}"
+                        ng-click="doc.status = status.value; dialogue.status = status.value; save()"
                         ng-repeat="status in STATUSES">
                     {{ status.text }}
                 </button>
                 <small>Quality:</small>
                 <button
-                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.quality == quality.value}"
-                        ng-click="doc.quality = quality.value; save()"
+                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.quality == quality.value || dialogue.quality == quality.value}"
+                        ng-click="doc.quality = quality.value; dialogue.quality = quality.value; save()"
                         ng-repeat="quality in QUALITIES">{{ quality.text}}
                 </button>
             </div>
@@ -44,23 +56,6 @@
                     <section>
                         <section class="vbox">
                             <section class="scrollable padder-lg w-f-md" id="bjax-target">
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <h3>
-                                            <!-- messages -->
-                                            <!--<button ng-show="MESSAGES.SYNTAX_ERROR" type="button"-->
-                                            <!--class="btn btn-danger btn-xs disabled">AMR Syntax Error-->
-                                            <!--</button>-->
-                                            <!--<button ng-show="MESSAGES.CREATE_SUCCESS" type="button"-->
-                                            <!--class="btn btn-success btn-xs disabled">Document is-->
-                                            <!--saved successfully.-->
-                                            <!--</button>-->
-                                            <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
-                                        </h3>
-                                    </div>
-
-                                </div>
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <ui-view></ui-view>

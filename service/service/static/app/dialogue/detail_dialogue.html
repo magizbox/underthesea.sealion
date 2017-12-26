@@ -3,10 +3,10 @@
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
             <ul class="breadcrumb">
-                <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
-                <li><a ui-sref="detailDialogueCorpus({id: corpus})">Dialogue Corpus {{
-                    corpus }}</a>
-                </li>
+                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="listDialogueCorpus">Dialogue Corpora </a></li>
+                <li><a> {{ dialogue.id }}</a> </li>
+                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> dialogues </a></li>
                 <li class="active">{{ id }}</li>
             </ul>
             <div class="wrap-status">
@@ -82,7 +82,10 @@
             }">
                                                     {{ document.text }}
 
-                                                    <a ui-sref="detailTagDialogueCorpus.ws({dialogueId: document.id})" class="btn btn-rounded btn-xs btn-info pull-right" style="margin-top: 5px; padding: 0px 5px;"><i class=" icon-tag"></i> Tags</a>
+                                                    <a ui-sref="detailTagDialogueCorpus.ws({dialogueId: id, documentId: document.id})"
+                                                       class="btn btn-rounded btn-xs btn-info pull-right"
+                                                       style="margin-top: 5px; padding: 0px 5px;"><i
+                                                            class=" icon-tag"></i> Tags</a>
                                                 </p>
                                             </div>
                                         </div>

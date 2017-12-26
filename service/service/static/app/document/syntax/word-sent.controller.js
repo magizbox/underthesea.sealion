@@ -27,7 +27,7 @@ app.controller("WordSentController", function ($scope, $state, $stateParams, Doc
   };
 
   $scope.getInfoDialogueCorpus = function () {
-    DialogueDocument.get({id: $stateParams.dialogueId}).then(function (dialogue) {
+    DialogueDocument.get({id: $stateParams.documentId}).then(function (dialogue) {
       $scope.document = angular.copy(dialogue);
       $scope.wordSent = {
         "config": WordSentBratConfig,

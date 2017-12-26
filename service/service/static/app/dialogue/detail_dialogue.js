@@ -40,10 +40,12 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     var output = transformDocumentLevel(documents, 1);
     return _.flatten(output);
   };
+
   Dialogue.getDocuments({id: $scope.id}).then(function (documents) {
     $scope.documents = transformDocument(documents);
     $scope.select($scope.documents[0]);
   });
+
   $scope.update = function () {
     var action = Dialogue.update({id: $scope.id}, $scope.dialogue);
     action.$promise.then(function () {
@@ -53,7 +55,15 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         positionX: 'right',
         positionY: 'bottom'
       });
-    });
+    })
+      .catch(function (err) {
+        Notification.error({
+          message: 'AMR Syntax Error',
+          delay: 1000,
+          positionX: 'right',
+          positionY: 'bottom'
+        });
+      });
   };
 
   $scope.deleteDocument = function (id) {
@@ -93,16 +103,15 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     $scope.doc.category = angular.toJson($scope.categories);
     $scope.doc.act = angular.toJson($scope.acts);
     $scope.doc.auto_act = angular.toJson($scope.auto_act);
-    var action = DialogueDocument.update({id: $scope.doc.id}, $scope.doc);
-    action.$promise.then(function () {
-      Notification.success({
-        message: 'Document is saved successfully.',
-        delay: 1000,
-        positionX: 'right',
-        positionY: 'bottom'
-      });
-    })
-      .catch(function (err) {
+    DialogueDocument.update({id: $scope.doc.id}, $scope.doc,
+      function (data) {
+        Notification.success({
+          message: 'Document is saved successfully.',
+          delay: 1000,
+          positionX: 'right',
+          positionY: 'bottom'
+        });
+      }, function (err) {
         Notification.error({
           message: 'AMR Syntax Error',
           delay: 1000,
@@ -110,6 +119,7 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
           positionY: 'bottom'
         });
       });
+
   };
 
   $scope.tasks = [
@@ -144,6 +154,8 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     $scope.params[task.name] = nextState;
     console.log(params);
   };
+
+
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
   $scope.isShow = function (document) {

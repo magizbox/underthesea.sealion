@@ -1,5 +1,7 @@
-app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification) {
+app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification, Dialogue) {
   $scope.id = $stateParams.id;
+  $scope.dialogueId = $stateParams.dialogueId;
+  $scope.documentId = $stateParams.documentId;
   if ($scope.id) {
     Document.query({id: $scope.id}, {}).then(function (doc) {
       $scope.doc = doc;
@@ -28,7 +30,12 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
       })
     });
   }
-
+  else if ($scope.dialogueId) {
+    Dialogue.query({id: $scope.dialogueId}, function (dialogue) {
+      $scope.dialogue = dialogue;
+      $scope.corpus = dialogue.corpus;
+    });
+  }
 
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
@@ -36,28 +43,51 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
   $scope.save = function () {
     try {
       $scope.LOADING = true;
-      $scope.doc.sentiment = angular.toJson($scope.sentiments);
-      $scope.doc.category = angular.toJson($scope.categories);
 
-      Document.update({id: $scope.id}, $scope.doc,
-        function (data) {
-          $scope.LOADING = false;
+      if ($stateParams.id) { // document cua corpus
+        $scope.doc.sentiment = angular.toJson($scope.sentiments);
+        $scope.doc.category = angular.toJson($scope.categories);
+        Document.update({id: $scope.id}, $scope.doc,
+          function (data) {
+            $scope.LOADING = false;
 
+            Notification.success({
+              message: 'Document is saved successfully.',
+              delay: 1000,
+              positionX: 'right',
+              positionY: 'bottom'
+            });
+          }, function (err) {
+            Notification.error({
+              message: 'AMR Syntax Error',
+              delay: 1000,
+              positionX: 'right',
+              positionY: 'bottom'
+            });
+            $scope.LOADING = false;
+          });
+      }
+      else if ($stateParams.dialogueId) { // truong hop la document cua dialogue
+        var action = Dialogue.update({id: $stateParams.dialogueId}, $scope.dialogue);
+        action.$promise.then(function () {
           Notification.success({
-            message: 'Document is saved successfully.',
+            message: 'Dialogue is updated successfully.',
             delay: 1000,
             positionX: 'right',
             positionY: 'bottom'
           });
-        }, function (err) {
-          Notification.error({
-            message: 'AMR Syntax Error',
-            delay: 1000,
-            positionX: 'right',
-            positionY: 'bottom'
+        })
+          .catch(function (err) {
+            Notification.error({
+              message: 'AMR Syntax Error',
+              delay: 1000,
+              positionX: 'right',
+              positionY: 'bottom'
+            });
           });
-          $scope.LOADING = false;
-        });
+      }
+
+
     } catch (e) {
       Notification.error({
         message: 'AMR Syntax Error',

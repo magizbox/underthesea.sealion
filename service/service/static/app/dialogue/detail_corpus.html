@@ -4,9 +4,10 @@
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
             <ul class="breadcrumb">
-                <li><a href=""><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
                 <li>{{ id }}</li>
+                <li>dialogues</li>
             </ul>
         </div>
     </header>
@@ -63,10 +64,10 @@
                                                             </button>
                                                         </small>
                                                     </h3>
-                                                    <button class="btn btn-sm btn-success"
-                                                                    ng-click="openNewDialogueCorpusModal()">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i> New Dialogue
-                                                    </button>
+                                                    <!--<button class="btn btn-sm btn-success"-->
+                                                                    <!--ng-click="openNewDialogueCorpusModal()">-->
+                                                        <!--<i class="fa fa-plus" aria-hidden="true"></i> New Dialogue-->
+                                                    <!--</button>-->
                                                     <!--<div class="input-group" style="width: 300px;">-->
                                                         <!--<input type="text" class="input-sm form-control"-->
                                                                <!--placeholder="Search" ng-model="params.search"-->

@@ -41,7 +41,6 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
 
   Dialogue.query($scope.params).then(function (dialogues) {
     $scope.dialogues = dialogues;
-    console.log(dialogues);
   });
 
   DialogueCorpus.get({id: $scope.id}, function (corpus) {

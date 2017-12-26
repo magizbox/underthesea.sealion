@@ -1,34 +1,25 @@
-<section class="vbox">
-    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
-        <div ng-include="'./static/app/common/header.html'"></div>
-    </header>
-    <section>
-        <section class="hbox stretch"> <!-- .aside -->
-            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
-                <section class="vbox">
-                    <section class="w-f-md scrollable">
-                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
-                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
-                            <div ng-include="'./static/app/common/nav.html'"></div>
-                        </div>
-                    </section>
-                </section>
-            </aside>
-            <section id="content">
-                <section class="hbox stretch">
-                    <section>
-                        <section class="vbox">
-                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+<div class="bg-info" style="height: 100vh;">
+    <section id="content" class="wrapper-md animated fadeInUp" style="padding-top: 60px !important;">
+        <div class="container aside-xl"><a class="navbar-brand block" ui-sref="main"><span
+                class="h1 font-bold">Sealion</span></a>
+            <section class="m-b-lg">
+                <header class="wrapper text-center"><strong>Choose the feature</strong></header>
+                <div>
+                     <a class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" ui-sref="listCorpus"><i
+                            class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">Corpora</span></a>
+                     <a class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" style="margin-top: 10px;" ui-sref="listDialogueCorpus"><i
+                            class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">Dialogue Corpora</span></a>
+                </div>
 
-                            </section>
 
-                        </section>
-                    </section>
-                    <aside class="aside-md bg-light dk" id="sidebar">
-                        <section ng-include="'./static/app/common/aside-right.html'" class="vbox animated fadeInRight"></section>
-                    </aside>
-                </section>
             </section>
-        </section>
-    </section>
-</section>
+        </div>
+    </section> <!-- footer -->
+    <footer id="footer">
+        <div class="text-center padder">
+            <p>
+                <small>Web app framework base on Bootstrap<br>&copy; 2017</small>
+            </p>
+        </div>
+    </footer>
+</div>

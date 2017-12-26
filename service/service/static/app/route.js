@@ -1,5 +1,5 @@
 app.config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/corpora');
+  $urlRouterProvider.otherwise('/');
   $stateProvider
     .state({
       url: '/',
@@ -21,6 +21,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state({
       url: '/corpora/:id?status&quality&search&act&category&sentiment',
       name: 'detailCorpus',
+      nested: 'listCorpus',
       controller: 'DetailCorpusCtrl',
       templateUrl: "./static/app/corpus/detail.html"
     })
@@ -73,7 +74,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/document/classification/classification.html"
     })
     .state({
-      url: '/dialogue-corpus/:dialogueId',
+      url: '/dialogue-corpus/:dialogueId/documents/:documentId',
       name: 'detailTagDialogueCorpus',
       templateUrl: "./static/app/document/detail-document.html",
       controller: 'DetailDocumentCtrl'
@@ -123,12 +124,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state({
       url: '/dialogue_corpora/:id?limit&offset&status&quality&search&act&category&sentiment',
       name: 'detailDialogueCorpus',
+      nested: 'listDialogueCorpus',
       controller: 'DetailDialogueCorpusCtrl',
       templateUrl: "./static/app/dialogue/detail_corpus.html"
     })
     .state({
       url: '/dialogues/:id',
       name: 'detailDialogue',
+      nested: 'listDialogueCorpus',
       controller: 'DetailDialogueCtrl',
       templateUrl: "./static/app/dialogue/detail_dialogue.html"
     });

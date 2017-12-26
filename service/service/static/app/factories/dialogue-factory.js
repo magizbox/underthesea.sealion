@@ -37,6 +37,7 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
 
   resource.getDocuments = function () {
     return resource._query.apply(null, arguments).$promise.then(function (data) {
+
       function merge(ids, data) {
         var output = [];
         for (var i = 0; i < ids.length; i++) {
@@ -55,7 +56,16 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
         var r = _.map(ids, function (id) {
           return DialogueDocumentService.get({"id": id});
         });
+        console.log(r);
         Promise.all(r).then(function (data) {
+
+          _.each(data, function (item) {
+            if (_.isArray(item["auto_act"]) == false) {
+              item["auto_act"] = JSON.parse(item["auto_act"]);
+            }
+            return item;
+          });
+          console.log(data);
           data = data.reduce(function (map, obj) {
             map[obj["id"]] = obj;
             return map;

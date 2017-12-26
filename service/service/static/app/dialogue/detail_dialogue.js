@@ -43,6 +43,7 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
   Dialogue.getDocuments({id: $scope.id}).then(function (documents) {
     $scope.documents = transformDocument(documents);
+    console.log(documents);
     $scope.select($scope.documents[0]);
   });
 

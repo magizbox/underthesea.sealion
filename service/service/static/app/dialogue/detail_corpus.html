@@ -1,10 +1,9 @@
-
 <section class="vbox">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
             <ul class="breadcrumb">
-                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
                 <li>{{ id }}</li>
                 <li>dialogues</li>
@@ -65,19 +64,19 @@
                                                         </small>
                                                     </h3>
                                                     <!--<button class="btn btn-sm btn-success"-->
-                                                                    <!--ng-click="openNewDialogueCorpusModal()">-->
-                                                        <!--<i class="fa fa-plus" aria-hidden="true"></i> New Dialogue-->
+                                                    <!--ng-click="openNewDialogueCorpusModal()">-->
+                                                    <!--<i class="fa fa-plus" aria-hidden="true"></i> New Dialogue-->
                                                     <!--</button>-->
                                                     <!--<div class="input-group" style="width: 300px;">-->
                                                         <!--<input type="text" class="input-sm form-control"-->
                                                                <!--placeholder="Search" ng-model="params.search"-->
                                                                <!--ng-enter="getListDialogueCorpus()">-->
-                                                        <!--<span class="input-group-btn">-->
-                                                            <!--<button class="btn btn-sm btn-success"-->
-                                                                    <!--ng-click="openNewDialogueCorpusModal()">-->
-                                                        <!--<i class="fa fa-plus" aria-hidden="true"></i>-->
-                                                    <!--</button>-->
-                                                <!--</span>-->
+                                                        <!--&lt;!&ndash;<span class="input-group-btn">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<button class="btn btn-sm btn-success"&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;ng-click="openNewDialogueCorpusModal()">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<i class="fa fa-plus" aria-hidden="true"></i>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;</span>&ndash;&gt;-->
                                                     <!--</div>-->
                                                 </div>
 
@@ -97,7 +96,9 @@
                                                                     ui-sref="detailDialogue({id: dialogue.id})">{{
                                                                 dialogue.id }}</a></th>
                                                             <td>
-                                                                <a ui-sref="detailDialogue({id: dialogue.id})" style="text-decoration: underline;">{{ dialogue.text }}</a>
+                                                                <a ui-sref="detailDialogue({id: dialogue.id})"
+                                                                   style="text-decoration: underline;">{{ dialogue.text
+                                                                    }}</a>
                                                                 <br/>
                                                                 <div class="pull-right">
                                                                     <small>{{ dialogue.comments }} posts</small>

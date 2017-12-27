@@ -1,7 +1,7 @@
 /**
  * Created by crawler on 05/12/2017.
  */
-app.controller("NavController", function ($scope, $state, $stateParams) {
+app.controller("NavController", function ($scope, $state, $stateParams, DialogueCorpus) {
 
   $scope.currState = $state.$current.name;
   $scope.nestedState = $state.$current.nested;
@@ -40,15 +40,19 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
     });
   }
   else if ($scope.parent == "detailTagDialogueCorpus") {
-    $scope.listItemMenu = _.chain(listItem)
-      .filter(function (item1) {
-        return item1.name != 'TC';
-      })
-      .map(function (item2) {
-        item2["uisref"] = item2.value + "({dialogueId: " + $stateParams.dialogueId + "})";
-        return item2;
-      })
-      .value();
+    DialogueCorpus.get({id: $stateParams.dialogueId}, function (corpus) {
+      $scope.tasks = corpus.tasks.split(",");
+      $scope.listItemMenu = _.chain(listItem)
+        .filter(function (item1) {
+          return item1.name != 'TC' && _.contains($scope.tasks, item1.name);
+        })
+        .map(function (item2) {
+          item2["uisref"] = item2.value + "({dialogueId: " + $stateParams.dialogueId + "})";
+          return item2;
+        })
+        .value();
+    });
+
   } else {
 
     $scope.listItemMenu = [
@@ -65,8 +69,7 @@ app.controller("NavController", function ($scope, $state, $stateParams) {
         icon: 'icon-list icon text-info-dker'
       }
     ];
-  }
-  ;
+  };
 
   $scope.activeMenu = function (item) {
     $scope.currState = item.value;

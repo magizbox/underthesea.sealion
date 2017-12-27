@@ -1,41 +1,11 @@
-app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, $stateParams, $state, $uibModal) {
+app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, $stateParams, $state, TASKS, $uibModal) {
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
   $scope.status = $stateParams.status ? $stateParams.status : 'ALL';
   $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
 
-  $scope.listTask = [
-    {
-      name: 'Word Segmentation',
-      value: 'WS'
-    },
-    {
-      name: 'POS Tagging',
-      value: 'PO'
-    },
-    {
-      name: 'Chunking',
-      value: 'CH'
-    },
-    {
-      name: 'Named Entity Recognition',
-      value: 'NE'
-    },
-    {
-      name: 'Dialog Acts',
-      value: 'DA'
-    },
-
-    {
-      name: 'Category',
-      value: 'CA'
-    },
-
-    {
-      name: 'Sentiment',
-      value: 'SA'
-    }
-  ];
+  $scope.listTask = TASKS;
+  console.log($scope.listTask);
   $scope.query = {
     limit: 10,
     offset: 0,

@@ -56,7 +56,6 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
         var r = _.map(ids, function (id) {
           return DialogueDocumentService.get({"id": id});
         });
-        console.log(r);
         Promise.all(r).then(function (data) {
 
           _.each(data, function (item) {
@@ -65,7 +64,6 @@ app.factory('Dialogue', function ($resource, DialogueDocument) {
             }
             return item;
           });
-          console.log(data);
           data = data.reduce(function (map, obj) {
             map[obj["id"]] = obj;
             return map;

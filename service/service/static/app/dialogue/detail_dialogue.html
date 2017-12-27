@@ -52,12 +52,12 @@
                                             <small> Tasks:</small>
                                             <button class="btn btn-xs ng-binding ng-scope btn-null"
                                                     style="margin-right:1px" ng-class="{
-            'btn-null': params[task.name] == null,
-            'btn-true': params[task.name] == 'true',
-            'btn-false': params[task.name] == 'false',}"
+            'btn-null': params[task] == null,
+            'btn-true': params[task] == 'true',
+            'btn-false': params[task] == 'false',}"
                                                     ng-click="toggle(task)"
-                                                    ng-repeat="task in tasks">
-                                                {{ task.label }}
+                                                    ng-repeat="task in corpusInfo.tasks">
+                                                {{ task }}
                                             </button>
                                         </div>
                                     </h4>
@@ -142,15 +142,15 @@
                                         <div class="col-xs-12">
                                             <acts ng-model="acts"
                                                   suggestions="auto_act"
-                                                  onaftersave="save()"></acts>
+                                                  onaftersave="save()" ng-if="checkExistTask('DA')"></acts>
                                         </div>
                                         <div class="col-xs-12">
                                             <categories ng-model="categories"
-                                                        onaftersave="save()"></categories>
+                                                        onaftersave="save()" ng-if="checkExistTask('CA')"></categories>
                                         </div>
                                         <div class="col-xs-12">
                                             <sentiments ng-model="sentiments"
-                                                        onaftersave="save()"></sentiments>
+                                                        onaftersave="save()" ng-if="checkExistTask('SA')"></sentiments>
                                         </div>
                                     </div>
 

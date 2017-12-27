@@ -44,6 +44,7 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
   });
 
   DialogueCorpus.get({id: $scope.id}, function (corpus) {
+    corpus.tasks = corpus.tasks.split(",");
     $scope.corpus = corpus;
   });
 

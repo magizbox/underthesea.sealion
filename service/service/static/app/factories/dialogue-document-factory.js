@@ -25,7 +25,7 @@ app.factory('DialogueDocument', function ($resource) {
     },
 
     deserialize: function (document) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act"], function (field) {
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment"], function (field) {
         document = DialogueDocumentSerializer.formatDataType(document, field);
       });
 
@@ -36,7 +36,7 @@ app.factory('DialogueDocument', function ($resource) {
     },
 
     serialize: function (object) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act"], function (field) {
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment"], function (field) {
         if (_.isArray(object[field])) {
           object[field] = JSON.stringify(object[field]);
         }

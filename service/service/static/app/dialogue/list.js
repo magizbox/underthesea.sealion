@@ -1,38 +1,7 @@
-app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATUSES, QUALITIES, $stateParams, $state, $uibModal) {
+app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATUSES, QUALITIES, TASKS, $stateParams, $state, $uibModal) {
   $scope.query = {};
 
-  $scope.listTask = [
-    {
-      name: 'Word Segmentation',
-      value: 'WS'
-    },
-    {
-      name: 'POS Tagging',
-      value: 'PO'
-    },
-    {
-      name: 'Chunking',
-      value: 'CH'
-    },
-    {
-      name: 'Named Entity Recognition',
-      value: 'NE'
-    },
-    {
-      name: 'Dialog Acts',
-      value: 'DA'
-    },
-
-    {
-      name: 'Category',
-      value: 'CA'
-    },
-
-    {
-      name: 'Sentiment',
-      value: 'SA'
-    }
-  ];
+  $scope.listTask = TASKS;
 
   $scope.getListDialogueCorpus = function () {
     DialogueCorpus.query($scope.query).then(function (data) {

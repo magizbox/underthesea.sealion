@@ -1,4 +1,4 @@
-app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDocument, $state, STATUSES, QUALITIES, Dialogue, Params, $filter, Notification) {
+app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDocument, DialogueCorpus, $state, TASKS, STATUSES, QUALITIES, Dialogue, Params, $filter, Notification) {
   $scope.id = $stateParams.id;
   var params = JSON.parse(JSON.stringify($stateParams));
   $scope.params = Params(params, {
@@ -13,9 +13,14 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     "sentiment": null
   });
 
+
   Dialogue.query({id: $scope.id}, function (dialogue) {
     $scope.dialogue = dialogue;
     $scope.corpus = dialogue.corpus;
+    DialogueCorpus.get({id: dialogue.corpus}, function (corpus) {
+      corpus.tasks = corpus.tasks.split(",");
+      $scope.corpusInfo = corpus;
+    });
   });
 
   function transformDocumentLevel(documents, level) {
@@ -43,7 +48,6 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
   Dialogue.getDocuments({id: $scope.id}).then(function (documents) {
     $scope.documents = transformDocument(documents);
-    console.log(documents);
     $scope.select($scope.documents[0]);
   });
 
@@ -75,27 +79,11 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
   $scope.select = function (doc) {
     $scope.doc = doc;
-    try {
-      $scope.sentiments = JSON.parse(doc.sentiment);
-    } catch (e) {
-      $scope.sentiments = [];
-    }
-    try {
-      $scope.categories = JSON.parse(doc.category);
-    } catch (e) {
-      $scope.categories = [];
-    }
-    try {
-      $scope.acts = JSON.parse(doc.act);
-    } catch (e) {
-      $scope.acts = [];
-    }
-    try {
-      $scope.meta = JSON.parse(doc.meta);
-    } catch (e) {
-    }
+    $scope.sentiments = doc.sentiment;
+    $scope.categories = doc.category;
+    $scope.acts = doc.act;
+    $scope.meta = doc.meta;
     $scope.auto_act = doc.auto_act;
-
   };
 
 
@@ -149,30 +137,42 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
   $scope.toggle = function (task) {
     var states = ["true", "false", null];
-    var i = states.indexOf($scope.params[task.name]);
+    var i = states.indexOf($scope.params[task]);
     var ni = (i + 1) % states.length;
     var nextState = states[ni];
-    $scope.params[task.name] = nextState;
-    console.log(params);
+    $scope.params[task] = nextState;
   };
 
 
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
+  $scope.listTask = TASKS;
+
   $scope.isShow = function (document) {
-    for (var i = 0; i < $scope.tasks.length; i++) {
-      var task = $scope.tasks[i];
-      if ($scope.params[task.name] == 'true') {
-        if (!document["is_valid_" + task.name]) {
+    for (var i = 0; i < $scope.corpusInfo.tasks.length; i++) {
+      var task = $scope.corpusInfo.tasks[i];
+      var taskData = _.find($scope.listTask, function (item) {
+        return item.value == task;
+      });
+
+      if ($scope.params[task] == 'true') {
+        if (!document[taskData.data] || document[taskData.data].length <= 0) {
           return false;
         }
       }
-      if ($scope.params[task.name] == 'false') {
-        if (document["is_valid_" + task.name]) {
+      if ($scope.params[task] == 'false') {
+        if (document[taskData.data] && document[taskData.data].length > 0) {
           return false;
         }
       }
     }
     return true;
+  };
+
+  $scope.checkExistTask = function (task) {
+    if ($scope.corpusInfo) {
+      return _.contains($scope.corpusInfo.tasks, task);
+    }
+
   };
 });

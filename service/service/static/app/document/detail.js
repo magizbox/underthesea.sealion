@@ -1,32 +1,24 @@
 app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification, Dialogue) {
-  $scope.id = $stateParams.id;
+  $scope.id = $stateParams.idDocument;
   $scope.dialogueId = $stateParams.dialogueId;
   $scope.documentId = $stateParams.documentId;
   if ($scope.id) {
     Document.query({id: $scope.id}, {}).then(function (doc) {
       $scope.doc = doc;
+      $scope.sentiments = doc.sentiment;
+      $scope.categories = doc.category;
+      $scope.acts = doc.act;
 
-      try {
-        $scope.sentiments = JSON.parse(doc.sentiment);
-      } catch (e) {
-        $scope.sentiments = [];
-      }
-      try {
-        $scope.categories = JSON.parse(doc.category);
-      } catch (e) {
-        $scope.categories = [];
-      }
-      try {
-        $scope.acts = JSON.parse(doc.act);
-      } catch (e) {
-        $scope.acts = [];
-      }
       $scope.auto_acts = [{
         "name": "INFORMATION"
       }];
       $scope.corpusId = doc.corpus;
       Corpus.get({id: doc.corpus}, function (corpus) {
         $scope.corpus = corpus;
+        $scope.tasks = corpus.tasks;
+        if($scope.tasks.length > 0){
+          $state.go("detailDocument."+$scope.tasks[0], {"idDocument": doc.id, "idCorpus": $scope.corpusId});
+        }
       })
     });
   }
@@ -34,6 +26,13 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
     Dialogue.query({id: $scope.dialogueId}, function (dialogue) {
       $scope.dialogue = dialogue;
       $scope.corpus = dialogue.corpus;
+      Corpus.get({id: dialogue.corpus}, function (corpus) {
+        $scope.corpus = corpus;
+        $scope.tasks = corpus.tasks;
+        if($scope.tasks.length > 0){
+          $state.go("detailDocument."+$scope.tasks[0], {"idDocument": doc.id, "idCorpus": $scope.corpusId});
+        }
+      })
     });
   }
 
@@ -44,7 +43,7 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
     try {
       $scope.LOADING = true;
 
-      if ($stateParams.id) { // document cua corpus
+      if ($scope.id) { // document cua corpus
         $scope.doc.sentiment = angular.toJson($scope.sentiments);
         $scope.doc.category = angular.toJson($scope.categories);
         Document.update({id: $scope.id}, $scope.doc,

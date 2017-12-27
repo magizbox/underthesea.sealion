@@ -1,7 +1,7 @@
 /**
  * Created by crawler on 05/12/2017.
  */
-app.controller("NavController", function ($scope, $state, $stateParams, DialogueCorpus) {
+app.controller("NavController", function ($scope, $state, $stateParams, DialogueCorpus, Corpus) {
 
   $scope.currState = $state.$current.name;
   $scope.nestedState = $state.$current.nested;
@@ -34,10 +34,20 @@ app.controller("NavController", function ($scope, $state, $stateParams, Dialogue
     }
   ];
   if ($scope.parent == "detailDocument") {
-    $scope.listItemMenu = _.map(listItem, function (item) {
-      item["uisref"] = item.value + "({id: " + $stateParams.id + "})";
-      return item;
-    });
+    Corpus.get({id: $stateParams.idCorpus}, function (corpus) {
+      var tasks = corpus.tasks.split(",");
+      $scope.listItemMenu = _.chain(listItem)
+        .filter(function (item) {
+          return _.contains(tasks, item.name) || item.name == 'TC';
+        })
+        .map(function (item2) {
+          item2["uisref"] = item2.value + "({idCorpus:" + $stateParams.idCorpus + ", idDocument: " + $stateParams.idDocument + "})";
+          return item2;
+        }).value();
+    })
+    ;
+
+
   }
   else if ($scope.parent == "detailTagDialogueCorpus") {
     DialogueCorpus.get({id: $stateParams.dialogueId}, function (corpus) {
@@ -69,7 +79,8 @@ app.controller("NavController", function ($scope, $state, $stateParams, Dialogue
         icon: 'icon-list icon text-info-dker'
       }
     ];
-  };
+  }
+  ;
 
   $scope.activeMenu = function (item) {
     $scope.currState = item.value;

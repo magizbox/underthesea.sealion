@@ -1,4 +1,4 @@
-app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter, $uibModal) {
+app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, TASKS, QUALITIES, Document, Params, $filter, $uibModal) {
   $scope.init = function () {
     $scope.id = $stateParams.id;
     var params = JSON.parse(JSON.stringify($stateParams));
@@ -18,11 +18,11 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
     $scope.statuses = STATUSES;
     $scope.quality = null;
     $scope.qualities = QUALITIES;
+    $scope.listTask = TASKS;
 
     $scope.getInfoCorpus();
     $scope.getListDocument();
   };
-
 
   $scope.showStatus = function () {
     var selected = $filter('filter')($scope.statuses,
@@ -48,11 +48,22 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
     $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
     Document.query($scope.params).then(function (documents) {
       $scope.documents = documents;
+      _.each(documents, function (document) {
+        $scope.getTaskDocument(document);
+      });
     });
     Document.pagination($scope.params).then(function (result) {
       $scope.totalItems = result["totalItems"];
       $scope.itemsPerPage = result["itemsPerPage"];
       $scope.currentPage = result["currentPage"];
+    });
+  };
+
+  $scope.getTaskDocument = function (document) {
+    return _.filter($scope.listTask, function (task) {
+      if (document[task.data].length > 0) {
+        return task;
+      }
     });
   };
 

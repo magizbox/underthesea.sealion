@@ -106,16 +106,14 @@
                                                                     1}}</a>
                                                             </th>
                                                             <td>
-                                                                <a ui-sref="detailDocument.ws({id: doc.id})"
+                                                                <a ui-sref="detailDocument({idCorpus: doc.corpus,idDocument: doc.id})"
                                                                    style="text-decoration: underline;">
                                                                     {{ doc.text | limitTo:110}}
                                                                     <span ng-show="doc.text.length > 80">...</span>
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                <span ng-class="{'label':true,'label-info':doc.hasAct,'label-default':!doc.hasAct}">DA</span>
-                                                                <span ng-class="{'label':true,'label-info':doc.hasCategory,'label-default':!doc.hasCategory}">CA</span>
-                                                                <span ng-class="{'label':true,'label-info':doc.hasSentiment,'label-default':!doc.hasSentiment}">SA</span>
+                                                                <span class="label label-info" ng-repeat="task in getTaskDocument(doc)" style="margin-right: 5px;">{{task.value}}</span>
                                                             </td>
                                                             <td ui-sref="detailDocument({id: doc.id})">{{ doc.status
                                                                 }}

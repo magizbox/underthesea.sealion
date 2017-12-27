@@ -30,7 +30,7 @@ app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $sta
     } else {
       Document.save($scope.doc).$promise.then(function (doc) {
         $uibModalInstance.close();
-        $state.go("detailDocument", {"id": doc.id});
+        $state.go("detailDocument", {"idDocument": doc.id, "idCorpus": $scope.corpusId});
       })
     }
   };

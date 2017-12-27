@@ -24,7 +24,7 @@ app.factory('Document', function ($resource) {
     },
 
     deserialize: function (document) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "act"], function(field){
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "act", "category", "sentiment"], function(field){
         document = DocumentSerializer.formatDataType(document, field);
       });
 
@@ -35,7 +35,7 @@ app.factory('Document', function ($resource) {
     },
 
     serialize: function(object){
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "act"], function(field){
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "act", "category", "sentiment"], function(field){
         if(_.isArray(object[field])){
           object[field] = JSON.stringify(object[field]);
         }

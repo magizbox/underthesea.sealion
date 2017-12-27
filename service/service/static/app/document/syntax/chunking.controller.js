@@ -14,7 +14,7 @@ app.controller("ChunkingController", function ($scope, $state, $stateParams, Doc
   };
 
   $scope.getInfoDocument = function () {
-    Document.query({id: $stateParams.id}).then(function (doc) {
+    Document.query({id: $stateParams.idDocument}).then(function (doc) {
       $scope.document = angular.copy(doc);
       $scope.chunking = {
         "config": ChunkingBratConfig,
@@ -39,7 +39,7 @@ app.controller("ChunkingController", function ($scope, $state, $stateParams, Doc
     });
   };
 
-  if($stateParams.id){
+  if($stateParams.idDocument){
      $scope.getInfoDocument();
   }
   else if($stateParams.dialogueId){

@@ -39,15 +39,15 @@
                         <div>
                             <div class="col-xs-12">
                                 <acts ng-model="document.act"
-                                      onaftersave="updateDocument()"></acts>
+                                      onaftersave="updateDocument()" ng-if="checkTaskDocument('DA')"></acts>
                             </div>
                             <div class="col-xs-12">
                                 <categories ng-model="categories"
-                                            onaftersave="updateDocument()"></categories>
+                                            onaftersave="updateDocument()" ng-if="checkTaskDocument('CA')"></categories>
                             </div>
                             <div class="col-xs-12">
                                 <sentiments ng-model="sentiments"
-                                            onaftersave="updateDocument()"></sentiments>
+                                            onaftersave="updateDocument()" ng-if="checkTaskDocument('SA')"></sentiments>
                             </div>
                         </div>
                     </div>

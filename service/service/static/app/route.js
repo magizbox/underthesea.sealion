@@ -38,37 +38,37 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/document/new.html"
     })
     .state({
-      url: '/documents/:id/syntax',
+      url: '/corpora/:idCorpus/documents/:idDocument',
       name: 'detailDocument',
       templateUrl: "./static/app/document/detail-document.html",
       controller: 'DetailDocumentCtrl'
     })
     .state({
-      url: '/ws',
+      url: '/syntax/ws',
       name: 'detailDocument.ws',
       controller: 'WordSentController',
       templateUrl: "./static/app/document/syntax/word-sent.html"
     })
     .state({
-      url: '/po',
+      url: '/syntax/po',
       name: 'detailDocument.po',
       controller: 'PosTagController',
       templateUrl: "./static/app/document/syntax/pos-tag.html"
     })
     .state({
-      url: '/ch',
+      url: '/syntax/ch',
       name: 'detailDocument.ch',
       controller: 'ChunkingController',
       templateUrl: "./static/app/document/syntax/chunking.html"
     })
     .state({
-      url: '/ner',
+      url: '/syntax/ner',
       name: 'detailDocument.ner',
       controller: 'NerController',
       templateUrl: "./static/app/document/syntax/ner.html"
     })
     .state({
-      url: '/documents/:id/classification',
+      url: '/classification',
       name: 'detailDocument.classification',
       controller: 'ClassificationController',
       templateUrl: "./static/app/document/classification/classification.html"

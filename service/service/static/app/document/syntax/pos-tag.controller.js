@@ -14,7 +14,7 @@ app.controller("PosTagController", function ($scope, $state, $stateParams, Docum
   };
 
   $scope.getInfoDocument = function () {
-    Document.query({id: $stateParams.id}).then(function (doc) {
+    Document.query({id: $stateParams.idDocument}).then(function (doc) {
       $scope.document = angular.copy(doc);
       $scope.pos_tag = {
         "config": POSTagBratConfig,
@@ -39,7 +39,7 @@ app.controller("PosTagController", function ($scope, $state, $stateParams, Docum
     });
   };
 
-  if ($stateParams.id) {
+  if ($stateParams.idDocument) {
     $scope.getInfoDocument();
   }
   else if ($stateParams.dialogueId) {

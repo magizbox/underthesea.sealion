@@ -13,7 +13,7 @@ app.controller("NerController", function ($scope, $state, $stateParams, Document
   };
 
   $scope.getInfoDocument = function () {
-    Document.query({id: $stateParams.id}).then(function (doc) {
+    Document.query({id: $stateParams.idDocument}).then(function (doc) {
       $scope.document = angular.copy(doc);
       $scope.ner = {
         "config": NERTagBratConfig,
@@ -38,7 +38,7 @@ app.controller("NerController", function ($scope, $state, $stateParams, Document
     });
   };
 
-  if($stateParams.id){
+  if($stateParams.idDocument){
      $scope.getInfoDocument();
   }
   else if($stateParams.dialogueId){

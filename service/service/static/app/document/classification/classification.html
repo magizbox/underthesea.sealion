@@ -1,0 +1,58 @@
+<section id="content">
+    <section class="hbox stretch">
+        <section>
+            <section class="vbox">
+                <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>
+                                <!-- messages -->
+                                <button ng-show="MESSAGES.SYNTAX_ERROR" type="button"
+                                        class="btn btn-danger btn-xs disabled">AMR Syntax Error
+                                </button>
+                                <button ng-show="MESSAGES.CREATE_SUCCESS" type="button"
+                                        class="btn btn-success btn-xs disabled">Document is
+                                    saved successfully.
+                                </button>
+                                <div class="loader-xs" ng-show="MESSAGES.LOADING"></div>
+
+                            </h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!--<hr/>-->
+                            <textarea id="text" class="form-control"
+                                      rows="24" ng-model="doc.text">{{ doc.text }}</textarea>
+                        </div>
+                    </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+        <aside class="aside-md" id="sidebar">
+            <section class="vbox animated fadeInRight">
+                <section class="w-f-md scrollable">
+                    <div class="row no-margin">
+                        <div>
+                            <div class="col-xs-12">
+                                <acts ng-model="document.act"
+                                      onaftersave="updateDocument()"></acts>
+                            </div>
+                            <div class="col-xs-12">
+                                <categories ng-model="categories"
+                                            onaftersave="updateDocument()"></categories>
+                            </div>
+                            <div class="col-xs-12">
+                                <sentiments ng-model="sentiments"
+                                            onaftersave="updateDocument()"></sentiments>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </aside>
+    </section>
+</section>

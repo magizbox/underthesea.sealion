@@ -1,0 +1,44 @@
+<form ng-submit="save()">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit Corpus</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" data-type="url" class="form-control parsley-validated"
+                   required ng-model="tmp.title">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control parsley-validated" rows="6" data-minwords="6"
+                      ng-model="tmp.description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>Tasks</label>
+            <div class="row no-margin wrap-tasks">
+                <div class="col-sm-6" ng-repeat="task in listTaskModal">
+                    <div class="checkbox checkbox-primary">
+                        <input id="{{task.name}}" type="checkbox" ng-model="selectedTask[task.value]">
+                        <label for="{{task.name}}">
+                            {{task.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success btn-sm">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Save
+        </button>
+        <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </button>
+    </div>
+</form>
+
+
+

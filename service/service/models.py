@@ -4,6 +4,7 @@ from django.db import models
 class Corpus(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True)
+    tasks = models.TextField(blank=True)
 
     def __str__(self):
         return "{} - {}".format(str(self.id), self.title)
@@ -20,6 +21,10 @@ class Document(models.Model):
     status = models.TextField(blank=True)
     quality = models.TextField(blank=True)
     corpus = models.ForeignKey(Corpus, related_name="documents")
+    word_sent = models.TextField(blank=True)
+    pos_tag = models.TextField(blank=True)
+    chunking = models.TextField(blank=True)
+    ner = models.TextField(blank=True)
 
     class Meta:
         ordering = ('created',)
@@ -28,6 +33,7 @@ class Document(models.Model):
 class DialogueCorpus(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True)
+    tasks = models.TextField(blank=True)
 
     def __str__(self):
         return "{} - {}".format(str(self.id), self.title)
@@ -54,3 +60,7 @@ class DialogueDocument(models.Model):
     quality = models.TextField(blank=True)
     ignore = models.TextField(blank=True)
     dialogue = models.ForeignKey(Dialogue, related_name="documents")
+    word_sent = models.TextField(blank=True)
+    pos_tag = models.TextField(blank=True)
+    chunking = models.TextField(blank=True)
+    ner = models.TextField(blank=True)

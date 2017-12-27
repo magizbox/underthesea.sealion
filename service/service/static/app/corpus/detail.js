@@ -1,86 +1,98 @@
-app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter) {
+app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, QUALITIES, Document, Params, $filter, $uibModal) {
+  $scope.init = function () {
     $scope.id = $stateParams.id;
     var params = JSON.parse(JSON.stringify($stateParams));
     params["corpus"] = params["id"];
     $scope.params = Params(params, {
-        "offset": 0,
-        "limit": 10,
-        "corpus": 1,
-        "status": null,
-        "quality": null,
-        "search": null,
-        "act": null,
-        "category": null,
-        "sentiment": null
+      "offset": 0,
+      "limit": 10,
+      "corpus": 1,
+      "page": 1,
+      "status": null,
+      "quality": null,
+      "search": null,
+      "act": null,
+      "category": null,
+      "sentiment": null
     });
     $scope.statuses = STATUSES;
-
-    $scope.showStatus = function () {
-        var selected = $filter('filter')($scope.statuses,
-            {value: $scope.params.status});
-        return ($scope.params.status && selected.length) ? selected[0].text : 'All';
-    };
     $scope.quality = null;
     $scope.qualities = QUALITIES;
 
-    $scope.showQuality = function () {
-        var selected = $filter('filter')($scope.qualities,
-            {value: $scope.params.quality});
-        return ($scope.params.quality && selected.length) ? selected[0].text : 'All';
-    };
+    $scope.getInfoCorpus();
+    $scope.getListDocument();
+  };
+
+
+  $scope.showStatus = function () {
+    var selected = $filter('filter')($scope.statuses,
+      {value: $scope.params.status});
+    return ($scope.params.status && selected.length) ? selected[0].text : 'All';
+  };
+
+
+  $scope.showQuality = function () {
+    var selected = $filter('filter')($scope.qualities,
+      {value: $scope.params.quality});
+    return ($scope.params.quality && selected.length) ? selected[0].text : 'All';
+  };
+
+  $scope.getInfoCorpus = function () {
     Corpus.get({id: $scope.id}, function (corpus) {
-        $scope.corpus = corpus;
+      corpus.tasks = corpus.tasks.split(",");
+      $scope.corpus = corpus;
     });
+  };
+
+  $scope.getListDocument = function () {
+    $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
     Document.query($scope.params).then(function (documents) {
-        $scope.documents = documents;
+      $scope.documents = documents;
     });
     Document.pagination($scope.params).then(function (result) {
-        $scope.totalItems = result["totalItems"];
-        $scope.itemsPerPage = result["itemsPerPage"];
-        $scope.currentPage = result["currentPage"];
+      $scope.totalItems = result["totalItems"];
+      $scope.itemsPerPage = result["itemsPerPage"];
+      $scope.currentPage = result["currentPage"];
+    });
+  };
+
+  $scope.openNewModal = function () {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: './static/app/document/new.html',
+      size: 'md',
+      controller: 'NewDocumentCtrl'
     });
 
-    $scope.update = function () {
-        return Corpus.update({id: $scope.id}, $scope.corpus);
-    };
-
-    $scope.deleteDocument = function (id) {
-        Document.delete({id: id}).$promise.then(function () {
-            $state.reload();
-        })
-    };
-
-    $scope.pageChanged = function () {
-        $scope.params["offset"] = $scope.params["limit"] * ($scope.currentPage - 1);
-        $state.go(".", $scope.params);
-    };
-
-    $scope.filterChanged = function () {
-        $state.go(".", $scope.params);
-    };
-    $scope.tasks = [
-        {
-            "name": "act",
-            "label": "DA"
-        },
-        {
-            "name": "category",
-            "label": "CA"
-        },
-        {
-            "name": "sentiment",
-            "label": "SA"
-        },
-    ];
-    console.log($scope.params);
-    $scope.toggle = function (task) {
-        var states = ["true", "false", null];
-        var i = states.indexOf($scope.params[task.name]);
-        var ni = (i + 1) % states.length;
-        var nextState = states[ni];
-        $scope.params[task.name] = nextState;
-    };
+    modalInstance.result.then(function (data) {
+      $scope.getListDocument();
+    }, function (err) {
+      // $log.info('modal-component dismissed at: ' + new Date());
+    });
+  };
 
 
+  $scope.update = function () {
+    return Corpus.update({id: $scope.id}, $scope.corpus);
+  };
+
+  $scope.deleteDocument = function (id) {
+    Document.delete({id: id}).$promise.then(function () {
+      $state.reload();
+    })
+  };
+
+
+  $scope.filterChanged = function () {
+    $state.go(".", $scope.params);
+  };
+
+  $scope.toggle = function (task) {
+    var states = ["true", "false", null];
+    var i = states.indexOf($scope.params[task]);
+    var ni = (i + 1) % states.length;
+    var nextState = states[ni];
+    $scope.params[task] = nextState;
+  };
 
 });

@@ -1,79 +1,127 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
-        <li>{{ id }}</li>
-      </ol>
-      <div class="pull-right">
-        <a class="btn btn-sm btn-success" ui-sref="newCorpus">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          New Corpus
-        </a>
-      </div>
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
-<h3>
-  {{ totalItems }} dialogues
-  <div class="pull-right">
-    <!-- Single button -->
-    <small>
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+        <div class="header-tool">
+            <ul class="breadcrumb">
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
+                <li class="active">{{ id }}</li>
+                <li class="active">dialogues</li>
+            </ul>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
 
-
-        Status:
-    <a href="#" editable-select="params.status"
-       e-ng-options="s.value as s.text for s in statuses">
-      {{ showStatus() }}
-    </a>
-    <span ng-show="params.status">
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <section class="panel panel-default table-corpora">
+                                            <div class="panel-heading">
+                                                <header style="font-size: 18px;">{{ totalItems }} dialogues</header>
+                                                <div class="action-page-dialogue">
+                                                    <h3>
+                                                        <!-- Single button -->
+                                                        <small>
+                                                            Status:
+                                                            <a href="#" editable-select="params.status"
+                                                               e-ng-options="s.value as s.text for s in statuses">
+                                                                {{ showStatus() }}
+                                                            </a>
+                                                            <span ng-show="params.status">
         <a style="color:red; cursor:pointer"
            ng-click="params.status = null">[x]</a>
       </span>
-    Quality:
-    <a href="#" editable-select="params.quality"
-       e-ng-options="s.value as s.text for s in qualities">
-      {{ showQuality() }}
-    </a>
-    <span ng-show="params.quality">
+                                                            Quality:
+                                                            <a href="#" editable-select="params.quality"
+                                                               e-ng-options="s.value as s.text for s in qualities">
+                                                                {{ showQuality() }}
+                                                            </a>
+                                                            <span ng-show="params.quality">
         <a style="color:red; cursor:pointer"
            ng-click="params.quality = null">[x]</a>
       </span>
-    &nbsp;
-    <button class="btn btn-xs btn-primary" ng-click="filterChanged()">
-      <i class="fa fa-filter" aria-hidden="true"></i>
-      Filter
-    </button>
-      </small>
-  </div>
-</h3>
-<table class="table table-condensed table-hover">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Content</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="dialogue in dialogues" style="cursor:pointer">
-    <th ui-sref="detailDialogue({id: dialogue.id})"><a
-        ui-sref="detailDialogue({id: dialogue.id})">{{ dialogue.id }}</a></th>
-    <td ui-sref="detailDialogue({id: dialogue.id})">
-      {{ dialogue.text }}<br/>
-      <div class="pull-right">
-        <small>{{ dialogue.comments }} posts</small>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+                                                            &nbsp;
+                                                            <button class="btn btn-xs btn-primary"
+                                                                    ng-click="filterChanged()">
+                                                                <i class="fa fa-filter" aria-hidden="true"></i>
+                                                                Filter
+                                                            </button>
 
-<div class="col-xs-12 text-center" ng-show="totalItems > 0">
-  <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"
-      ng-model="currentPage"
-      ng-change="pageChanged()" boundary-link-numbers="true"
-      max-size="5"></ul>
-</div>
+                                                            <span style="margin-left: 10px;">
+                                                                Tasks:
+                                                                <button class="btn btn-xs btn-true"
+                                                                        style="margin-right: 2px;"
+                                                                        ng-repeat="task in corpus.tasks">
+                                                            {{task}}
+                                                        </button>
+                                                            </span>
+                                                        </small>
+                                                    </h3>
+                                                </div>
 
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped b-t b-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Content</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="dialogue in dialogues" style="cursor:pointer">
+                                                            <th ui-sref="detailDialogue({id: dialogue.id})"><a
+                                                                    ui-sref="detailDialogue({id: dialogue.id})">{{
+                                                                dialogue.id }}</a></th>
+                                                            <td ui-sref="detailDialogue({id: dialogue.id})">
+                                                                {{ dialogue.text}}
+                                                                <br/>
+                                                                <div class="pull-right">
+                                                                    <small>{{ dialogue.comments }} posts</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <footer class="panel-footer">
+                                                <div class="row text-right">
+                                                    <ul uib-pagination boundary-links="true" total-items="totalItems"
+                                                        ng-model="currentPage" class="pagination-sm" max-size="5"
+                                                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                                                        first-text="&laquo;" last-text="&raquo;"
+                                                        boundary-link-numbers="true" items-per-page="itemsPerPage"
+                                                        ng-change="pageChanged()"
+                                                        style="margin: 0px 10px !important;"></ul>
+                                                </div>
+                                            </footer>
+                                        </section>
+                                    </div>
+                                </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
 

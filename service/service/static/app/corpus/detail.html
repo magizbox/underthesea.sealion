@@ -1,104 +1,161 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-        <li>
-          {{ corpus.title }}
-        </li>
-      </ol>
-      <div class="pull-right">
-        <a type="button" class="btn btn-primary btn-success btn-sm"
-           ui-sref="newDocument({corpusId: corpus.id})">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          New Document
-        </a>
-      </div>
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
-<h4>
-  {{ totalItems }} documents
-  <div class="pull-right" style="font-size:14px;">
-    Text:
-      <input type="text" class="form-control" style="width:200px; display: inline; height:28px" ng-model="params.search"/>
-    Tasks:
-    <button class="btn btn-xs" style="margin-right:1px"
-            ng-class="{
-              'btn-null': params[task.name] == null,
-              'btn-true': params[task.name] == 'true',
-              'btn-false': params[task.name] == 'false',
+<section class="vbox" ng-init="init()">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+        <ul class="breadcrumb margin-breadcrumb">
+            <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+            <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> Corpora</a>
+            </li>
+            <li class="active">{{ corpus.title }}</li>
+        </ul>
+    </header>
+    <section>
+        <section class="hbox stretch"> <!-- .aside -->
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder">
+                                <div class="row table-corpora">
+                                    <div class="col-lg-12">
+                                        <section class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <header style="font-size: 18px;"> List Document</header>
+                                                <div class="panel-tool">
+                                                    <h4>
+                                                        <div class="pull-right" style="font-size:14px;">
+                                                            Tasks:
+                                                            <button class="btn btn-xs" style="margin-right:1px"
+                                                                    ng-class="{
+              'btn-null': params[task] == null,
+              'btn-true': params[task] == 'true',
+              'btn-false': params[task] == 'false',
             }"
-            ng-click="toggle(task)"
-            ng-repeat="task in tasks">
-      {{ task.label }}
-    </button>
-    Status:
-    <a href="#" editable-select="params.status"
-       e-ng-options="s.value as s.text for s in statuses">
-      {{ showStatus() }}
-    </a>
-    <span ng-show="params.status">
+                                                                    ng-click="toggle(task)"
+                                                                    ng-repeat="task in corpus.tasks">
+                                                                {{ task }}
+                                                            </button>
+                                                            Status:
+                                                            <a href="#" editable-select="params.status"
+                                                               e-ng-options="s.value as s.text for s in statuses">
+                                                                {{ showStatus() }}
+                                                            </a>
+                                                            <span ng-show="params.status">
         <a style="color:red; cursor:pointer"
            ng-click="params.status = null">[x]</a>
-      </span>
-    Quality:
-    <a href="#" editable-select="params.quality"
-       e-ng-options="s.value as s.text for s in qualities">
-      {{ showQuality() }}
-    </a>
-    <span ng-show="params.quality">
+    </span>
+                                                            Quality:
+                                                            <a href="#" editable-select="params.quality"
+                                                               e-ng-options="s.value as s.text for s in qualities">
+                                                                {{ showQuality() }}
+                                                            </a>
+                                                            <span ng-show="params.quality">
         <a style="color:red; cursor:pointer"
            ng-click="params.quality = null">[x]</a>
-      </span>
-    &nbsp;
-    <button class="btn btn-xs btn-primary" ng-click="filterChanged()">
-      <i class="fa fa-filter" aria-hidden="true"></i>
-      Filter
-    </button>
-  </div>
-</h4>
-<table class="table table-condensed table-hover" ng-show="totalItems > 0">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Text</th>
-    <th style="width:115px;">Tasks</th>
-    <th>Status</th>
-    <th>Quality</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="doc in documents"
-      style="cursor:pointer">
-    <th ui-sref="detailDocument({id: doc.id})"><a>{{ doc.id }}</a></th>
-    <td ui-sref="detailDocument({id: doc.id})">
-      {{ doc.text | limitTo:110}}
-      <span ng-show="doc.text.length > 80">...</span>
-    </td>
-    <td>
-      <span ng-class="{'label':true,'label-info':doc.hasAct,'label-default':!doc.hasAct}">DA</span>
-      <span ng-class="{'label':true,'label-info':doc.hasCategory,'label-default':!doc.hasCategory}">CA</span>
-      <span ng-class="{'label':true,'label-info':doc.hasSentiment,'label-default':!doc.hasSentiment}">SA</span>
-    </td>
-    <td ui-sref="detailDocument({id: doc.id})">{{ doc.status }}</td>
-    <td ui-sref="detailDocument({id: doc.id})">{{ doc.quality }}</td>
-    <td style="cursor:default; width:40px">
-      <button class="btn btn-danger btn-xs"
-              mw-confirm-click="deleteDocument(doc.id)"
-              mw-confirm-click-message="Are you sure?">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-        Delete
-      </button>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<div class="col-xs-12 text-center" ng-show="totalItems > 0">
-  <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"
-      ng-model="currentPage"
-      ng-change="pageChanged()" boundary-link-numbers="true"
-      max-size="5"></ul>
-</div>
+    </span>
+                                                            &nbsp;
+                                                            <button class="btn btn-xs btn-primary"
+                                                                    ng-click="filterChanged()">
+                                                                <i class="fa fa-filter" aria-hidden="true"></i>
+                                                                Filter
+                                                            </button>
+                                                        </div>
+                                                    </h4>
+                                                    <div class="input-group" style="width: 300px;">
+                                                        <input type="text" class="input-sm form-control"
+                                                               placeholder="Search" ng-model="params.search"
+                                                               ng-enter="getListDocument()">
+                                                        <span class="input-group-btn">
+                                                        <button class="btn btn-sm btn-success"
+                                                                ng-click="openNewModal()">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="panel-body">
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped b-t b-light">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Text</th>
+                                                            <th style="min-width:115px;">Tasks</th>
+                                                            <th>Status</th>
+                                                            <th>Quality</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="doc in documents track by $index"
+                                                            style="cursor:pointer">
+                                                            <th>
+                                                                <a>{{ (params.page - 1) * params.limit + $index +
+                                                                    1}}</a>
+                                                            </th>
+                                                            <td ui-sref="{{getUiSref(corpus.tasks, doc)}}" class="cursor-pointer">
+                                                                    {{ doc.text | limitTo:110}}
+                                                                    <span ng-show="doc.text.length > 80">...</span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="label label-info" ng-repeat="task in getTaskDocument(doc)" style="margin-right: 5px;">{{task.value}}</span>
+                                                            </td>
+                                                            <td ui-sref="detailDocument({id: doc.id})">{{ doc.status
+                                                                }}
+                                                            </td>
+                                                            <td ui-sref="detailDocument({id: doc.id})">{{ doc.quality
+                                                                }}
+                                                            </td>
+                                                            <td style="cursor:default; width:40px">
+                                                                <button class="btn btn-danger btn-xs"
+                                                                        mw-confirm-click="deleteDocument(doc.id)"
+                                                                        mw-confirm-click-message="Are you sure?">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                    Delete
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                            <footer class="panel-footer">
+                                                <div class="row text-right">
+                                                    <ul uib-pagination boundary-links="true" total-items="totalItems"
+                                                        ng-model="params.page" class="pagination-sm"
+                                                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                                                        first-text="&laquo;" last-text="&raquo;"
+                                                        items-per-page="params.limit" ng-change="getListDocument()"
+                                                        style="margin: 0px 10px !important;"></ul>
+                                                </div>
+                                            </footer>
+                                        </section>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </section>
+                    </section>
+
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+
+

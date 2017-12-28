@@ -1,0 +1,74 @@
+<section class="vbox detail-document">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div ng-include="'./static/app/common/header.html'"></div>
+        <div class="header-tool">
+            <!--breadcrumb for corpus document-->
+            <ul class="breadcrumb" ng-if="id">
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> List
+                    Corpus</a>
+                </li>
+                <li><a ui-sref="detailCorpus({id:corpus.id })">{{ corpus.title }}</a></li>
+                <li class="active">{{ doc.id }}</li>
+            </ul>
+            <!--breadcrumb for dialogue document-->
+            <ul class="breadcrumb" ng-if="dialogueId">
+                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="listDialogueCorpus"><i class="fa fa-list-ul"></i> Dialogue
+                    Corpora</a>
+                </li>
+                <li><a>{{ dialogue.id }}</a></li>
+                <li><a ui-sref="detailDialogue({id:dialogue.id })">documents</a>
+                </li>
+                <li class="active">{{ documentId }}</li>
+            </ul>
+            <div class="wrap-status">
+                <small>Status:</small>
+                <button
+                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.status == status.value || dialogue.status == status.value}"
+                        ng-click="doc.status = status.value; dialogue.status = status.value; save()"
+                        ng-repeat="status in STATUSES">
+                    {{ status.text }}
+                </button>
+                <small>Quality:</small>
+                <button
+                        ng-class="{'btn btn-xs': true, 'btn-warning': doc.quality == quality.value || dialogue.quality == quality.value}"
+                        ng-click="doc.quality = quality.value; dialogue.quality = quality.value; save()"
+                        ng-repeat="quality in QUALITIES">{{ quality.text}}
+                </button>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ui-view></ui-view>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+        </section>
+    </section>
+</section>
+
+

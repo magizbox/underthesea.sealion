@@ -1,83 +1,94 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-      </ol>
-      <div class="pull-right">
-        <a class="btn btn-sm btn-success" ui-sref="newCorpus">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          New Corpus
-        </a>
-      </div>
-    </h3>
-  </div>
-</div>
-<hr style="margin-top: 0px"/>
-<table class="table table-condensed table-hover">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="corpus in corpora" style="cursor:pointer">
-    <th><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.id }}</a></th>
-    <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title }}</td>
-    <td ui-sref="detailCorpus({id: corpus.id})">{{ corpus.description }}</td>
-    <td style="cursor:default">
-      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"
-      ng-click="openEdit(corpus)">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        Edit
-      </button>
-      <button class="btn btn-danger btn-xs"
-              mw-confirm-click="delete(corpus.id)"
-              mw-confirm-click-message="Are you sure?">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-        Delete
-      </button>
-    </td>
-  </tr>
-  </tbody>
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs ">
+        <div ng-include="'./static/app/common/header.html'"></div>
+        <ul class="breadcrumb margin-breadcrumb">
+            <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+            <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> Corpora</a>
+            </li>
+        </ul>
+    </header>
+    <section>
+        <section class="hbox stretch"> <!-- .aside -->
+            <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2"> <!-- nav -->
+                            <div ng-include="'./static/app/common/nav.html'"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder">
+                                <section class="panel panel-default table-corpora">
+                                    <div class="panel-heading">
+                                        <header style="font-size: 18px;">List Corpus</header>
+                                        <div class="input-group" style="width: 300px;">
+                                            <input type="text" class="input-sm form-control"
+                                                   placeholder="Search" ng-model="query.search" ng-enter="getListCorpus()">
+                                            <span class="input-group-btn">
+                                                    <button class="btn btn-sm btn-success" ng-click="openNewCorpusModal()">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped b-t b-light">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Title</th>
+                                                    <th>Tasks</th>
+                                                    <th>Description</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="corpus in corpora.results track by $index">
+                                                    <td>{{ (query.page - 1) * query.limit + $index + 1}}</td>
+                                                    <td ui-sref="detailCorpus({id: corpus.id})" class="cursor-pointer">{{ corpus.title}}</td>
+                                                    <td>
+                                                        <button class="btn btn-xs btn-true" style="margin-right: 2px;"
+                                                                ng-repeat="task in corpus.tasks">
+                                                            {{task}}
+                                                        </button>
+                                                    </td>
+                                                    <td>{{ corpus.description }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-xs" ng-click="openEditCorpusModal(corpus)">
+                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                            Edit
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-xs">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row text-right">
+                                            <ul uib-pagination boundary-links="true" total-items="corpora.count" ng-model="query.page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="query.limit" ng-change="getListCorpus()" style="margin: 0px 10px !important;"></ul>
+                                        </div>
+                                    </footer>
+                                </section>
+                            </section>
 
+                        </section>
+                    </section>
 
-</table>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Edit Corpus</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" id="title" placeholder="" ng-model="tmp.title">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" id="description" placeholder="" ng-model="tmp.description">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-success" ng-click="updateCorpus()">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
 

@@ -1,7 +1,6 @@
 app.controller("ListAMRCtrl", function ($scope, Document, STATUSES, QUALITIES, $stateParams) {
     $scope.STATUSES = STATUSES;
     $scope.QUALITIES = QUALITIES;
-    console.log($stateParams);
     $scope.status = $stateParams.status ? $stateParams.status : 'ALL';
     $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
 

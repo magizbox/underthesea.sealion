@@ -1,42 +1,27 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>
-      <ol class="breadcrumb" style="float:left; font-size: 16px">
-        <li><a href="#">Sea Lion</a></li>
-        <li>
-          <a ui-sref="detailCorpus({id: corpusId})">
-            {{ corpus.title }}
-          </a>
-        </li>
-        <li>
-          New Document
-        </li>
-      </ol>
-      <div class="pull-right">
-        <button type="button" class="btn btn-success btn-sm" ng-click="save()">
-          <i class="fa fa-floppy-o" aria-hidden="true"></i>
-          Save
-        </button>
-        <button type="button" class="btn btn-success btn-sm"
-                ng-click="saveAndCreateNew()">
-          Save and Create New
-          <i class="fa fa-fast-forward" aria-hidden="true"></i>
-        </button>
-      </div>
+<div class="modal-header">
+    <h3 class="modal-title">New Corpus</h3>
+</div>
 
-      <!-- messages -->
-      <button ng-show="MESSAGES.TEXT_MISSING" type="button"
-              class="btn btn-danger btn-xs disabled">Text field is required!
-      </button>
-    </h3>
-  </div>
+<div class="modal-body">
+    <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control parsley-validated" rows="6" data-minwords="6"
+                  ng-class="{'parsley-error': checkNull == true && doc.text.length <= 0}"
+                  ng-model="doc.text"></textarea>
+    </div>
 </div>
-<hr style="margin-top: 0px"/>
-<div class="row">
-  <div class="col-xs-12">
-        <textarea id="text" class="form-control"
-                  rows="5" ng-model="doc.text"
-                  placeholder="text">{{ doc.text }}</textarea>
-    <br/>
-  </div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-success btn-sm" ng-click="save()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        Save
+    </button>
+    <button type="button" class="btn btn-success btn-sm" ng-click="saveAndCreateNew()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        Save and Create New
+    </button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">
+        <i class="fa fa-ban" aria-hidden="true"></i>
+        Cancel
+    </button>
 </div>
+

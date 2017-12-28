@@ -33,7 +33,8 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.save = function () {
-        $scope.onaftersave();
+        console.log($scope.ngModel);
+        // $scope.onaftersave();
       };
 
       $scope.addAct = function () {

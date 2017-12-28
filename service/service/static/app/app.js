@@ -22,39 +22,46 @@ app.constant("TASKS", [
   {
     name: 'Word Segmentation',
     value: 'WS',
-    data: 'word_sent'
+    data: 'word_sent',
+    type: 'SYNTAX'
   },
   {
     name: 'POS Tagging',
     value: 'PO',
-    data: 'pos_tag'
+    data: 'pos_tag',
+    type: 'SYNTAX'
   },
   {
     name: 'Chunking',
     value: 'CH',
-    data: 'chunking'
+    data: 'chunking',
+    type: 'SYNTAX'
   },
   {
     name: 'Named Entity Recognition',
     value: 'NER',
-    data: 'ner'
+    data: 'ner',
+    type: 'SYNTAX'
   },
   {
     name: 'Dialog Acts',
     value: 'DA',
-    data: 'act'
+    data: 'act',
+    type: 'TC'
   },
 
   {
     name: 'Category',
     value: 'CA',
-    data: 'category'
+    data: 'category',
+    type: 'TC'
   },
 
   {
     name: 'Sentiment',
     value: 'SA',
-    data: 'sentiment'
+    data: 'sentiment',
+    type: 'TC'
   }
 ]);
 

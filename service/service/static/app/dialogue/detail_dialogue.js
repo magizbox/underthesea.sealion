@@ -20,6 +20,14 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     DialogueCorpus.get({id: dialogue.corpus}, function (corpus) {
       corpus.tasks = corpus.tasks.split(",");
       $scope.corpusInfo = corpus;
+
+      $scope.listSyntaxTask = _.chain($scope.listTask)
+        .filter(function (task) {
+          return task.type == 'SYNTAX';
+        })
+        .pluck('value')
+        .intersection($scope.corpusInfo.tasks)
+        .value();
     });
   });
 
@@ -50,6 +58,10 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     $scope.documents = transformDocument(documents);
     $scope.select($scope.documents[0]);
   });
+
+  $scope.getUisrefSyntaxTag = function (document, task) {
+    return "detailTagDialogueCorpus." + task.toLowerCase() + "({dialogueId:" + $scope.id + ", documentId:" + document.id + "})";
+  };
 
   $scope.update = function () {
     var action = Dialogue.update({id: $scope.id}, $scope.dialogue);
@@ -111,21 +123,6 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
 
   };
 
-  $scope.tasks = [
-    {
-      "name": "act",
-      "label": "DA"
-    },
-    {
-      "name": "category",
-      "label": "CA"
-    },
-    {
-      "name": "sentiment",
-      "label": "SA"
-    },
-  ];
-
   $scope.toggleIgnore = function () {
     if ($scope.doc.ignore == "") {
       $scope.doc.ignore = "true"
@@ -168,6 +165,19 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     }
     return true;
   };
+
+  $scope.isExistData = function (task, document) {
+    var taskData = _.find($scope.listTask, function (item) {
+      return item.value == task;
+    });
+
+    if (document[taskData.data] && document[taskData.data].length > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   $scope.checkExistTask = function (task) {
     if ($scope.corpusInfo) {

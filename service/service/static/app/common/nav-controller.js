@@ -44,10 +44,7 @@ app.controller("NavController", function ($scope, $state, $stateParams, Dialogue
           item2["uisref"] = item2.value + "({idCorpus:" + $stateParams.idCorpus + ", idDocument: " + $stateParams.idDocument + "})";
           return item2;
         }).value();
-    })
-    ;
-
-
+    });
   }
   else if ($scope.parent == "detailTagDialogueCorpus") {
     DialogueCorpus.get({id: $stateParams.dialogueId}, function (corpus) {

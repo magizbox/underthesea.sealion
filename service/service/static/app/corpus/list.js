@@ -5,7 +5,6 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
   $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
 
   $scope.listTask = TASKS;
-  console.log($scope.listTask);
   $scope.query = {
     limit: 10,
     offset: 0,

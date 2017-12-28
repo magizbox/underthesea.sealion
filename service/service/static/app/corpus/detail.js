@@ -48,15 +48,21 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
     $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
     Document.query($scope.params).then(function (documents) {
       $scope.documents = documents;
-      _.each(documents, function (document) {
-        $scope.getTaskDocument(document);
-      });
     });
     Document.pagination($scope.params).then(function (result) {
       $scope.totalItems = result["totalItems"];
       $scope.itemsPerPage = result["itemsPerPage"];
       $scope.currentPage = result["currentPage"];
     });
+  };
+
+  $scope.getUiSref = function (tasks, document) {
+    if (tasks.length > 0) {
+      return "detailDocument." + tasks[0].toLowerCase() + "({idCorpus:" + document.corpus + ",idDocument:" + document.id + "})";
+    }
+    else {
+      return "detailDocument.ws({idCorpus:" + document.corpus + ",idDocument:" + document.id + "})";
+    }
   };
 
   $scope.getTaskDocument = function (document) {
@@ -72,7 +78,14 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
       animation: true,
       templateUrl: './static/app/document/new.html',
       size: 'md',
-      controller: 'NewDocumentCtrl'
+      controller: 'NewDocumentCtrl',
+      resolve: {
+        data: function () {
+          return {
+            task: $scope.corpus.tasks
+          }
+        }
+      }
     });
 
     modalInstance.result.then(function (data) {

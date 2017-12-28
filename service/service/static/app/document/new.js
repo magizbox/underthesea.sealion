@@ -1,5 +1,5 @@
-app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $state, Corpus, $uibModalInstance) {
-
+app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $state, Corpus, $uibModalInstance, data) {
+  console.log(data);
   $scope.showStatus = function () {
     var selected = $filter('filter')($scope.statuses, {value: $scope.user.status});
     return ($scope.user.status && selected.length) ? selected[0].text : 'Not set';
@@ -18,6 +18,7 @@ app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $sta
       "AMR_MISSING": false
     };
   };
+
   Corpus.get({"id": $scope.corpusId}, function (corpus) {
     $scope.corpus = corpus;
   });
@@ -30,8 +31,8 @@ app.controller("NewDocumentCtrl", function ($scope, $stateParams, Document, $sta
     } else {
       Document.save($scope.doc).$promise.then(function (doc) {
         $uibModalInstance.close();
-        $state.go("detailDocument", {"idDocument": doc.id, "idCorpus": $scope.corpusId});
-      })
+        $state.go("detailDocument."+data.task[0].toLowerCase(), {"idDocument": doc.id, "idCorpus": $scope.corpusId});
+      });
     }
   };
 

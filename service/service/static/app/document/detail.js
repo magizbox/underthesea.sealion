@@ -16,9 +16,6 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
       Corpus.get({id: doc.corpus}, function (corpus) {
         $scope.corpus = corpus;
         $scope.tasks = corpus.tasks;
-        if($scope.tasks.length > 0){
-          $state.go("detailDocument."+$scope.tasks[0], {"idDocument": doc.id, "idCorpus": $scope.corpusId});
-        }
       })
     });
   }
@@ -29,9 +26,6 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
       Corpus.get({id: dialogue.corpus}, function (corpus) {
         $scope.corpus = corpus;
         $scope.tasks = corpus.tasks;
-        if($scope.tasks.length > 0){
-          $state.go("detailDocument."+$scope.tasks[0], {"idDocument": doc.id, "idCorpus": $scope.corpusId});
-        }
       })
     });
   }

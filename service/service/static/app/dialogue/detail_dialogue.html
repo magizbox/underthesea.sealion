@@ -5,7 +5,7 @@
             <ul class="breadcrumb">
                 <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora </a></li>
-                <li><a> {{ dialogue.id }}</a> </li>
+                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> {{ dialogue.id }}</a> </li>
                 <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> dialogues </a></li>
                 <li class="active">{{ id }}</li>
             </ul>

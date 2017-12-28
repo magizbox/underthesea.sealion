@@ -5,8 +5,8 @@
             <ul class="breadcrumb">
                 <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora</a></li>
-                <li>{{ id }}</li>
-                <li>dialogues</li>
+                <li class="active">{{ id }}</li>
+                <li class="active">dialogues</li>
             </ul>
         </div>
     </header>
@@ -105,8 +105,8 @@
                                                                     ui-sref="detailDialogue({id: dialogue.id})">{{
                                                                 dialogue.id }}</a></th>
                                                             <td>
-                                                                <a ui-sref="detailDialogue({id: dialogue.id})"
-                                                                   style="text-decoration: underline;">{{ dialogue.text
+                                                                <a ui-sref="detailDialogue({id: dialogue.id})">{{
+                                                                    dialogue.text
                                                                     }}</a>
                                                                 <br/>
                                                                 <div class="pull-right">

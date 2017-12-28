@@ -26,8 +26,8 @@ window.nlpElements.directive('acts', function ($filter) {
 
       $scope.showAct = function (act) {
         var selected = [];
-        if (act.name) {
-          selected = $filter('filter')($scope.ACTS, {value: act.name});
+        if (act) {
+          selected = $filter('filter')($scope.ACTS, {value: act});
         }
         return selected.length ? selected[0].text : 'Not set';
       };
@@ -37,11 +37,8 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.addAct = function () {
-        $scope.inserted = {
-          id: $scope.ngModel.length + 1,
-          name: ''
-        };
-        $scope.ngModel.push($scope.inserted);
+        $scope.inserted = "";
+        $scope.ngModel.data.push($scope.inserted);
       };
 
       $scope.removeAct = function (index) {

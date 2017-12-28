@@ -8,15 +8,19 @@
                             ng-click="addAct()">
                         <span class="fa fa-plus"></span> Add
                     </button>
+                    <button type="button" class="btn btn-primary btn-xs"
+                            ng-click="addAct()">
+                        <span class="fa fa-question"></span> Confirm
+                    </button>
                 </div>
             </div>
         </li>
         <li class="list-group-item" style="padding: 0px;">
             <table class="table table-hover table-condensed"
                    style="margin-bottom: 0px;">
-                <tr ng-repeat="act in ngModel track by $index">
+                <tr ng-repeat="act in ngModel.data track by $index">
                     <td style="padding-left: 15px; padding-top: 10px">
-                <span editable-select="act.name"
+                <span editable-select="act"
                       e-name="aspect"
                       e-form="rowform"
                       e-ng-options="c.value as c.text for c in ACTS"

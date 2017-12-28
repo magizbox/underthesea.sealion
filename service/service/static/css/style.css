@@ -176,3 +176,7 @@ header .breadcrumb {
 .breadcrumb a{
     color: #303437;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}

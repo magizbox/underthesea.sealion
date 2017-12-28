@@ -52,8 +52,7 @@
                                                 <tbody>
                                                 <tr ng-repeat="corpus in corpora.results track by $index">
                                                     <td>{{ (query.page - 1) * query.limit + $index + 1}}</td>
-                                                    <td><a ui-sref="detailCorpus({id: corpus.id})">{{ corpus.title
-                                                        }}</a></td>
+                                                    <td ui-sref="detailCorpus({id: corpus.id})" class="cursor-pointer">{{ corpus.title}}</td>
                                                     <td>
                                                         <button class="btn btn-xs btn-true" style="margin-right: 2px;"
                                                                 ng-repeat="task in corpus.tasks">

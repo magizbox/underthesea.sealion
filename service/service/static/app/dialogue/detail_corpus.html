@@ -72,21 +72,6 @@
                                                             </span>
                                                         </small>
                                                     </h3>
-                                                    <!--<button class="btn btn-sm btn-success"-->
-                                                    <!--ng-click="openNewDialogueCorpusModal()">-->
-                                                    <!--<i class="fa fa-plus" aria-hidden="true"></i> New Dialogue-->
-                                                    <!--</button>-->
-                                                    <!--<div class="input-group" style="width: 300px;">-->
-                                                    <!--<input type="text" class="input-sm form-control"-->
-                                                    <!--placeholder="Search" ng-model="params.search"-->
-                                                    <!--ng-enter="getListDialogueCorpus()">-->
-                                                    <!--&lt;!&ndash;<span class="input-group-btn">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<button class="btn btn-sm btn-success"&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;ng-click="openNewDialogueCorpusModal()">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<i class="fa fa-plus" aria-hidden="true"></i>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                                                    <!--</div>-->
                                                 </div>
 
                                             </div>
@@ -104,10 +89,8 @@
                                                             <th ui-sref="detailDialogue({id: dialogue.id})"><a
                                                                     ui-sref="detailDialogue({id: dialogue.id})">{{
                                                                 dialogue.id }}</a></th>
-                                                            <td>
-                                                                <a ui-sref="detailDialogue({id: dialogue.id})">{{
-                                                                    dialogue.text
-                                                                    }}</a>
+                                                            <td ui-sref="detailDialogue({id: dialogue.id})">
+                                                                {{ dialogue.text}}
                                                                 <br/>
                                                                 <div class="pull-right">
                                                                     <small>{{ dialogue.comments }} posts</small>

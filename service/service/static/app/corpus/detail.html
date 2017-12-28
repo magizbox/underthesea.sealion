@@ -105,11 +105,9 @@
                                                                 <a>{{ (params.page - 1) * params.limit + $index +
                                                                     1}}</a>
                                                             </th>
-                                                            <td>
-                                                                <a ui-sref="{{getUiSref(corpus.tasks, doc)}}">
+                                                            <td ui-sref="{{getUiSref(corpus.tasks, doc)}}" class="cursor-pointer">
                                                                     {{ doc.text | limitTo:110}}
                                                                     <span ng-show="doc.text.length > 80">...</span>
-                                                                </a>
                                                             </td>
                                                             <td>
                                                                 <span class="label label-info" ng-repeat="task in getTaskDocument(doc)" style="margin-right: 5px;">{{task.value}}</span>

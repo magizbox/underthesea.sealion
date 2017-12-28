@@ -1,11 +1,11 @@
-<section class="vbox">
+<section class="vbox" ng-init="active = true;">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
         <div ng-include="'./static/app/common/header.html'"></div>
         <div class="header-tool">
             <ul class="breadcrumb">
-                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora </a></li>
-                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> {{ dialogue.id }}</a> </li>
+                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> {{ dialogue.id }}</a></li>
                 <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> dialogues </a></li>
                 <li class="active">{{ id }}</li>
             </ul>
@@ -49,7 +49,8 @@
                                     <h4 ng-show="documents.length">
                                         {{ documents.length }} posts
                                         <div class="pull-right">
-                                            <small> Tasks:</small>
+                                            <span>
+                                                <small> Tasks:</small>
                                             <button class="btn btn-xs ng-binding ng-scope btn-null"
                                                     style="margin-right:1px" ng-class="{
             'btn-null': params[task] == null,
@@ -59,6 +60,16 @@
                                                     ng-repeat="task in corpusInfo.tasks">
                                                 {{ task }}
                                             </button>
+                                            </span>
+                                            <span>
+                                                <small>Syntax:</small>
+                                                <button type="button" class="btn btn-sm btn-toggle "
+                                                        ng-class="{'active-switch': active}" ng-click="active = !active"
+                                                        data-toggle="button" aria-pressed="true" autocomplete="off">
+                                                    <div class="handle"></div>
+                                                  </button>
+                                            </span>
+
                                         </div>
                                     </h4>
                                 </div>
@@ -83,8 +94,10 @@
                                                     {{ document.text }}
 
                                                     <a ui-sref="{{getUisrefSyntaxTag(document, task)}}"
-                                                       class="btn btn-rounded btn-xs pull-right" ng-class="{'btn-default': isExistData(task, document) == false, 'btn-info': isExistData(task, document) == true}"
-                                                       style="margin-top: 5px; padding: 0px 5px;margin-right: 5px;" target="_blank" ng-repeat="task in listSyntaxTask">{{task}} </a>
+                                                       class="btn btn-rounded btn-xs pull-right"
+                                                       ng-class="{'btn-false': isExistData(task, document) == false, 'btn-info': isExistData(task, document) == true}"
+                                                       style="margin-top: 5px; padding: 0px 5px;margin-right: 5px;"
+                                                       target="_blank" ng-repeat="task in listSyntaxTask" ng-if="active">{{task}} </a>
                                                 </p>
                                             </div>
                                         </div>

@@ -7,7 +7,7 @@ window.nlpElements.directive('acts', function ($filter) {
       'suggestions': '=',
       'onaftersave': '&'
     },
-    controller: function ($scope) {
+    controller: function ($scope, Notification) {
       $scope.ACTS = [
         {value: "GREETING", text: 'GREETING'},
         {value: "SELFDISCLOSURE", text: 'SELFDISCLOSURE'},
@@ -33,8 +33,7 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.save = function () {
-        console.log($scope.ngModel);
-        // $scope.onaftersave();
+        $scope.onaftersave();
       };
 
       $scope.addAct = function () {
@@ -69,26 +68,36 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.validate = function (data) {
-        var isValid = !_.chain(this.ngModel).pluck("name").initial().contains(data).value();
-        if (!isValid) {
-          return "It is not allowed duplicated value.";
+        $scope.ngModel.data = _.initial($scope.ngModel.data);
+        var isValid = _.chain($scope.ngModel.data).contains(data).value();
+        if (isValid) {
+          Notification.error({
+            message: 'It is not allowed duplicated value.',
+            delay: 1000,
+            positionX: 'right',
+            positionY: 'bottom'
+          });
+        }
+        else {
+          $scope.ngModel.data.push(data);
         }
       };
+
       $scope.has = function (act) {
-        var acts = _.pluck($scope.ngModel, "name");
-        return _.contains(acts, act.name);
+        return _.contains($scope.ngModel.data, act);
       };
 
       $scope.set = function (item) {
         if (!$scope.has(item)) {
-          $scope.inserted = {
-            id: $scope.ngModel.length + 1,
-            name: item.name
-          };
-          $scope.ngModel.push($scope.inserted);
+          $scope.ngModel.data.push(item);
           $scope.inserted = null;
           $scope.save();
         }
+      };
+
+      $scope.confirmData = function () {
+        $scope.ngModel.confirm = !$scope.ngModel.confirm;
+        $scope.save();
       };
 
     }

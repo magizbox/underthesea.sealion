@@ -8,9 +8,9 @@
                             ng-click="addAct()">
                         <span class="fa fa-plus"></span> Add
                     </button>
-                    <button type="button" class="btn btn-primary btn-xs"
-                            ng-click="addAct()">
-                        <span class="fa fa-question"></span> Confirm
+                    <button type="button" class="btn btn-xs" ng-class="{'btn-primary':!ngModel.confirm, 'btn-success': ngModel.confirm}"
+                            ng-click="confirmData()">
+                        <span class="fa " ng-class="{'fa-check': ngModel.confirm, 'fa-question':!ngModel.confirm}"></span> Confirm
                     </button>
                 </div>
             </div>
@@ -70,8 +70,8 @@
                    style="margin-bottom: 0px;">
                 <tr ng-repeat="item in suggestions track by $index">
                     <td style="padding-left: 15px; padding-top: 10px">
-                        <b ng-show="has(item)"> {{ item.name }}</b>
-                        <span ng-hide="has(item)">{{ item.name }}</span>
+                        <b ng-show="has(item)"> {{ item }}</b>
+                        <span ng-hide="has(item)">{{ item }}</span>
                     </td>
                     <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
                         <!-- form -->

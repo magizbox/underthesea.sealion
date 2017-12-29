@@ -96,14 +96,12 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     $scope.acts = doc.act;
     $scope.meta = doc.meta;
     $scope.auto_act = doc.auto_act;
+    $scope.auto_category = doc.auto_category;
+    $scope.auto_sentiment = doc.auto_sentiment;
   };
 
 
   $scope.save = function () {
-    $scope.doc.sentiment = angular.toJson($scope.sentiments);
-    $scope.doc.category = angular.toJson($scope.categories);
-    $scope.doc.act = angular.toJson($scope.acts);
-    $scope.doc.auto_act = angular.toJson($scope.auto_act);
     DialogueDocument.update({id: $scope.doc.id}, $scope.doc,
       function (data) {
         Notification.success({

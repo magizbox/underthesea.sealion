@@ -97,7 +97,8 @@
                                                        class="btn btn-rounded btn-xs pull-right"
                                                        ng-class="{'btn-false': isExistData(task, document) == false, 'btn-info': isExistData(task, document) == true}"
                                                        style="margin-top: 5px; padding: 0px 5px;margin-right: 5px;"
-                                                       target="_blank" ng-repeat="task in listSyntaxTask" ng-if="active">{{task}} </a>
+                                                       target="_blank" ng-repeat="task in listSyntaxTask"
+                                                       ng-if="active">{{task}} </a>
                                                 </p>
                                             </div>
                                         </div>
@@ -157,10 +158,12 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <categories ng-model="categories"
+                                                        suggestions="auto_category"
                                                         onaftersave="save()" ng-if="checkExistTask('CA')"></categories>
                                         </div>
                                         <div class="col-xs-12">
                                             <sentiments ng-model="sentiments"
+                                                        suggestions="auto_sentiment"
                                                         onaftersave="save()" ng-if="checkExistTask('SA')"></sentiments>
                                         </div>
                                     </div>

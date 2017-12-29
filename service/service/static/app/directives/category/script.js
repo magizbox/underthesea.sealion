@@ -4,7 +4,8 @@ window.nlpElements.directive('categories', function ($filter) {
     restrict: 'AE',
     scope: {
       'ngModel': '=',
-      "onaftersave": "&"
+      'suggestions': '=',
+      'onaftersave': '&'
     },
     controller: function ($scope) {
       $scope.CATEGORIES = [
@@ -56,6 +57,22 @@ window.nlpElements.directive('categories', function ($filter) {
       $scope.remove = function (index) {
         $scope.ngModel.splice(index, 1);
         $scope.save();
+      };
+
+      $scope.has = function (category) {
+        var categories = _.pluck($scope.ngModel, "name");
+        return _.contains(categories, category);
+      };
+
+      $scope.set = function (category) {
+        if(!$scope.has(category)){
+          var categoryItem = {
+            name: category,
+            confirm: true
+          };
+          $scope.ngModel.push(categoryItem);
+          $scope.save();
+        }
       };
 
       $scope.confirmData = function (category, type) {

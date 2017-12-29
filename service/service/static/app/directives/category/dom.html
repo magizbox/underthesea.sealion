@@ -64,5 +64,30 @@
                 </tr>
             </table>
         </li>
+        <li class="list-group-item disabled">
+            Suggestion
+        </li>
+        <li class="list-group-item" style="padding: 0px;">
+            <table class="table table-hover table-condensed"
+                   style="margin-bottom: 0px;">
+                <tr ng-repeat="item in suggestions track by $index">
+                    <td style="padding-left: 15px; padding-top: 10px">
+                        <b ng-show="has(item)"> {{ item }}</b>
+                        <span ng-hide="has(item)">{{ item }}</span>
+                    </td>
+                    <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
+                        <!-- form -->
+                        <button class="btn btn-xs"
+                                ng-class="{
+                  'btn-default': !has(item),
+                  'btn-primary': has(item)
+                }"
+                                ng-click="set(item)">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </li>
     </ul>
 </div>

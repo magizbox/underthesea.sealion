@@ -4,6 +4,7 @@ window.nlpElements.directive('sentiments', function ($filter) {
     restrict: 'AE',
     scope: {
       'ngModel': '=',
+      'suggestions': '=',
       "onaftersave": "&"
     },
     controller: function ($scope) {
@@ -79,6 +80,30 @@ window.nlpElements.directive('sentiments', function ($filter) {
       $scope.delete = function (index) {
         $scope.ngModel.splice(index, 1);
         $scope.save();
+      };
+
+      $scope.has = function (sentiment) {
+        var sentimentItem = _.find($scope.ngModel, function (item) {
+          return sentiment.aspect == item.aspect && sentiment.polarity == item.polarity;
+        });
+        if(sentimentItem){
+          return true;
+        }
+        else{
+          return false;
+        }
+      };
+
+      $scope.set = function (sentiment) {
+        if(!$scope.has(sentiment)){
+          var sentimentItem = {
+            aspect: sentiment.aspect,
+            polarity: sentiment.polarity,
+            confirm: true
+          };
+          $scope.ngModel.push(sentimentItem);
+          $scope.save();
+        }
       };
 
       $scope.confirmData = function (sentiment, type) {

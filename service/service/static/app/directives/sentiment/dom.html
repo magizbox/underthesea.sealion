@@ -62,12 +62,12 @@
                             </button>
                             <button type="button" class="btn btn-sm" active-review="SentimentReview"
                                     ng-class="{'btn-success':sentiment.confirm==true, 'btn-default': sentiment.confirm ==false || sentiment.confirm==null}"
-                                    ng-click="confirmData(sentiment,'correct')" style="min-width: 34px;">
+                                    ng-click="confirmData(sentiment,'correct')">
                                 <span class="fa fa-check"></span>
                             </button>
                             <button type="button" class="btn btn-sm" active-review="SentimentReview"
                                     ng-class="{'btn-danger':sentiment.confirm==false, 'btn-default': sentiment.confirm ==true|| sentiment.confirm==null}"
-                                    ng-click="confirmData(sentiment, 'incorrect')" style="min-width: 34px;">
+                                    ng-click="confirmData(sentiment, 'incorrect')">
                                 <span class="fa fa-times"></span>
                             </button>
                         </div>

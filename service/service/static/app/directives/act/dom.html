@@ -56,12 +56,12 @@
                             </button>
                             <button type="button" class="btn btn-sm" active-review="ActReview"
                                     ng-class="{'btn-success':act.confirm==true, 'btn-default': act.confirm ==false || act.confirm==null}"
-                                    ng-click="confirmData(act,'correct')" style="min-width: 34px;">
+                                    ng-click="confirmData(act,'correct')">
                                 <span class="fa fa-check"></span>
                             </button>
                             <button type="button" class="btn btn-sm" active-review="ActReview"
                                     ng-class="{'btn-danger':act.confirm==false, 'btn-default': act.confirm ==true|| act.confirm==null}"
-                                    ng-click="confirmData(act, 'incorrect')" style="min-width: 34px;">
+                                    ng-click="confirmData(act, 'incorrect')">
                                 <span class="fa fa-times"></span>
                             </button>
                         </div>

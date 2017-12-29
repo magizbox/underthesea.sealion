@@ -7,7 +7,7 @@ window.nlpElements.directive('acts', function ($filter) {
       'suggestions': '=',
       'onaftersave': '&'
     },
-    controller: function ($scope, Notification) {
+    controller: function ($scope) {
       $scope.ACTS = [
         {value: "GREETING", text: 'GREETING'},
         {value: "SELFDISCLOSURE", text: 'SELFDISCLOSURE'},
@@ -26,8 +26,8 @@ window.nlpElements.directive('acts', function ($filter) {
 
       $scope.showAct = function (act) {
         var selected = [];
-        if (act) {
-          selected = $filter('filter')($scope.ACTS, {value: act});
+        if (act.name) {
+          selected = $filter('filter')($scope.ACTS, {value: act.name});
         }
         return selected.length ? selected[0].text : 'Not set';
       };
@@ -37,13 +37,20 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.addAct = function () {
-        $scope.inserted = "";
-        $scope.ngModel.data.push($scope.inserted);
+        $scope.inserted = {
+          name: '',
+          confirm: null
+        };
+        $scope.ngModel.push($scope.inserted);
       };
 
       $scope.removeAct = function (index) {
         $scope.ngModel.splice(index, 1);
         $scope.save();
+      };
+
+      $scope.removeLastAct = function () {
+        $scope.ngModel = _.initial($scope.ngModel);
       };
 
       $scope.score = function (y1, y2) {
@@ -68,35 +75,51 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.validate = function (data) {
-        $scope.ngModel.data = _.initial($scope.ngModel.data);
-        var isValid = _.chain($scope.ngModel.data).contains(data).value();
+        var isValid = _.chain($scope.ngModel).initial().pluck("name").contains(data).value();
         if (isValid) {
-          Notification.error({
-            message: 'It is not allowed duplicated value.',
-            delay: 1000,
-            positionX: 'right',
-            positionY: 'bottom'
-          });
-        }
-        else {
-          $scope.ngModel.data.push(data);
+          return "It is not allowed duplicated value.";
         }
       };
 
       $scope.has = function (act) {
-        return _.contains($scope.ngModel.data, act);
+        var acts = _.pluck($scope.ngModel, "name");
+        return _.contains(acts, act);
       };
 
       $scope.set = function (item) {
         if (!$scope.has(item)) {
-          $scope.ngModel.data.push(item);
+          $scope.inserted = {
+            name: item,
+            confirm: true
+          };
+          $scope.ngModel.push($scope.inserted);
           $scope.inserted = null;
           $scope.save();
         }
       };
 
-      $scope.confirmData = function () {
-        $scope.ngModel.confirm = !$scope.ngModel.confirm;
+      $scope.confirmData = function (act, type) {
+        if (type == 'correct') {
+          if (act.confirm == true) {
+            act.confirm = null;
+          }
+          else {
+            act.confirm = true;
+          }
+        }
+        else if (type == 'incorrect') {
+          if (act.confirm == false) {
+            act.confirm = null;
+          }
+          else {
+            act.confirm = false;
+          }
+        }
+        _.map($scope.ngModel, function (item) {
+          if (item.name == act.name) {
+            item.confirm = act.confirm;
+          }
+        });
         $scope.save();
       };
 

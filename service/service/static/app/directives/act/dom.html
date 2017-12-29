@@ -8,19 +8,16 @@
                             ng-click="addAct()">
                         <span class="fa fa-plus"></span> Add
                     </button>
-                    <button type="button" class="btn btn-xs" ng-class="{'btn-primary':!ngModel.confirm, 'btn-success': ngModel.confirm}"
-                            ng-click="confirmData()">
-                        <span class="fa " ng-class="{'fa-check': ngModel.confirm, 'fa-question':!ngModel.confirm}"></span> Confirm
-                    </button>
+
                 </div>
             </div>
         </li>
         <li class="list-group-item" style="padding: 0px;">
             <table class="table table-hover table-condensed"
                    style="margin-bottom: 0px;">
-                <tr ng-repeat="act in ngModel.data track by $index">
+                <tr ng-repeat="act in ngModel track by $index">
                     <td style="padding-left: 15px; padding-top: 10px">
-                <span editable-select="act"
+                <span editable-select="act.name"
                       e-name="aspect"
                       e-form="rowform"
                       e-ng-options="c.value as c.text for c in ACTS"
@@ -42,20 +39,30 @@
                             </button>
                             <button type="button"
                                     ng-disabled="rowform.$waiting"
-                                    ng-click="rowform.$cancel()"
+                                    ng-click="rowform.$cancel();removeLastAct();"
                                     class="btn btn-sm btn-default">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                             </button>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
                             <button type="button"
-                                    class="btn btn-sm btn-primary btn-warning"
+                                    class="btn btn-sm btn-info"
                                     ng-click="rowform.$show()">
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-danger"
                                     ng-click="removeAct($index)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm"
+                                    ng-class="{'btn-success':act.confirm==true, 'btn-default': act.confirm ==false || act.confirm==null}"
+                                    ng-click="confirmData(act,'correct')" style="min-width: 34px;">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm"
+                                    ng-class="{'btn-danger':act.confirm==false, 'btn-default': act.confirm ==true|| act.confirm==null}"
+                                    ng-click="confirmData(act, 'incorrect')" style="min-width: 34px;">
+                                <span class="fa fa-times"></span>
                             </button>
                         </div>
                     </td>

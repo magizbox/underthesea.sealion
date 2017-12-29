@@ -1,6 +1,14 @@
 window.app = angular.module("myApp", ['ui.router', 'ngResource', 'xeditable', 'ui.bootstrap', 'nlp.elements', 'ui-notification', 'cfp.hotkeys']);
+
+app.value('AppConfig', window.AppConfig);
 app.config(function ($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
+  window.AppConfig = {
+    ActReview: false,
+    CategoryReview: true,
+    SentimentReview: true
+  };
+
 });
 app.directive('myEnter', function () {
   return function (scope, element, attrs) {
@@ -14,6 +22,8 @@ app.directive('myEnter', function () {
     });
   };
 });
+
+
 
 window.nlpElements = angular.module('nlp.elements', ['xeditable']);
 

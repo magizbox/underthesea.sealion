@@ -49,12 +49,12 @@
                                     ng-click="remove($index)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-sm"
+                            <button type="button" class="btn btn-sm" active-review="CategoryReview"
                                     ng-class="{'btn-success':category.confirm==true, 'btn-default': category.confirm ==false || category.confirm==null}"
                                     ng-click="confirmData(category,'correct')" style="min-width: 34px;">
                                 <span class="fa fa-check"></span>
                             </button>
-                            <button type="button" class="btn btn-sm"
+                            <button type="button" class="btn btn-sm" active-review="CategoryReview"
                                     ng-class="{'btn-danger':category.confirm==false, 'btn-default': category.confirm ==true|| category.confirm==null}"
                                     ng-click="confirmData(category, 'incorrect')" style="min-width: 34px;">
                                 <span class="fa fa-times"></span>

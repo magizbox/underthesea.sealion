@@ -105,12 +105,15 @@
                                                                 <a>{{ (params.page - 1) * params.limit + $index +
                                                                     1}}</a>
                                                             </th>
-                                                            <td ui-sref="{{getUiSref(corpus.tasks, doc)}}" class="cursor-pointer">
-                                                                    {{ doc.text | limitTo:110}}
-                                                                    <span ng-show="doc.text.length > 80">...</span>
+                                                            <td ui-sref="{{getUiSref(corpus.tasks, doc)}}"
+                                                                class="cursor-pointer">
+                                                                {{ doc.text | limitTo:110}}
+                                                                <span ng-show="doc.text.length > 80">...</span>
                                                             </td>
                                                             <td>
-                                                                <span class="label label-info" ng-repeat="task in getTaskDocument(doc)" style="margin-right: 5px;">{{task.value}}</span>
+                                                                <span class="label label-info"
+                                                                      ng-repeat="task in getTaskDocument(doc)"
+                                                                      style="margin-right: 5px;">{{task.value}}</span>
                                                             </td>
                                                             <td ui-sref="detailDocument({id: doc.id})">{{ doc.status
                                                                 }}
@@ -129,6 +132,13 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                                <div class="wrap-loading text-center" ng-if="loading">
+                                                    <span>
+                                                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                                        <div class="text-loading"
+                                                             style="margin-left: 3px;">Loading...</div>
+                                                    </span>
                                                 </div>
                                             </div>
 

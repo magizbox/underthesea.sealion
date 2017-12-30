@@ -1,6 +1,7 @@
-app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, TASKS, QUALITIES, Document, Params, $filter, $uibModal) {
+app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $state, STATUSES, TASKS, QUALITIES, Document, Params, $filter, $uibModal, $timeout) {
   $scope.init = function () {
     $scope.id = $stateParams.id;
+    $scope.loading = false;
     var params = JSON.parse(JSON.stringify($stateParams));
     params["corpus"] = params["id"];
     $scope.params = Params(params, {
@@ -45,15 +46,20 @@ app.controller("DetailCorpusCtrl", function ($scope, $stateParams, Corpus, $stat
   };
 
   $scope.getListDocument = function () {
-    $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
-    Document.query($scope.params).then(function (documents) {
-      $scope.documents = documents;
-    });
-    Document.pagination($scope.params).then(function (result) {
-      $scope.totalItems = result["totalItems"];
-      $scope.itemsPerPage = result["itemsPerPage"];
-      $scope.currentPage = result["currentPage"];
-    });
+    $scope.loading = true;
+    $timeout(function () {
+      $scope.params.offset = ($scope.params.page - 1) * $scope.params.limit;
+      Document.query($scope.params).then(function (documents) {
+        $scope.documents = documents;
+        $scope.loading = false;
+      });
+      Document.pagination($scope.params).then(function (result) {
+        $scope.totalItems = result["totalItems"];
+        $scope.itemsPerPage = result["itemsPerPage"];
+        $scope.currentPage = result["currentPage"];
+      });
+    }, 1000);
+
   };
 
   $scope.getUiSref = function (tasks, document) {

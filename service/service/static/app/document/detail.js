@@ -1,4 +1,4 @@
-app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification, Dialogue) {
+app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Document, $state, STATUSES, QUALITIES, $filter, $http, $window, Notification, DialogueCorpus) {
   $scope.id = $stateParams.idDocument;
   $scope.dialogueId = $stateParams.dialogueId;
   $scope.documentId = $stateParams.documentId;
@@ -20,7 +20,7 @@ app.controller("DetailDocumentCtrl", function ($scope, $stateParams, Corpus, Doc
     });
   }
   else if ($scope.dialogueId) {
-    Dialogue.query({id: $scope.dialogueId}, function (dialogue) {
+    DialogueCorpus.get({id: $scope.dialogueId}, function (dialogue) {
       $scope.dialogue = dialogue;
       $scope.corpus = dialogue.corpus;
       Corpus.get({id: dialogue.corpus}, function (corpus) {

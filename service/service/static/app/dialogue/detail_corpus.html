@@ -93,12 +93,18 @@
                                                                 {{ dialogue.text}}
                                                                 <br/>
                                                                 <div class="pull-right">
-                                                                    <small>{{ dialogue.comments }} posts</small>
+                                                                    <small>{{ dialogue.comments }} comments</small>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                                <div class="wrap-loading text-center" ng-if="loading">
+                                                    <span>
+                                                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                                        <div class="text-loading" style="margin-left: 3px;">Loading...</div>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <footer class="panel-footer">

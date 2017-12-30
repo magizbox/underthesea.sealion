@@ -1,5 +1,6 @@
-app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDocument, DialogueCorpus, $state, TASKS, STATUSES, QUALITIES, Dialogue, Params, $filter, Notification) {
+app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDocument, DialogueCorpus, $state, TASKS, STATUSES, QUALITIES, Dialogue, Params, $filter, Notification, $timeout) {
   $scope.id = $stateParams.id;
+  $scope.loading = false;
   var params = JSON.parse(JSON.stringify($stateParams));
   $scope.params = Params(params, {
     "offset": 0,
@@ -54,13 +55,22 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
     return _.flatten(output);
   };
 
-  Dialogue.getDocuments({id: $scope.id}).then(function (documents) {
-    $scope.documents = transformDocument(documents);
-    $scope.select($scope.documents[0]);
-  });
+  $scope.getDocuments = function () {
+    $scope.loading = true;
+    $timeout(function () {
+      Dialogue.getDocuments({id: $scope.id}).then(function (documents) {
+        $scope.documents = transformDocument(documents);
+        $scope.select($scope.documents[0]);
+        $scope.loading = false;
+      });
+    }, 700);
+
+  };
+
+  $scope.getDocuments();
 
   $scope.getUisrefSyntaxTag = function (document, task) {
-    return "detailTagDialogueCorpus." + task.toLowerCase() + "({dialogueId:" + $scope.id + ", documentId:" + document.id + "})";
+    return "detailTagDialogueCorpus." + task.toLowerCase() + "({dialogueId:" + $scope.corpus + ", documentId:" + document.id + "})";
   };
 
   $scope.update = function () {

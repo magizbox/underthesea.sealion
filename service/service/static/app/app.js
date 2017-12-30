@@ -4,7 +4,7 @@ app.value('AppConfig', window.AppConfig);
 app.config(function ($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
   window.AppConfig = {
-    ActReview: false,
+    ActReview: true,
     CategoryReview: true,
     SentimentReview: true
   };

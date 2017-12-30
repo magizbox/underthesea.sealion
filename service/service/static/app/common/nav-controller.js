@@ -2,7 +2,6 @@
  * Created by crawler on 05/12/2017.
  */
 app.controller("NavController", function ($scope, $state, $stateParams, DialogueCorpus, Corpus) {
-
   $scope.currState = $state.$current.name;
   $scope.nestedState = $state.$current.nested;
   $scope.parent = $state.$current.parent.name;

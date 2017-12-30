@@ -40,7 +40,6 @@ class Restore:
                 end = time.time()
                 print("Restore {} documents in {:.2f} seconds.".format(i, end - start))
 
-
     def map_documents_id(self, ids):
         if isinstance(ids, list):
             return [self.map_documents_id(id) for id in ids]
@@ -55,7 +54,7 @@ class Restore:
         for dialogue in self.dialogues:
             dialogue["content"] = self.update_content(dialogue["content"])
             url = "{}/api/dialogues/{}/".format(self.service_api, dialogue["id"])
-            r = requests.put(url, data  =json.dumps(dialogue), headers=headers)
+            r = requests.put(url, data=json.dumps(dialogue), headers=headers)
 
     def restore_dialogues(self):
         dialogues = self.data["dialogues"]
@@ -80,7 +79,7 @@ class Restore:
 
 if __name__ == '__main__':
     data_file = "test.json"
-    service_api = "http://localhost:8001"
+    service_api = "http://localhost:8000"
     start = time.time()
     r = Restore(service_api, data_file)
     r.restore()

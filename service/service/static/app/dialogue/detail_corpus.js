@@ -1,7 +1,8 @@
-app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, DialogueCorpus, Dialogue, $state, STATUSES, QUALITIES, Params, $filter) {
+app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, DialogueCorpus, Dialogue, $state, STATUSES, QUALITIES, Params, $filter, $timeout) {
   $scope.id = $stateParams.id;
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
+  $scope.loading = false;
   var params = JSON.parse(JSON.stringify($stateParams));
   params["corpus"] = params["id"];
   $scope.params = Params(params, {
@@ -39,9 +40,18 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
     return ($scope.params.quality && selected.length) ? selected[0].text : 'All';
   };
 
-  Dialogue.query($scope.params).then(function (dialogues) {
-    $scope.dialogues = dialogues;
-  });
+  $scope.getListDialogue = function () {
+    $scope.loading = true;
+    $timeout(function () {
+      Dialogue.query($scope.params).then(function (dialogues) {
+        $scope.dialogues = dialogues;
+        $scope.loading = false;
+      });
+    }, 1000);
+
+  };
+
+  $scope.getListDialogue();
 
   DialogueCorpus.get({id: $scope.id}, function (corpus) {
     corpus.tasks = corpus.tasks.split(",");

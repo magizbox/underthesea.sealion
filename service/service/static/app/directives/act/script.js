@@ -38,8 +38,8 @@ window.nlpElements.directive('acts', function ($filter) {
 
       $scope.addAct = function () {
         $scope.inserted = {
-          id: $scope.ngModel.length + 1,
-          name: ''
+          name: '',
+          confirm: null
         };
         $scope.ngModel.push($scope.inserted);
       };
@@ -47,6 +47,10 @@ window.nlpElements.directive('acts', function ($filter) {
       $scope.removeAct = function (index) {
         $scope.ngModel.splice(index, 1);
         $scope.save();
+      };
+
+      $scope.removeLastAct = function () {
+        $scope.ngModel = _.initial($scope.ngModel);
       };
 
       $scope.score = function (y1, y2) {
@@ -71,26 +75,52 @@ window.nlpElements.directive('acts', function ($filter) {
       };
 
       $scope.validate = function (data) {
-        var isValid = !_.chain(this.ngModel).pluck("name").initial().contains(data).value();
-        if (!isValid) {
+        var isValid = _.chain($scope.ngModel).initial().pluck("name").contains(data).value();
+        if (isValid) {
           return "It is not allowed duplicated value.";
         }
       };
+
       $scope.has = function (act) {
         var acts = _.pluck($scope.ngModel, "name");
-        return _.contains(acts, act.name);
+        return _.contains(acts, act);
       };
 
       $scope.set = function (item) {
         if (!$scope.has(item)) {
           $scope.inserted = {
-            id: $scope.ngModel.length + 1,
-            name: item.name
+            name: item,
+            confirm: true
           };
           $scope.ngModel.push($scope.inserted);
           $scope.inserted = null;
           $scope.save();
         }
+      };
+
+      $scope.confirmData = function (act, type) {
+        if (type == 'correct') {
+          if (act.confirm == true) {
+            act.confirm = null;
+          }
+          else {
+            act.confirm = true;
+          }
+        }
+        else if (type == 'incorrect') {
+          if (act.confirm == false) {
+            act.confirm = null;
+          }
+          else {
+            act.confirm = false;
+          }
+        }
+        _.map($scope.ngModel, function (item) {
+          if (item.name == act.name) {
+            item.confirm = act.confirm;
+          }
+        });
+        $scope.save();
       };
 
     }

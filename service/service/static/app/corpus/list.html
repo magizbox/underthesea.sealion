@@ -2,7 +2,7 @@
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs ">
         <div ng-include="'./static/app/common/header.html'"></div>
         <ul class="breadcrumb margin-breadcrumb">
-            <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+            <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
             <li><a ui-sref="listCorpus"><i class="fa fa-list-ul"></i> Corpora</a>
             </li>
         </ul>
@@ -29,9 +29,11 @@
                                         <header style="font-size: 18px;">List Corpus</header>
                                         <div class="input-group" style="width: 300px;">
                                             <input type="text" class="input-sm form-control"
-                                                   placeholder="Search" ng-model="query.search" ng-enter="getListCorpus()">
+                                                   placeholder="Search" ng-model="query.search"
+                                                   ng-enter="getListCorpus()">
                                             <span class="input-group-btn">
-                                                    <button class="btn btn-sm btn-success" ng-click="openNewCorpusModal()">
+                                                    <button class="btn btn-sm btn-success"
+                                                            ng-click="openNewCorpusModal()">
                                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                                     </button>
                                                 </span>
@@ -52,7 +54,9 @@
                                                 <tbody>
                                                 <tr ng-repeat="corpus in corpora.results track by $index">
                                                     <td>{{ (query.page - 1) * query.limit + $index + 1}}</td>
-                                                    <td ui-sref="detailCorpus({id: corpus.id})" class="cursor-pointer">{{ corpus.title}}</td>
+                                                    <td ui-sref="detailCorpus({id: corpus.id})" class="cursor-pointer">
+                                                        {{ corpus.title}}
+                                                    </td>
                                                     <td>
                                                         <button class="btn btn-xs btn-true" style="margin-right: 2px;"
                                                                 ng-repeat="task in corpus.tasks">
@@ -61,7 +65,8 @@
                                                     </td>
                                                     <td>{{ corpus.description }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-primary btn-xs" ng-click="openEditCorpusModal(corpus)">
+                                                        <button type="button" class="btn btn-primary btn-xs"
+                                                                ng-click="openEditCorpusModal(corpus)">
                                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                                             Edit
                                                         </button>
@@ -74,10 +79,21 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div class="wrap-loading text-center" ng-if="loading">
+                                                    <span>
+                                                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                                        <div class="text-loading"
+                                                             style="margin-left: 3px;">Loading...</div>
+                                                    </span>
+                                        </div>
                                     </div>
                                     <footer class="panel-footer">
                                         <div class="row text-right">
-                                            <ul uib-pagination boundary-links="true" total-items="corpora.count" ng-model="query.page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="query.limit" ng-change="getListCorpus()" style="margin: 0px 10px !important;"></ul>
+                                            <ul uib-pagination boundary-links="true" total-items="corpora.count"
+                                                ng-model="query.page" class="pagination-sm" previous-text="&lsaquo;"
+                                                next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                                items-per-page="query.limit" ng-change="getListCorpus()"
+                                                style="margin: 0px 10px !important;"></ul>
                                         </div>
                                     </footer>
                                 </section>

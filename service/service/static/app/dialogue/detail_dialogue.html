@@ -5,8 +5,8 @@
             <ul class="breadcrumb">
                 <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus">Dialogue Corpora </a></li>
-                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> {{ dialogue.id }}</a></li>
-                <li><a ui-sref="detailDialogueCorpus({id: dialogue.id})"> dialogues </a></li>
+                <li><a ui-sref="detailDialogueCorpus({id: corpus})"> {{ corpus }}</a></li>
+                <li><a ui-sref="detailDialogueCorpus({id: corpus})"> dialogues </a></li>
                 <li class="active">{{ id }}</li>
             </ul>
             <div class="wrap-status">
@@ -97,9 +97,17 @@
                                                        class="btn btn-rounded btn-xs pull-right"
                                                        ng-class="{'btn-false': isExistData(task, document) == false, 'btn-info': isExistData(task, document) == true}"
                                                        style="margin-top: 5px; padding: 0px 5px;margin-right: 5px;"
-                                                       target="_blank" ng-repeat="task in listSyntaxTask" ng-if="active">{{task}} </a>
+                                                       target="_blank" ng-repeat="task in listSyntaxTask"
+                                                       ng-if="active">{{task}} </a>
                                                 </p>
                                             </div>
+                                        </div>
+                                        <div class="wrap-loading text-center" ng-if="loading">
+                                                    <span>
+                                                        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                                        <div class="text-loading"
+                                                             style="margin-left: 3px;">Loading...</div>
+                                                    </span>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +127,7 @@
             'disabled': doc.ignore != ''
             }"
                                                     style="cursor:default">
-                                                    Post
+                                                    Post - {{doc.id}}
                                                     <div class="pull-right">
                                                         <button type="button" class="btn btn-danger btn-xs"
                                                                 ng-click="toggleIgnore()"
@@ -157,10 +165,12 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <categories ng-model="categories"
+                                                        suggestions="auto_category"
                                                         onaftersave="save()" ng-if="checkExistTask('CA')"></categories>
                                         </div>
                                         <div class="col-xs-12">
                                             <sentiments ng-model="sentiments"
+                                                        suggestions="auto_sentiment"
                                                         onaftersave="save()" ng-if="checkExistTask('SA')"></sentiments>
                                         </div>
                                     </div>

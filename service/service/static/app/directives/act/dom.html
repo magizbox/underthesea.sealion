@@ -8,6 +8,7 @@
                             ng-click="addAct()">
                         <span class="fa fa-plus"></span> Add
                     </button>
+
                 </div>
             </div>
         </li>
@@ -38,20 +39,30 @@
                             </button>
                             <button type="button"
                                     ng-disabled="rowform.$waiting"
-                                    ng-click="rowform.$cancel()"
+                                    ng-click="rowform.$cancel();removeLastAct();"
                                     class="btn btn-sm btn-default">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                             </button>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
                             <button type="button"
-                                    class="btn btn-sm btn-primary btn-warning"
+                                    class="btn btn-sm btn-info"
                                     ng-click="rowform.$show()">
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-danger"
                                     ng-click="removeAct($index)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm" active-review="ActReview"
+                                    ng-class="{'btn-success':act.confirm==true, 'btn-default': act.confirm ==false || act.confirm==null}"
+                                    ng-click="confirmData(act,'correct')">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm" active-review="ActReview"
+                                    ng-class="{'btn-danger':act.confirm==false, 'btn-default': act.confirm ==true|| act.confirm==null}"
+                                    ng-click="confirmData(act, 'incorrect')">
+                                <span class="fa fa-times"></span>
                             </button>
                         </div>
                     </td>
@@ -66,8 +77,8 @@
                    style="margin-bottom: 0px;">
                 <tr ng-repeat="item in suggestions track by $index">
                     <td style="padding-left: 15px; padding-top: 10px">
-                        <b ng-show="has(item)"> {{ item.name }}</b>
-                        <span ng-hide="has(item)">{{ item.name }}</span>
+                        <b ng-show="has(item)"> {{ item }}</b>
+                        <span ng-hide="has(item)">{{ item }}</span>
                     </td>
                     <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
                         <!-- form -->

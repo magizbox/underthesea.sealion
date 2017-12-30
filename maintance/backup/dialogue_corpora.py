@@ -72,6 +72,6 @@ def backup_dialogue_corpora(service_url, file):
 
 
 if __name__ == '__main__':
-    service_url = "http://localhost:8001"
+    service_url = "http://sealion:61111"
     file = "test.json"
     backup_dialogue_corpora(service_url, file)

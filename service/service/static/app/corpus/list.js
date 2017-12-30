@@ -1,8 +1,9 @@
-app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, $stateParams, $state, TASKS, $uibModal) {
+app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, $stateParams, $state, TASKS, $uibModal, $timeout) {
   $scope.STATUSES = STATUSES;
   $scope.QUALITIES = QUALITIES;
   $scope.status = $stateParams.status ? $stateParams.status : 'ALL';
   $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
+  $scope.loading = false;
 
   $scope.listTask = TASKS;
   $scope.query = {
@@ -17,23 +18,28 @@ app.controller("ListCorpusCtrl", function ($scope, Corpus, STATUSES, QUALITIES, 
     $scope.query["quality"] = $scope.quality;
   }
   $scope.getListCorpus = function () {
-    $scope.query.offset = ($scope.query.page - 1) * $scope.query.limit;
-    Corpus.query($scope.query).then(function (data) {
-      _.each(data.results, function (item) {
-        if (item.tasks && item.tasks.length > 0) {
-          item.tasks = _.chain(item.tasks.split(","))
-            .map(function (task) {
-              return _.indexOf(_.pluck($scope.listTask, 'value'), task);
-            })
-            .sortBy()
-            .map(function (index) {
-              return $scope.listTask[index].value;
-            })
-            .value();
-        }
+    $scope.loading = true;
+    $timeout(function () {
+      $scope.query.offset = ($scope.query.page - 1) * $scope.query.limit;
+      Corpus.query($scope.query).then(function (data) {
+        _.each(data.results, function (item) {
+          if (item.tasks && item.tasks.length > 0) {
+            item.tasks = _.chain(item.tasks.split(","))
+              .map(function (task) {
+                return _.indexOf(_.pluck($scope.listTask, 'value'), task);
+              })
+              .sortBy()
+              .map(function (index) {
+                return $scope.listTask[index].value;
+              })
+              .value();
+          }
+        });
+        $scope.corpora = data;
+        $scope.loading = false;
       });
-      $scope.corpora = data;
-    });
+    }, 1000);
+
   };
 
   $scope.getListCorpus();

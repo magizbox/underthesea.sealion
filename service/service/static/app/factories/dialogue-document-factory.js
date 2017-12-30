@@ -24,9 +24,44 @@ app.factory('DialogueDocument', function ($resource) {
       return document;
     },
 
+    transformData: function (document, column_name) {
+      if (_.isArray(document[column_name])) {
+        document[column_name] = _.map(document[column_name], function (item) {
+          if (_.has(item, "id")) {
+            item = _.omit(item, "id");
+          }
+          if (!_.has(item, "confirm")) {
+            item["confirm"] = null;
+          }
+          return item;
+        });
+      }
+      return document;
+    },
+
+    transformAutoData: function (document, column_name) {
+      if (_.isArray(document[column_name])) {
+        document[column_name] = _.map(document[column_name], function (item) {
+          if (_.has(item, "name")) {
+            item = item["name"];
+          }
+          return item;
+        });
+      }
+      return document;
+    },
+
     deserialize: function (document) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment"], function (field) {
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment", "auto_category", "auto_sentiment", "meta"], function (field) {
         document = DialogueDocumentSerializer.formatDataType(document, field);
+      });
+
+      _.each(["category", "act", "sentiment"], function (field) {
+        document = DialogueDocumentSerializer.transformData(document, field);
+      });
+
+      _.each(["auto_category", "auto_act", "auto_sentiment"], function (field) {
+        document = DialogueDocumentSerializer.transformAutoData(document, field);
       });
 
       document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
@@ -36,8 +71,12 @@ app.factory('DialogueDocument', function ($resource) {
     },
 
     serialize: function (object) {
-      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment"], function (field) {
-        if (_.isArray(object[field])) {
+      _.each(["auto_act", "auto_category", "auto_sentiment"], function (field) {
+        object = DialogueDocumentSerializer.transformAutoData(object, field);
+      });
+
+      _.each(["word_sent", "pos_tag", "chunking", "ner", "auto_act", "category", "act", "sentiment", "auto_category", "auto_sentiment", "meta"], function (field) {
+        if (_.isArray(object[field]) || _.isObject(object[field])) {
           object[field] = JSON.stringify(object[field]);
         }
       });
@@ -68,6 +107,11 @@ app.factory('DialogueDocument', function ($resource) {
     });
   };
 
+  resource.update = function (callback) {
+    arguments[1] = DialogueDocumentSerializer.serialize(arguments[1]);
+    return resource._update.apply(null, arguments).$promise.then(callback);
+  };
+
   resource.get = function () {
     // call the original get method via the _get alias, chaining $then to facilitate
     // processing the data
@@ -75,11 +119,6 @@ app.factory('DialogueDocument', function ($resource) {
       data = DialogueDocumentSerializer.deserialize(data);
       return Promise.resolve(data);
     });
-  };
-
-  resource.update = function (callback) {
-    arguments[1] = DialogueDocumentSerializer.serialize(arguments[1]);
-    return resource._update.apply(null, arguments).$promise.then(callback);
   };
 
   return resource;

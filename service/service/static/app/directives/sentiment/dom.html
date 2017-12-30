@@ -1,21 +1,21 @@
 <div class="">
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-info" style="cursor:default">
-      Sentiment
-      <div class="pull-right">
-        <div class="pull-right">
-          <button type="button" class="btn btn-default btn-xs"
-                  ng-click="add()">
-            <span class="fa fa-plus"></span> Add
-          </button>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item" style="padding: 0px;">
-      <table class="table table-hover table-condensed"
-             style="margin-bottom: 0px; ">
-        <tr ng-repeat="sentiment in ngModel">
-          <td style="width:40%; padding-left: 15px; padding-top: 10px">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info" style="cursor:default">
+            Sentiment
+            <div class="pull-right">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default btn-xs"
+                            ng-click="add()">
+                        <span class="fa fa-plus"></span> Add
+                    </button>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item" style="padding: 0px;">
+            <table class="table table-hover table-condensed"
+                   style="margin-bottom: 0px; ">
+                <tr ng-repeat="sentiment in ngModel">
+                    <td style="width:40%; padding-left: 15px; padding-top: 10px">
                 <span editable-select="sentiment.aspect"
                       e-name="aspect"
                       e-form="rowform"
@@ -23,47 +23,86 @@
                       onbeforesave="validate('aspect', $data)">
                   {{ showAspect(sentiment) }}
                 </span>
-          </td>
-          <td style="padding-top: 10px">
-            <!-- editable status (select-local) -->
-            <span editable-select="sentiment.polarity"
-                  e-name="polarity"
-                  e-form="rowform"
-                  e-ng-options="s.value as s.text for s in polarities"
-                  onbeforesave="validate('polarity', $data)">
+                    </td>
+                    <td style="padding-top: 10px">
+                        <!-- editable status (select-local) -->
+                        <span editable-select="sentiment.polarity"
+                              e-name="polarity"
+                              e-form="rowform"
+                              e-ng-options="s.value as s.text for s in polarities"
+                              onbeforesave="validate('polarity', $data)">
                   {{ showPolarity(sentiment) }}
                 </span>
-          </td>
-          <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
-            <!-- form -->
-            <form editable-form name="rowform"
-                  ng-show="rowform.$visible"
-                  class="form-buttons form-inline"
-                  shown="inserted == sentiment"
-                  onaftersave="save()">
-              <button type="submit" ng-disabled="rowform.$waiting"
-                      class="btn btn-sm btn-primary">
-                <i class="fa fa-check" aria-hidden="true"></i>
-              </button>
-              <button type="button" ng-disabled="rowform.$waiting"
-                      ng-click="rowform.$cancel()"
-                      class="btn btn-sm btn-default">
-                <i class="fa fa-times" aria-hidden="true"></i>
-              </button>
-            </form>
-            <div class="buttons" ng-show="!rowform.$visible">
-              <button type="button" class="btn btn-warning btn-sm"
-                      ng-click="rowform.$show()">
-                <i class="fa fa-edit" aria-hidden="true"></i>
-              </button>
-              <button type="button" class="btn btn-danger btn-sm"
-                      ng-click="delete($index)">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </li>
-  </ul>
+                    </td>
+                    <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
+                        <!-- form -->
+                        <form editable-form name="rowform"
+                              ng-show="rowform.$visible"
+                              class="form-buttons form-inline"
+                              shown="inserted == sentiment"
+                              onaftersave="save()">
+                            <button type="submit" ng-disabled="rowform.$waiting"
+                                    class="btn btn-sm btn-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting"
+                                    ng-click="rowform.$cancel()"
+                                    class="btn btn-sm btn-default">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button type="button" class="btn btn-info btn-sm"
+                                    ng-click="rowform.$show()">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    ng-click="delete($index)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm" active-review="SentimentReview"
+                                    ng-class="{'btn-success':sentiment.confirm==true, 'btn-default': sentiment.confirm ==false || sentiment.confirm==null}"
+                                    ng-click="confirmData(sentiment,'correct')">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm" active-review="SentimentReview"
+                                    ng-class="{'btn-danger':sentiment.confirm==false, 'btn-default': sentiment.confirm ==true|| sentiment.confirm==null}"
+                                    ng-click="confirmData(sentiment, 'incorrect')">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li class="list-group-item disabled">
+            Suggestion
+        </li>
+        <li class="list-group-item" style="padding: 0px;">
+            <table class="table table-hover table-condensed"
+                   style="margin-bottom: 0px;">
+                <tr ng-repeat="item in suggestions track by $index">
+                    <td style="padding-left: 15px; padding-top: 10px">
+                        <b ng-show="has(item)"> {{ item.aspect }}</b>
+                        <span ng-hide="has(item)">{{ item.aspect }}</span>
+                    </td>
+                    <td style="padding-left: 15px; padding-top: 10px">
+                        <b ng-show="has(item)"> {{ item.polarity }}</b>
+                        <span ng-hide="has(item)">{{ item.polarity }}</span>
+                    </td>
+                    <td style="white-space: nowrap; text-align: right;padding-right: 14px;padding-left: 14px;width: 98px;">
+                        <!-- form -->
+                        <button class="btn btn-xs"
+                                ng-class="{
+                  'btn-default': !has(item),
+                  'btn-primary': has(item)
+                }"
+                                ng-click="set(item)">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
 </div>

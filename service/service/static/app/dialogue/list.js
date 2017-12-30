@@ -1,26 +1,31 @@
-app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATUSES, QUALITIES, TASKS, $stateParams, $state, $uibModal) {
+app.controller("ListDialogueCorpusCtrl", function ($scope, DialogueCorpus, STATUSES, QUALITIES, TASKS, $stateParams, $state, $uibModal,$timeout) {
   $scope.query = {};
 
   $scope.listTask = TASKS;
+  $scope.loading = false;
 
   $scope.getListDialogueCorpus = function () {
-    DialogueCorpus.query($scope.query).then(function (data) {
-      _.each(data, function (item) {
-        if (item.tasks && item.tasks.length > 0) {
-          item.tasks = _.chain(item.tasks.split(","))
-            .map(function (task) {
-              return _.indexOf(_.pluck($scope.listTask, 'value'), task);
-            })
-            .sortBy()
-            .map(function (index) {
-              return $scope.listTask[index].value;
-            })
-            .value();
-        }
-
+    $scope.loading = true;
+    $timeout(function () {
+      DialogueCorpus.query($scope.query).then(function (data) {
+        _.each(data, function (item) {
+          if (item.tasks && item.tasks.length > 0) {
+            item.tasks = _.chain(item.tasks.split(","))
+              .map(function (task) {
+                return _.indexOf(_.pluck($scope.listTask, 'value'), task);
+              })
+              .sortBy()
+              .map(function (index) {
+                return $scope.listTask[index].value;
+              })
+              .value();
+          }
+          $scope.loading = false;
+        });
+        $scope.corpora = data;
       });
-      $scope.corpora = data;
-    });
+    }, 1000);
+
   };
 
   $scope.getListDialogueCorpus();

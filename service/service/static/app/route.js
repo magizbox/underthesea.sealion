@@ -74,7 +74,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/document/classification/classification.html"
     })
     .state({
-      url: '/dialogue-corpus/:dialogueId/documents/:documentId',
+      url: '/dialogue-corpus/:corpusId/dialogues/:dialogueId/documents/:documentId',
       name: 'detailTagDialogueCorpus',
       templateUrl: "./static/app/document/detail-document.html",
       controller: 'DetailDocumentCtrl'

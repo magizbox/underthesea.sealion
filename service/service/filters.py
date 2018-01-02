@@ -35,9 +35,9 @@ class SentimentFilterBackend(BaseFilterBackend):
         if "sentiment" in request.query_params:
             sentiment = request.query_params["sentiment"].lower()
             if sentiment == "true":
-                return queryset.exclude(Q(sentiment="[]") | Q(act=""))
+                return queryset.exclude(Q(sentiment="[]") | Q(sentiment=""))
             elif sentiment == "false":
-                return queryset.filter(Q(sentiment="[]") | Q(act=""))
+                return queryset.filter(Q(sentiment="[]") | Q(sentiment=""))
             else:
                 return queryset
         else:

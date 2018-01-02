@@ -64,13 +64,12 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         $scope.loading = false;
       });
     }, 700);
-
   };
 
   $scope.getDocuments();
 
   $scope.getUisrefSyntaxTag = function (document, task) {
-    return "detailTagDialogueCorpus." + task.toLowerCase() + "({dialogueId:" + $scope.corpus + ", documentId:" + document.id + "})";
+    return "detailTagDialogueCorpus." + task.toLowerCase() + "({corpusId:" + $scope.corpus + ", dialogueId:" + $scope.dialogue.id + ", documentId:" + document.id + "})";
   };
 
   $scope.update = function () {

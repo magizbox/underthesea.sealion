@@ -46,14 +46,14 @@ app.controller("NavController", function ($scope, $state, $stateParams, Dialogue
     });
   }
   else if ($scope.parent == "detailTagDialogueCorpus") {
-    DialogueCorpus.get({id: $stateParams.dialogueId}, function (corpus) {
+    DialogueCorpus.get({id: $stateParams.corpusId}, function (corpus) {
       $scope.tasks = corpus.tasks.split(",");
       $scope.listItemMenu = _.chain(listItem)
         .filter(function (item1) {
           return item1.name != 'TC' && _.contains($scope.tasks, item1.name);
         })
         .map(function (item2) {
-          item2["uisref"] = item2.value + "({dialogueId: " + $stateParams.dialogueId + "})";
+          item2["uisref"] = item2.value + "({corpusId:" + $stateParams.corpusId + ", dialogueId: " + $stateParams.dialogueId + ", documentId: " + $stateParams.documentId + "})";
           return item2;
         })
         .value();
@@ -75,8 +75,7 @@ app.controller("NavController", function ($scope, $state, $stateParams, Dialogue
         icon: 'icon-list icon text-info-dker'
       }
     ];
-  }
-  ;
+  };
 
   $scope.activeMenu = function (item) {
     $scope.currState = item.value;

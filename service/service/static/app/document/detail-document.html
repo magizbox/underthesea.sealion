@@ -13,12 +13,14 @@
             </ul>
             <!--breadcrumb for dialogue document-->
             <ul class="breadcrumb" ng-if="dialogueId">
-                <li><a  ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
+                <li><a ui-sref="main"><i class="fa fa-home"></i> Sealion</a></li>
                 <li><a ui-sref="listDialogueCorpus"><i class="fa fa-list-ul"></i> Dialogue
                     Corpora</a>
                 </li>
-                <li><a>{{ dialogue.id }}</a></li>
-                <li><a ui-sref="detailDialogue({id:dialogue.id })">documents</a>
+                <li class="active"><a style="color: #999;">{{ corpusIdParam }}</a></li>
+                <li><a ui-sref="detailDialogueCorpus({id: corpusIdParam})">dialogues</a>
+                <li class="active"><a style="color: #999;">{{ dialogueId }}</a></li>
+                <li><a ui-sref="detailDialogue({id: dialogueId})">documents</a>
                 </li>
                 <li class="active">{{ documentId }}</li>
             </ul>

@@ -6,12 +6,12 @@ from rest_framework_bulk import BulkModelViewSet, \
     ListBulkCreateUpdateDestroyAPIView
 
 from service.filters import ActFilterBackend, CategoryFilterBackend, \
-    SentimentFilterBackend, CorpusFilterBackend
+    SentimentFilterBackend, CorpusFilterBackend,QualityDialogueDocumentFilterBackend, \
+    StatusDialogueDocumentFilterBackend
 from service.models import Document, Corpus, DialogueCorpus, Dialogue, \
     DialogueDocument
 from service.serializers import DocumentSerializer, CorpusSerializer, \
     DialogueCorpusSerializer, DialogueSerializer, DialogueDocumentSerializer
-
 
 
 def homepage(request):
@@ -21,7 +21,7 @@ def homepage(request):
 class CorpusViewSet(viewsets.ModelViewSet):
     queryset = Corpus.objects.all()
     serializer_class = CorpusSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,SearchFilter,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, SearchFilter,)
     search_fields = ('title',)
 
 
@@ -56,5 +56,8 @@ class DialogueDocumentViewSet(BulkModelViewSet):
         django_filters.rest_framework.DjangoFilterBackend,
         ActFilterBackend,
         CorpusFilterBackend,
-        SentimentFilterBackend,)
+        StatusDialogueDocumentFilterBackend,
+        QualityDialogueDocumentFilterBackend,
+        SentimentFilterBackend,
+        )
     filter_fields = ('dialogue', 'ignore')

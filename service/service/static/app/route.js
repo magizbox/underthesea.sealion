@@ -129,7 +129,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./static/app/dialogue/detail_corpus.html"
     })
     .state({
-      url: '/dialogues/:id',
+      url: '/dialogues/:id?document_id',
       name: 'detailDialogue',
       nested: 'listDialogueCorpus',
       controller: 'DetailDialogueCtrl',

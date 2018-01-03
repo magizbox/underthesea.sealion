@@ -36,7 +36,9 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
     var param = {
       sentiment_result: $scope.params.sentiment_result,
       limit: $stateParams.limit,
-      offset: $stateParams.offset
+      offset: $stateParams.offset,
+      status: $stateParams.status,
+      quality: $stateParams.quality
     };
     $scope.loading = true;
     DialogueDocument.filterSentiment(param).then(function (data) {

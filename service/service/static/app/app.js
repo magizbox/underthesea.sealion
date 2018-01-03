@@ -24,7 +24,6 @@ app.directive('myEnter', function () {
 });
 
 
-
 window.nlpElements = angular.module('nlp.elements', ['xeditable']);
 
 app.constant("SERVICE_URL", "http://localhost:8000/api/");

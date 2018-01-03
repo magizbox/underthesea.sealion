@@ -86,3 +86,22 @@ class SentimentFilterBackend(BaseFilterBackend):
                     output.append(document)
             return output
         return queryset
+
+
+class StatusDialogueDocumentFilterBackend(BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        if "status" in request.query_params:
+            status = request.query_params["status"].upper()
+            return queryset.filter(Q(status=status))
+        return queryset
+
+
+class QualityDialogueDocumentFilterBackend(BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        if "quality" in request.query_params:
+            quality = request.query_params["quality"].upper()
+            return queryset.filter(Q(quality=quality))
+        return queryset
+
+
+

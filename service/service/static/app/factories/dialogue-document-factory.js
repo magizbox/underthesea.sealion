@@ -96,6 +96,18 @@ app.factory('DialogueDocument', function ($resource) {
     });
   };
 
+  resource.filterSentiment = function () {
+    return resource._query.apply(null, arguments).$promise.then(function (data) {
+      data["results"] = _.map(data["results"], function (document) {
+        document["hasSentiment"] = document["sentiment"] != "[]" && document["sentiment"] != "";
+        document["hasAct"] = document["act"] != "[]" && document["act"] != "";
+        document["hasCategory"] = document["category"] != "[]" && document["category"] != "";
+        return document;
+      });
+      return Promise.resolve(data);
+    });
+  };
+
   resource.pagination = function () {
     params = arguments[0];
     return resource._query.apply(null, arguments).$promise.then(function (data) {

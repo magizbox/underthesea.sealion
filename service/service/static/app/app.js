@@ -75,6 +75,21 @@ app.constant("TASKS", [
   }
 ]);
 
+app.constant("SENTIMENT_RESULT", [
+  {
+    "text": "All",
+    "value": ""
+  },
+  {
+    "text": "Correct",
+    "value": "true"
+  },
+  {
+    "text": "Incorrect",
+    "value": "false"
+  }
+]);
+
 app.constant("STATUSES", [
   {
     "text": "New",

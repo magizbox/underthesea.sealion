@@ -1,7 +1,5 @@
-app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, DialogueCorpus, Dialogue, $state, STATUSES, QUALITIES, Params, $filter, $timeout) {
+app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, DialogueCorpus, Dialogue, $state, STATUSES, SENTIMENT_RESULT, QUALITIES, Params, $filter, $timeout, DialogueDocument) {
   $scope.id = $stateParams.id;
-  $scope.STATUSES = STATUSES;
-  $scope.QUALITIES = QUALITIES;
   $scope.loading = false;
   var params = JSON.parse(JSON.stringify($stateParams));
   params["corpus"] = params["id"];
@@ -14,25 +12,40 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
     "search": null,
     "act": null,
     "category": null,
-    "sentiment": null
+    "sentiment": null,
+    "sentiment_result": null
   });
-  $scope.status = $stateParams.status ? $stateParams.status : 'ALL';
-  $scope.quality = $stateParams.quality ? $stateParams.quality : 'ALL';
-  $scope.statuses = STATUSES;
-  $scope.updateStatus = function (value) {
-    $scope.status = value;
-  };
 
-  $scope.updateQuality = function (value) {
-    $scope.quality = value;
-  };
+  $scope.statuses = STATUSES;
+  $scope.sentimentsResult = SENTIMENT_RESULT;
+  $scope.quality = null;
+  $scope.qualities = QUALITIES;
+
   $scope.showStatus = function () {
     var selected = $filter('filter')($scope.statuses,
       {value: $scope.params.status});
     return ($scope.params.status && selected.length) ? selected[0].text : 'All';
   };
-  $scope.quality = null;
-  $scope.qualities = QUALITIES;
+
+  $scope.showSentimentResult = function () {
+    var selected = $filter('filter')($scope.sentimentsResult, {value: $scope.params.sentiment_result});
+    return ($scope.params.sentiment_result && selected.length ) ? selected[0].text : $scope.sentimentsResult[0].text;
+  };
+
+  $scope.filterSentiment = function () {
+    var param = {
+      sentiment_result: $scope.params.sentiment_result,
+      limit: $stateParams.limit,
+      offset: $stateParams.offset
+    };
+    $scope.loading = true;
+    DialogueDocument.filterSentiment(param).then(function (data) {
+      $scope.loading = false;
+      $scope.documents = data.results;
+      $scope.totalItems = data.count;
+      $scope.itemsPerPage = 10;
+    });
+  };
 
   $scope.showQuality = function () {
     var selected = $filter('filter')($scope.qualities,
@@ -51,7 +64,13 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
 
   };
 
-  $scope.getListDialogue();
+  if ($stateParams.sentiment_result) {
+    $scope.filterSentiment();
+  }
+  else {
+    $scope.getListDialogue();
+  }
+
 
   DialogueCorpus.get({id: $scope.id}, function (corpus) {
     corpus.tasks = corpus.tasks.split(",");
@@ -82,20 +101,7 @@ app.controller("DetailDialogueCorpusCtrl", function ($scope, $stateParams, Dialo
   $scope.filterChanged = function () {
     $state.go(".", $scope.params);
   };
-  $scope.tasks = [
-    {
-      "name": "act",
-      "label": "DA"
-    },
-    {
-      "name": "category",
-      "label": "CA"
-    },
-    {
-      "name": "sentiment",
-      "label": "SA"
-    },
-  ];
+
   $scope.toggle = function (task) {
     var states = ["true", "false", null];
     var i = states.indexOf($scope.params[task.name]);

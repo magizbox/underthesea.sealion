@@ -79,11 +79,11 @@
 
 
                                 <div class="row">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12" id="parent-wrap">
                                         <!--<hr/>-->
-                                        <div class="media"
+                                        <div class="media" id="{{document.id}}"
                                              ng-show="isShow(document)"
-                                             ng-repeat="document in documents">
+                                             ng-repeat="document in documents" ng-cloak>
                                             <div class="media-body">
                                                 <p class="media-heading media-level-{{document.level}}"
                                                    ng-click="select(document)"
@@ -92,13 +92,14 @@
             'media-disabled': document.ignore != ''
             }">
                                                     {{ document.text }}
-
+<br>
                                                     <a ui-sref="{{getUisrefSyntaxTag(document, task)}}"
                                                        class="btn btn-rounded btn-xs pull-right"
                                                        ng-class="{'btn-false': isExistData(task, document) == false, 'btn-info': isExistData(task, document) == true}"
                                                        style="margin-top: 5px; padding: 0px 5px;margin-right: 5px;"
                                                        target="_blank" ng-repeat="task in listSyntaxTask"
                                                        ng-if="active">{{task}} </a>
+                                                    <span class="clearfix"></span>
                                                 </p>
                                             </div>
                                         </div>

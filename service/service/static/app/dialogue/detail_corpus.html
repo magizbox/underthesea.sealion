@@ -32,35 +32,50 @@
                                     <div class="col-xs-12">
                                         <section class="panel panel-default table-corpora">
                                             <div class="panel-heading">
-                                                <header style="font-size: 18px;">{{ totalItems }} dialogues</header>
+                                                <header style="font-size: 18px;">
+                                                    {{ totalItems }} <span ng-if="!params.sentiment_result">dialogues</span>
+                                                    <span ng-if="params.sentiment_result">documents</span>
+                                                </header>
                                                 <div class="action-page-dialogue">
                                                     <h3>
                                                         <!-- Single button -->
                                                         <small>
+                                                            Sentiment:
+                                                            <a href="#" editable-select="params.sentiment_result"
+                                                               e-ng-options="s.value as s.text for s in sentimentsResult"
+                                                               onaftersave="filterChanged()">
+                                                                {{ showSentimentResult() }}
+                                                            </a>
+                                                            <span ng-show="params.sentiment_result">
+                                                                <a style="color:red; cursor:pointer"
+                                                                   ng-click="params.sentiment_result = null;filterChanged();">[x]</a>
+                                                                </span>
                                                             Status:
                                                             <a href="#" editable-select="params.status"
-                                                               e-ng-options="s.value as s.text for s in statuses">
+                                                               e-ng-options="s.value as s.text for s in statuses"
+                                                               onaftersave="filterChanged()">
                                                                 {{ showStatus() }}
                                                             </a>
                                                             <span ng-show="params.status">
-        <a style="color:red; cursor:pointer"
-           ng-click="params.status = null">[x]</a>
-      </span>
+                                                                <a style="color:red; cursor:pointer"
+                                                                   ng-click="params.status = null;filterChanged();">[x]</a>
+                                                              </span>
                                                             Quality:
                                                             <a href="#" editable-select="params.quality"
-                                                               e-ng-options="s.value as s.text for s in qualities">
+                                                               e-ng-options="s.value as s.text for s in qualities"
+                                                               onaftersave="filterChanged()">
                                                                 {{ showQuality() }}
                                                             </a>
                                                             <span ng-show="params.quality">
-        <a style="color:red; cursor:pointer"
-           ng-click="params.quality = null">[x]</a>
-      </span>
+                                                                <a style="color:red; cursor:pointer"
+                                                                   ng-click="params.quality = null;filterChanged();">[x]</a>
+                                                              </span>
                                                             &nbsp;
-                                                            <button class="btn btn-xs btn-primary"
-                                                                    ng-click="filterChanged()">
-                                                                <i class="fa fa-filter" aria-hidden="true"></i>
-                                                                Filter
-                                                            </button>
+                                                            <!--<button class="btn btn-xs btn-primary"-->
+                                                            <!--ng-click="filterChanged()">-->
+                                                            <!--<i class="fa fa-filter" aria-hidden="true"></i>-->
+                                                            <!--Filter-->
+                                                            <!--</button>-->
 
                                                             <span style="margin-left: 10px;">
                                                                 Tasks:
@@ -85,7 +100,9 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr ng-repeat="dialogue in dialogues" style="cursor:pointer">
+                                                        <!--table dialogue-->
+                                                        <tr ng-repeat="dialogue in dialogues" style="cursor:pointer"
+                                                            ng-if="!params.sentiment_result">
                                                             <th ui-sref="detailDialogue({id: dialogue.id})"><a
                                                                     ui-sref="detailDialogue({id: dialogue.id})">{{
                                                                 dialogue.id }}</a></th>
@@ -97,13 +114,36 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <!-- table dialogue document-->
+                                                        <tr ng-repeat="document in documents" style="cursor:pointer"
+                                                            ng-if="params.sentiment_result">
+                                                            <th ui-sref="detailDialogue({id: document.dialogue, document_id: document.id})">
+                                                                {{document.id }}</th>
+                                                            <td>
+                                                               <a ui-sref="detailDialogue({id: document.dialogue, document_id: document.id})">{{ document.text}}</a>
+                                                                <br/>
+                                                                <div class="pull-right">
+                                                                    <a class="btn btn-xs btn-primary" ui-sref="detailDialogue({id: document.dialogue})">
+                                                                        dialogue - {{document.dialogue}}
+                                                                    </a>
+                                                                    <button type="button"
+                                                                            class="btn btn-success btn-xs"
+                                                                            ng-class="{'btn-success':document.ignore == 'true', 'btn-danger':document.ignore == ''}">
+                                                                        <i class="fa " aria-hidden="true" ng-class="{'fa-check-circle':document.ignore == 'true', 'fa-ban': document.ignore == ''}"></i>
+                                                                        <span ng-if="document.ignore == 'true'">Active</span>
+                                                                        <span ng-if="document.ignore == ''">Ignore</span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                                 <div class="wrap-loading text-center" ng-if="loading">
                                                     <span>
                                                         <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
-                                                        <div class="text-loading" style="margin-left: 3px;">Loading...</div>
+                                                        <div class="text-loading"
+                                                             style="margin-left: 3px;">Loading...</div>
                                                     </span>
                                                 </div>
                                             </div>

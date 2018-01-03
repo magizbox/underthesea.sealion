@@ -62,8 +62,25 @@ app.controller("DetailDialogueCtrl", function ($scope, $stateParams, DialogueDoc
         $scope.documents = transformDocument(documents);
         $scope.select($scope.documents[0]);
         $scope.loading = false;
+        $timeout(function () {
+          if ($stateParams.document_id) {
+            $scope.goToByScroll($stateParams.document_id);
+          }
+        });
+
       });
     }, 700);
+  };
+
+
+  $scope.goToByScroll = function (id) {
+    var offset = $("#" + id).position();
+    if (offset) {
+      var currentScrollPos = $("#bjax-target").scrollTop();
+      $("#bjax-target").animate({scrollTop: currentScrollPos + offset.top}, 'slow');
+      $("#" + id).find("p").css('background', '#dff0d8');
+      $("#" + id).find("p").click();
+    }
   };
 
   $scope.getDocuments();

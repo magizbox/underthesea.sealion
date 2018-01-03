@@ -24,7 +24,6 @@ app.directive('myEnter', function () {
 });
 
 
-
 window.nlpElements = angular.module('nlp.elements', ['xeditable']);
 
 app.constant("SERVICE_URL", "http://localhost:8000/api/");
@@ -72,6 +71,21 @@ app.constant("TASKS", [
     value: 'SA',
     data: 'sentiment',
     type: 'TC'
+  }
+]);
+
+app.constant("SENTIMENT_RESULT", [
+  {
+    "text": "All",
+    "value": ""
+  },
+  {
+    "text": "Correct",
+    "value": "true"
+  },
+  {
+    "text": "Incorrect",
+    "value": "false"
   }
 ]);
 

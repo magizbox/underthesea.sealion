@@ -68,3 +68,6 @@ class DialogueDocument(models.Model):
     pos_tag = models.TextField(blank=True)
     chunking = models.TextField(blank=True)
     ner = models.TextField(blank=True)
+
+    def init_data(self, data):
+        self.__dict__.update(data)

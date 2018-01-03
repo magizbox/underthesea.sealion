@@ -32,7 +32,10 @@
                                     <div class="col-xs-12">
                                         <section class="panel panel-default table-corpora">
                                             <div class="panel-heading">
-                                                <header style="font-size: 18px;">{{ totalItems }} dialogues</header>
+                                                <header style="font-size: 18px;">
+                                                    {{ totalItems }} <span ng-if="!params.sentiment_result">dialogues</span>
+                                                    <span ng-if="params.sentiment_result">documents</span>
+                                                </header>
                                                 <div class="action-page-dialogue">
                                                     <h3>
                                                         <!-- Single button -->
